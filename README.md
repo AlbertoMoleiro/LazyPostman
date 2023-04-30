@@ -24,6 +24,7 @@ This section will specify how to work with this repository.
     - Database
     - Documentation
     - Tests
+3. The section should be followed by feature or bugfix when it is necessary. `Frontend/ Feature - Add new button`
 
 ### Git commands in order that you will need
 1. `git clone <repository-url>`
