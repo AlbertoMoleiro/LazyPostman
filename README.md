@@ -31,10 +31,11 @@ This section will specify how to work with this repository.
 2. `git checkout -b <branch-name>`
 3. `git add .`
 4. `git commit -m "<commit-message>"`
-5. `git push origin <branch-name>`
+5. `git push origin <localBranchName>:<branch-name>`
 6. `git checkout develop`
-7. `git pull origin develop`
+7. `git pull origin develop**`
 8. `git checkout <branch-name>`
 9. `git merge develop`
-10. `git push origin <branch-name>`
+10. `git push origin <localBranchName>:<branch-name>`
 11. Create a pull request to the `develop` branch
+** Develop is the name of the branch that we use to work and merge our changes.
