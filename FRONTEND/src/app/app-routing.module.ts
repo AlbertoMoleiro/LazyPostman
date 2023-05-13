@@ -8,10 +8,15 @@ const routes: Routes = [
         loadChildren: () =>
             import('./public/public.module').then((m) => m.PublicModule),
     },
+    {
+        path: 'registered',
+        loadChildren: () =>
+            import('./registered/registered.module').then((m) => m.RegisteredModule),
+    },
     { path: '**', component: NotFoundComponent },
 ];
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })], // {useHash: true} para el refresh de la pagina
+    imports: [RouterModule.forRoot(routes)], // {useHash: true} para el refresh de la pagina
     exports: [RouterModule],
 })
 export class AppRoutingModule {}
