@@ -3,13 +3,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-    imports: [
-        HttpClientModule,
-        RouterModule
-        ],
     declarations: [NotFoundComponent],
+    imports: [CommonModule, HttpClientModule, RouterModule],
     exports: [HttpClientModule, NotFoundComponent],
 })
 export class SharedModule {}
