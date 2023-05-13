@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { PublicRoutingModule } from './public-routing.module';
-
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { PublicRoutingModule } from './public-routing.module';
 import { SharedModule } from '../core/shared/shared.module';
+
 import { PublicComponent } from './public.component';
-import { HomeComponent } from './home/containers/home.component';
 import { LoginComponent } from './login/containers/login.component';
+import { LandingComponent } from './landing/containers/landing.component';
+import { RegisterComponent } from './register/containers/register.component';
 
 @NgModule({
-    declarations: [PublicComponent, HomeComponent, LoginComponent],
-    imports: [PublicRoutingModule, SharedModule, RouterModule],
+    declarations: [PublicComponent, LandingComponent, LoginComponent, LandingComponent, RegisterComponent],
+    imports: [CommonModule,PublicRoutingModule, SharedModule, RouterModule],
 })
 export class PublicModule {}
