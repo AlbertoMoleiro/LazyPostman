@@ -1,1 +1,104 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="signUp()" class="formulario">
+        <h2>Datos de la Empresa</h2>
+        <div class="fields-grid">
+            <mat-form-field appearance="fill">
+                <mat-label>Razón Social</mat-label>
+                <input matInput type="text" placeholder="Lazy Postman S.L" formControlName="businessName">
+                <mat-error
+                    *ngIf="!registerForm.controls['businessName'].valid && registerForm.controls['businessName'].touched">Debes
+                    rellenar este campo
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>CIF</mat-label>
+                <input matInput type="text" placeholder="B12345678" formControlName="cif">
+                <mat-error *ngIf="!registerForm.controls['cif'].valid && registerForm.controls['cif'].touched">El
+                    CIF no es válido.</mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Teléfono</mat-label>
+                <input matInput type="phone" placeholder="654654654" formControlName="phoneNumber">
+                <mat-error
+                    *ngIf="!registerForm.controls['phoneNumber'].valid && registerForm.controls['phoneNumber'].touched">El
+                    número de teléfono no es válido.</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="pat@example.com" formControlName="email">
+                <mat-error *ngIf="!registerForm.controls['email'].valid && registerForm.controls['email'].touched">El
+                    email no es válido.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="double-column">
+                <mat-label>Dirección</mat-label>
+                <input matInput type="text" placeholder="Madrid" formControlName="address">
+                <mat-error *ngIf="!registerForm.controls['address'].valid && registerForm.controls['address'].touched">Debes
+                    rellenar este campo.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Provincia</mat-label>
+                <input matInput type="text" placeholder="Madrid" formControlName="province">
+                <mat-error
+                    *ngIf="!registerForm.controls['province'].valid && registerForm.controls['province'].touched">Debes
+                    rellenar este campo.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Código Postal</mat-label>
+                <input matInput type="number" placeholder="Madrid" formControlName="postCode">
+                <mat-error *ngIf="!registerForm.controls['postCode'].valid && registerForm.controls['postCode'].touched">El
+                    código postal no es válido.</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="!registerForm.controls['password'].valid && registerForm.controls['password'].touched">
+                    <mat-error *ngIf="registerForm.get('password')?.errors?.['required'] else requeriments">Debes rellenar
+                        este
+                        campo.</mat-error>
+                    <ng-template #requeriments>
+                        <mat-error>La contraseña debe tener:</mat-error>
+                    </ng-template>
+                    <mat-error *ngIf="registerForm.get('password')?.errors?.['minlength']" class="error ">- Mínimo 8
+                        caracteres.</mat-error>
+                    <mat-error *ngIf="registerForm.get('password')?.errors?.['maxlength']" class="error ">- Máximo de 255
+                        caracteres</mat-error>
+                    <mat-error *ngIf="registerForm.get('password')?.errors?.['pattern']" class="error ">- Al menos una letra
+                        mayúscula, una letra minúscula, un dígito y no tener espacios en blanco.</mat-error>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Confirmar Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error
+                    *ngIf="!registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched">
+                    <mat-error *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Debes rellenar este
+                        campo.</mat-error>
+                    <mat-error *ngIf="registerForm.get('confirmPassword')?.errors?.['mustMatch']">La contraseña debe
+                        coincidir.</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.invalid">Registrar</button>
+            <a (click)="goToLogin()">¿Ya tienes cuenta? Logeate aquí.</a>
+        </div>
+    </form>
+</div>
