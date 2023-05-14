@@ -1,0 +1,26 @@
+<mat-toolbar class="mat-elevation-z8" color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+    <h1>Lazy Postman</h1>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" [mode]="mode" color="primary" >
+      <mat-nav-list>
+        <mat-list-item *ngFor="let link of links"  [routerLink]="link.route" >
+            <div matListItemIcon >
+                <mat-icon color="primary">{{link.icon}}</mat-icon>
+            </div>
+            <a matListItemTitle>
+                {{link.name}}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

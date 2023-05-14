@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+
 
 import { PublicRoutingModule } from './public-routing.module';
 import { SharedModule } from '../core/shared/shared.module';
@@ -12,6 +12,6 @@ import { RegisterComponent } from './register/containers/register.component';
 
 @NgModule({
     declarations: [PublicComponent, LandingComponent, LoginComponent, LandingComponent, RegisterComponent],
-    imports: [CommonModule,PublicRoutingModule, SharedModule, RouterModule],
+    imports: [CommonModule,PublicRoutingModule, SharedModule],
 })
 export class PublicModule {}
