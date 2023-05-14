@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root{
+    --primary-color: #0d47a1;
+    --secondary-color: #1565c0;
+    --color-white: #ffffff;
+}
 html{
     box-sizing: border-box;
 }

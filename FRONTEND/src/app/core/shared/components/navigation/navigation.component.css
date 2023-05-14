@@ -33,11 +33,11 @@ mat-divider {
 }
 
 .active {
-    background-color: #0d47a1;
+    background-color: var(--primary-color);
 }
 .active a{
-    color: #ffffff;
+    color: var(--color-white);
 }
 .active mat-icon{
-    color: #ffffff;
+    color: var(--color-white);
 }
