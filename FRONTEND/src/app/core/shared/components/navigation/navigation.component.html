@@ -9,7 +9,7 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" [mode]="mode" color="primary" >
       <mat-nav-list>
-        <mat-list-item *ngFor="let link of links"  [routerLink]="link.route" >
+        <mat-list-item *ngFor="let link of links"  [routerLink]="link.route" routerLinkActive="active">
             <div matListItemIcon >
                 <mat-icon color="primary">{{link.icon}}</mat-icon>
             </div>

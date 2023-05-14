@@ -10,28 +10,34 @@ mat-sidenav {
     overflow: auto;
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
     .content {
         height: calc(100vh - 56px);
         border-radius: unset;
         margin: 0;
     }
-
 }
 
-mat-list-item a{
+mat-list-item a {
     font-size: 16px;
 }
 mat-divider {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.flex{
+.flex {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between ;
+    justify-content: space-between;
 }
 
-
-
+.active {
+    background-color: #0d47a1;
+}
+.active a{
+    color: #ffffff;
+}
+.active mat-icon{
+    color: #ffffff;
+}
