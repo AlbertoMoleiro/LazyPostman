@@ -67,7 +67,7 @@ export class RegisterComponent {
     ngOnInit() {}
 
     goToLogin() {
-        this.router.navigateByUrl('/login');
+        this.router.navigate(['/login']);
     }
 
     signUp() {
