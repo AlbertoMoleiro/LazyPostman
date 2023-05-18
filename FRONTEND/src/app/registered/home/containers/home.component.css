@@ -5,10 +5,11 @@
     height: fit-content;
 }
 
+
 .contenedor {
     height: 100%;
     display: flex;
-    gap: 16px;    
+    gap: 16px;
     flex-wrap: wrap;
     padding: 16px;
 }

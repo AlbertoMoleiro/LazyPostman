@@ -12,6 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 import { AuthService } from './services/auth.service';
 
@@ -27,6 +30,8 @@ import { AuthService } from './services/auth.service';
         MatSidenavModule,
         MatIconModule,
         MatListModule,
+        MatCardModule,
+        MatFormFieldModule,
     ],
     exports: [
         HttpClientModule,
@@ -38,6 +43,9 @@ import { AuthService } from './services/auth.service';
         MatSidenavModule,
         MatIconModule,
         MatListModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
     providers: [AuthService],
 })

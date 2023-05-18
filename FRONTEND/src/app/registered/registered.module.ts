@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatCardModule} from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-
 
 
 import { HomeComponent } from './home/containers/home.component';
@@ -12,6 +9,6 @@ import { SharedModule } from '../core/shared/shared.module';
 
 @NgModule({
     declarations: [RegisteredComponent, HomeComponent],
-    imports: [CommonModule, RegisteredRoutingModule, SharedModule, MatCardModule,MatButtonModule],
+    imports: [CommonModule, RegisteredRoutingModule, SharedModule],
 })
 export class RegisteredModule {}
