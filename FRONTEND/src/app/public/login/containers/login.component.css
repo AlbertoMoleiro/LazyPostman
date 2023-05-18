@@ -1,0 +1,46 @@
+.container{
+    height:100%; 
+}
+.fields-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    height:100%;
+}
+@media (max-width:600px){
+    .fields-grid{
+        grid-template-columns: 1fr;
+    }
+}
+.eslogan{
+  margin:10%;
+}
+.left-column{
+    background-color: #DCEAF7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width:600px) {
+    .left-column{
+        display:none;
+    }
+}
+.right-column{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+  
+.form-fields{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin:15%;
+}
+
+.centrar{
+  text-align:center;
+}
+  
