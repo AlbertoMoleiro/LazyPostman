@@ -6,7 +6,6 @@ mat-sidenav {
     height: calc(100vh - 96px);
     border-radius: 10px;
     margin: 16px;
-    padding: 16px;
     overflow: auto;
 }
 

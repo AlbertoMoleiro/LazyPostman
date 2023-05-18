@@ -1,1 +1,7 @@
-<p>route-view works!</p>
+<div class="container">
+    <google-map height="100%" width="100%" [center]="center" [zoom]="zoom">
+        <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
+            [directions]="directionsResults"></map-directions-renderer>
+    </google-map>
+    <button mat-raised-button color="primary" class="pos-abs-lb" (click)="goToItinerary()">Ver Itinerario</button>
+</div>
