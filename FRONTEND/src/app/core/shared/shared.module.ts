@@ -14,9 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
 import { AuthService } from './services/auth.service';
+import { PublicNavigationComponent } from './components/public-navigation/public-navigation.component';
 
 @NgModule({
-    declarations: [NotFoundComponent, NavigationComponent],
+    declarations: [NotFoundComponent, NavigationComponent, PublicNavigationComponent],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -32,6 +33,7 @@ import { AuthService } from './services/auth.service';
         HttpClientModule,
         NotFoundComponent,
         NavigationComponent,
+        PublicNavigationComponent,
         LayoutModule,
         MatToolbarModule,
         MatButtonModule,
