@@ -12,9 +12,7 @@
         grid-template-columns: 1fr;
     }
 }
-.eslogan{
-  margin:10%;
-}
+
 .left-column{
     background-color: #DCEAF7;
     display: flex;
@@ -30,14 +28,13 @@
 .right-column{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    padding: 10%;
 }
   
 .form-fields{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin:15%;
 }
 
 .centrar{

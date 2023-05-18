@@ -1,0 +1,15 @@
+.spacer {
+    flex: 1 1 auto;
+}
+.mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-container-color: #3679f4;
+    --mdc-protected-button-label-text-color: #fff;
+}
+.container{
+    height:calc(100vh - 64px);
+}
+@media(max-width:600px){
+    .container{
+        height:calc(100vh - 56px);
+    }
+}
