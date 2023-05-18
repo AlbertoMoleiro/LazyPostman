@@ -9,6 +9,8 @@ import { ItineraryComponent } from './itinerary/containers/itinerary.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
     declarations: [
         RouteCreatorComponent,
@@ -20,6 +22,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
         GoogleMapsModule,
         HttpClientModule,
         HttpClientJsonpModule,
+        MatButtonModule,
         OptimizedRoutesRoutingModule
     ]
 })

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MapDirectionsService } from '@angular/google-maps';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 
 
@@ -24,7 +25,7 @@ export class RouteViewComponent {
 
     ];
 
-    constructor(mapDirectionsService: MapDirectionsService) {
+    constructor(private router: Router, mapDirectionsService: MapDirectionsService) {
         const request: google.maps.DirectionsRequest = {
             destination: { lat: 40.481450490571746, lng: -3.855249568664476 },
             origin: { lat: 40.481450490571746, lng: -3.855249568664476 },
@@ -38,6 +39,10 @@ export class RouteViewComponent {
     ngOnInit(): void {
 
 
+    }
+
+    goToItinerary() {
+        this.router.navigate(['/registered/route/itinerary']);
     }
 
 }
