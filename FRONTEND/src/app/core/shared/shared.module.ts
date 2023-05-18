@@ -17,9 +17,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import { AuthService } from './services/auth.service';
+import { PublicNavigationComponent } from './components/public-navigation/public-navigation.component';
 
 @NgModule({
-    declarations: [NotFoundComponent, NavigationComponent],
+    declarations: [NotFoundComponent, NavigationComponent, PublicNavigationComponent],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -37,6 +38,7 @@ import { AuthService } from './services/auth.service';
         HttpClientModule,
         NotFoundComponent,
         NavigationComponent,
+        PublicNavigationComponent,
         LayoutModule,
         MatToolbarModule,
         MatButtonModule,

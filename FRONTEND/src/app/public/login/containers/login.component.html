@@ -1,2 +1,38 @@
-<h3>Login page</h3>
-<!-- <login-form> -->
+<div class="container">
+    <div class="fields-grid">
+      <div class="left-column">
+        <div class="eslogan">
+          <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. </h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum id vero assumenda ipsam non, rerum inventore nam odit natus sapiente ut nulla, tenetur impedit neque dolore qui obcaecati. Exercitationem, officia.</p>
+        </div>
+      </div>
+      <div class="right-column">
+        <form [formGroup]="loginForm" (ngSubmit)="goToHome()" class="formulario">
+            <div class="form-fields">
+                <h2 class="centrar">Inicio de sesión</h2>
+                <mat-form-field appearance="fill">
+                <mat-label>Usuario</mat-label>
+                <input matInput type="text" placeholder="Lazy Postman S.L" formControlName="user">
+                <mat-error
+                    *ngIf="!loginForm.controls['user'].valid && loginForm.controls['user'].touched">Debes
+                    rellenar este campo
+                </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" placeholder="********" formControlName="password">
+                <mat-error
+                *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">Debes
+                rellenar este campo
+            </mat-error>
+                </mat-form-field>
+                <button mat-raised-button class="w-100" type="submit" color="primary"
+                [disabled]="loginForm.invalid">Inicio</button>
+                <button mat-stroked-button color="primary"  (click)="goToRecover()">¿Olvidaste tu contraseña?</button>
+                <button mat-stroked-button color="primary"  (click)="goToRegister()">¿No tienes una cuenta? Créala aquí</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
