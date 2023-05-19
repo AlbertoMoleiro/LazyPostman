@@ -1,9 +1,11 @@
-<mat-toolbar color="primary">
-    <span class="spacer"></span>
-    <button mat-button >Inicio de sesión</button>
-    <button mat-raised-button color="primary">Registro</button>
-</mat-toolbar>
 <div class="container">
-    <router-outlet></router-outlet>
+    <mat-toolbar style="background-color: transparent;">
+        <span class="spacer"></span>
+        <button mat-button>Iniciar Sesión</button>
+        <button mat-raised-button color="warn" style="border-color: transparent;">Registro</button>
+    </mat-toolbar>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 

@@ -1,15 +1,22 @@
 .spacer {
     flex: 1 1 auto;
 }
-.mat-mdc-raised-button.mat-primary {
-    --mdc-protected-button-container-color: #3679f4;
-    --mdc-protected-button-label-text-color: #fff;
+button{
+  border: solid 3px var(--color-white);
+  background-color: transparent;
+  color: var(--color-white)!important;
+  text-transform: uppercase;
+  margin-right: 10px;
 }
-.container{
+.content{
     height:calc(100vh - 64px);
 }
 @media(max-width:600px){
-    .container{
+    .content{
         height:calc(100vh - 56px);
     }
+}
+
+.container{
+    background-image: url("../../../../../assets/img/bg-public.svg");
 }
