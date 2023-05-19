@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { PublicNavigationComponent } from './components/public-navigation/public-navigation.component';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -17,7 +19,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import { AuthService } from './services/auth.service';
-import { PublicNavigationComponent } from './components/public-navigation/public-navigation.component';
 
 @NgModule({
     declarations: [NotFoundComponent, NavigationComponent, PublicNavigationComponent],
@@ -33,6 +34,8 @@ import { PublicNavigationComponent } from './components/public-navigation/public
         MatListModule,
         MatCardModule,
         MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule
     ],
     exports: [
         HttpClientModule,
@@ -48,6 +51,7 @@ import { PublicNavigationComponent } from './components/public-navigation/public
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
+        ReactiveFormsModule,
     ],
     providers: [AuthService],
 })
