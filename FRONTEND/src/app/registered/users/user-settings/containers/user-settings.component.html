@@ -1,1 +1,85 @@
-<p>user-settings works!</p>
+<div class="contenedor">
+    <h2>Datos de usuario</h2>
+    <div>
+        <table>
+            <tr>
+                <td><mat-label>Nombre:</mat-label></td>
+                <td>
+                    <mat-label>{{ nombre }}</mat-label>
+                </td>
+            </tr>
+            <tr>
+                <td><mat-label>Apellidos:</mat-label></td>
+                <td>
+                    <mat-label>{{ apellidos }}</mat-label>
+                </td>
+            </tr>
+            <tr>
+                <td><mat-label>E-mail:</mat-label></td>
+                <td>
+                    <mat-label>{{ email }}</mat-label>
+                </td>
+            </tr>
+            <tr>
+                <td><mat-label>Teléfono:</mat-label></td>
+                <td>
+                    <mat-label>{{ telefono }}</mat-label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+            <h4>Cambio de contraseña</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>Contraseña actual</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    placeholder="Contraseña actual"
+                    formControlName="currentPassword"
+                    required
+                />
+                <mat-error
+                    *ngIf="changePasswordForm.get('currentPassword')!.invalid"
+                    >La contraseña actual es requerida.</mat-error
+                >
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Nueva contraseña</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    placeholder="Nueva contraseña"
+                    formControlName="newPassword"
+                    required
+                />
+                <mat-error
+                    *ngIf="changePasswordForm.get('newPassword')!.invalid"
+                    >La nueva contraseña es requerida y debe tener al menos 8
+                    caracteres.</mat-error
+                >
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Confirmar contraseña</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    placeholder="Confirmar contraseña"                
+                    formControlName="confirmPassword"
+                    required
+                />
+                <mat-error
+                    *ngIf="changePasswordForm.hasError('passwordMismatch')"
+                    >Las contraseñas no coinciden.</mat-error
+                >
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="changePasswordForm.invalid">
+                Cambiar contraseña
+            </button>
+        </form>
+    </div>
+</div>
