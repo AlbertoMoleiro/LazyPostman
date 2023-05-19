@@ -6,6 +6,12 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UserSettingsComponent } from './user-settings/containers/user-settings.component';
 import { UsersManagementComponent } from './users-management/containers/users-management.component';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+
+
+
 
 @NgModule({
   declarations: [
@@ -14,7 +20,11 @@ import { UsersManagementComponent } from './users-management/containers/users-ma
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule
   ]
 })
 export class UsersModule { }
