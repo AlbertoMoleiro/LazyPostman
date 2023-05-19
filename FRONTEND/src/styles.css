@@ -1,6 +1,6 @@
 
 :root{
-    --primary-color: #00457d;
+    --primary-color: rgb(0, 69, 125);
     --secondary-color: #3da9fc;
     --color-accent: #f44336;
     --color-white: #ffffff;
@@ -25,3 +25,33 @@ body {
 .color-accent{
     color: var(--color-accent);
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Mediaquery for touchscreen*/
+@media (hover: none) and (pointer: coarse) {
+    *::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #00457d #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #00457d;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
