@@ -1,7 +1,8 @@
 
 :root{
     --primary-color: #00457d;
-    --secondary-color: #1565c0;
+    --secondary-color: #3da9fc;
+    --color-accent: #f44336;
     --color-white: #ffffff;
 }
 html{
@@ -18,5 +19,9 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.color-secondary{
+    color: var(--secondary-color);
+}
+.color-accent{
+    color: var(--color-accent);
+}

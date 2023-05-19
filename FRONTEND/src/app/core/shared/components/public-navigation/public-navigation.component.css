@@ -22,8 +22,33 @@ button{
     background-size: cover;
     background-position: center;
     height:100%;
+    width: 100%;
 }
 
 .m-10{
     margin-right: 10px;
 }
+.max-1400{
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo{
+    display: flex;
+    align-items: end;
+}
+.logo_title{
+    font-family: 'Georgia', Times, serif;
+    font-size: 36px;
+    color: var(--color-white);
+    margin-bottom: 5px;
+}
+
+@media (max-width: 600px){
+    .navbar{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
