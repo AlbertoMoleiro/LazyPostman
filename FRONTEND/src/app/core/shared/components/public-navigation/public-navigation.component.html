@@ -1,12 +1,12 @@
 <div class="container">
     <mat-toolbar style="background-color: transparent;" class="max-1400 navbar">
-        <div class="logo"><img src="../../../../../assets/img/LazyPostman_logo_500_white.svg" alt="Logo Lazy postman"
+        <div class="logo" routerLink="/login"><img src="../../../../../assets/img/LazyPostman_logo_500_white.svg" alt="Logo Lazy postman"
                 width="64" height="64">
             <h1 class="logo_title">Lazy Postman</h1>
         </div>
         <div class="block">
-            <button mat-button class="m-10">Iniciar Sesión</button>
-            <button mat-raised-button color="warn" style="border-color: transparent;">Registro</button>
+            <button mat-button class="m-10" routerLink="/login">Iniciar Sesión</button>
+            <button mat-raised-button color="warn" style="border-color: transparent;" routerLink="/register">Registro</button>
         </div>
     </mat-toolbar>
     <div class="content">

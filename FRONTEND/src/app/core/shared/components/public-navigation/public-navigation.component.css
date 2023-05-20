@@ -34,6 +34,7 @@ button{
 .logo{
     display: flex;
     align-items: end;
+    cursor: pointer;
 }
 .logo_title{
     font-family: 'Georgia', Times, serif;
