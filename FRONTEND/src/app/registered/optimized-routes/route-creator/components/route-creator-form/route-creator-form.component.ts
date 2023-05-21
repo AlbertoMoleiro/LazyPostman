@@ -15,7 +15,7 @@ export class RouteCreatorFormComponent {
     routeCreateForm: FormGroup = new FormGroup({});
 
     //TODO: Get this from the backend
-    towns: any[] = [{ name: "Las Rozas", postCode: [28001, 28067, 12345, 28282, 29292, 27272, 26262, 25252, 24242, 23232, 21212, 21322, 21422, 21522] }, { name: "Guadarrama", postCode: [28440] }, { name: "San Lorenzo del Escorial", postCode: [28200] }];
+    towns: any[] = [{ name: "Las Rozas", postCode: [28001, 28067, 12345, 28282, 29292, 27272, 26262, 25252, 24242, 23232, 21212, 21322, 21422, 21522] }, { name: "Guadarrama", postCode: [28440] }, { name: "Gargantilla del Lozoya y Pinilla de Buitrago", postCode: [28200] }];
     filteredTowns: Observable<any[]> = new Observable<any[]>();
 
     roads: any[] = [{ name: "falsa", minOdd: 5, maxOdd: 123, minEven: 4, maxEven: 124 }, { name: "Real", minOdd: 1, maxOdd: 7, minEven: 2, maxEven: 22 }];
