@@ -1,1 +1,66 @@
-<p>route-creator works!</p>
+<div class="container">
+    <form [formGroup]="routeCreateForm" (ngSubmit)="submitStreet()">
+        <h2>Crear Ruta</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Provincia</mat-label>
+            <input matInput formControlName="province" type="text" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Localidad</mat-label>
+            <input matInput formControlName="town" type="text" [matAutocomplete]="towns" />
+            <mat-autocomplete #towns="matAutocomplete"
+                [displayWith]="displayNameFn">
+                <mat-option *ngFor="let town of filteredTowns |async" [value]="town">{{town.name}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Código Postal</mat-label>
+            <input matInput formControlName="postCode" type="text" [matAutocomplete]="postCodes" />
+            <mat-autocomplete #postCodes="matAutocomplete">
+                <mat-option *ngFor="let postCode of filteredPostCodes | async" [value]="postCode">{{postCode}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo de Vía</mat-label>
+            <mat-select formControlName="roadType">
+                <mat-option *ngFor="let type of roadTypes" [value]="type">{{type}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre de la Vía</mat-label>
+            <input matInput formControlName="roadName" type="text" [matAutocomplete]="roads" />
+            <mat-autocomplete #roads="matAutocomplete"
+                [displayWith]="displayNameFn">
+                <mat-option *ngFor="let road of filteredRoads | async" [value]="road">{{road.name}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="allRoad" color="primary">Vía Completa</mat-checkbox>
+        <mat-checkbox formControlName="odd" color="primary">Impares</mat-checkbox>
+        <mat-form-field appearance="outline">
+            <mat-label>Mínimo Impar</mat-label>
+            <input matInput formControlName="roadNumberMinOdd" type="number" min="1" step="2" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Máximo Impar</mat-label>
+            <input matInput formControlName="roadNumberMaxOdd" type="number" min="1" step="2" />
+        </mat-form-field>
+        <mat-checkbox formControlName="even" color="primary">Pares</mat-checkbox>
+        <mat-form-field appearance="outline">
+            <mat-label>Mínimo Par</mat-label>
+            <input matInput formControlName="roadNumberMinEven" type="number" min="2" step="2"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Máximo Par</mat-label>
+            <input matInput formControlName="roadNumberMaxEven" type="number" min="2" step="2"/>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="primary" [disabled]="routeCreateForm.invalid">Añadir
+            Calle</button>
+    </form>
+</div>
