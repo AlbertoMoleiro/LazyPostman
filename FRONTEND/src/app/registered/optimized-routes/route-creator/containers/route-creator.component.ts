@@ -13,7 +13,7 @@ import { oddEvenChecked } from '../components/odd-even-checked.validator';
     styleUrls: ['./route-creator.component.css']
 })
 export class RouteCreatorComponent {
-    routeCreateForm: FormGroup;
+    routeCreateForm: FormGroup = new FormGroup({});
 
     //TODO: Get this from the backend
     towns: any[] = [{ name: "Las Rozas", postCode: [28001, 28067, 12345, 28282, 29292, 27272, 26262, 25252, 24242, 23232, 21212, 21322, 21422, 21522] }, { name: "Guadarrama", postCode: [28440] }, { name: "San Lorenzo del Escorial", postCode: [28200] }];
@@ -36,6 +36,20 @@ export class RouteCreatorComponent {
     private onDestroy = new Subject<void>();
 
     constructor(private formBuilder: FormBuilder) {
+        this.initForm();
+    }
+
+    ngOnInit() {
+        this.initAutocompleteFilters();
+        this.subscribeToFormChanges();
+    }
+    ngOnDestroy() {
+        this.onDestroy.next();
+        this.onDestroy.complete();
+    }
+
+    //Initialization Form
+    private initForm() {
         this.routeCreateForm = this.formBuilder.group({
             province: [{ value: 'Madrid', disabled: true }, Validators.required],
             town: ['', autocompleteObjectValidator()],
@@ -49,33 +63,73 @@ export class RouteCreatorComponent {
             even: [{ value: true, disabled: true }],
             roadNumberMinEven: [{ value: '', disabled: true }, [Validators.required, Validators.pattern(this.evenRegex)]],
             roadNumberMaxEven: [{ value: '', disabled: true }, [Validators.required, Validators.pattern(this.evenRegex)]],
-        }, { validators: [roadNumberValidator,oddEvenChecked] });
+        }, { validators: [roadNumberValidator, oddEvenChecked] });
     }
 
-    ngOnInit() {
-        //Autocomplete options filtered
-        this.filteredTowns = this.routeCreateForm.get('town')!.valueChanges.pipe(
-            takeUntil(this.onDestroy),
-            startWith(''),
-            map(value => this.townFilter(value || '')),
-        );
-        this.filteredRoads = this.routeCreateForm.get('roadName')!.valueChanges.pipe(
-            takeUntil(this.onDestroy),
-            startWith(''),
-            map(value => this.roadFilter(value || '')),
-        );
-        this.filteredPostCodes = this.routeCreateForm.get('postCode')!.valueChanges.pipe(
-            takeUntil(this.onDestroy),
-            startWith(''),
-            map(value => this.postCodeFilter(value || '')),
-        );
+    //Autocomplete options filters
+    private initAutocompleteFilters() {
+        this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
 
-        //Subscriptions to enable/disable fields
+        this.filteredRoads = this.initAutocompleteFilter('roadName', this.roadFilter);
+        this.filteredPostCodes = this.initAutocompleteFilter('postCode', this.postCodeFilter);
+    }
+
+    private initAutocompleteFilter(field: string, filtro: (value: any) => any[]): Observable<any[]> {
+        return this.routeCreateForm.get(field)!.valueChanges.pipe(
+            takeUntil(this.onDestroy),
+            startWith(''),
+            map(value => filtro(value || '')),
+        );
+    }
+
+    private townFilter = (value: string | any): string[] => {
+        let filterValue = '';
+        if (typeof value !== 'string') {
+            filterValue = value.name.toLowerCase();
+        } else {
+
+            filterValue = value.toLowerCase();
+        }
+        return this.towns.filter(town => town.name.toLowerCase().includes(filterValue));
+    }
+
+    private roadFilter=(value: string | any): string[] => {
+        let filterValue = '';
+        if (typeof value !== 'string') {
+            filterValue = value.name.toLowerCase();
+        } else {
+            filterValue = value.toLowerCase();
+
+        }
+        return this.roads.filter(road => road.name.toLowerCase().includes(filterValue));
+    }
+
+    private postCodeFilter=(value: number): number[]=> {
+        const filterValue = value.toString();
+        return this.postCodes.filter(postCode => postCode.toString().includes(filterValue));
+    }
+    //Autocomplete display functions, to show the name of the object
+    public displayNameFn(object?: any): string {
+        return object ? object.name : undefined;
+    }
+
+    //Subscriptions
+
+    private subscribeToFormChanges() {
+        this.subscribeToTownChanges();
+        this.subscribeToPostCodeChanges();
+        this.subscribeToRoadTypeChanges();
+        this.subscribeToRoadNameChanges();
+        this.subscribeToAllRoadChanges();
+        this.subscribeToOddChanges();
+        this.subscribeToEvenChanges();
+    }
+
+    private subscribeToTownChanges() {
         this.routeCreateForm.get('town')?.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe(town => {
-
-
+                //Reset postCode and set validator with
                 const postCodes = town?.postCode || [];
                 this.postCodes = postCodes;
                 this.routeCreateForm.get('postCode')?.setValue('');
@@ -89,6 +143,9 @@ export class RouteCreatorComponent {
                 }
 
             });
+    }
+
+    private subscribeToPostCodeChanges() {
         this.routeCreateForm.get('postCode')!.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe((value) => {
@@ -98,6 +155,9 @@ export class RouteCreatorComponent {
                     this.routeCreateForm.get('roadType')!.disable();
                 }
             });
+    }
+
+    private subscribeToRoadTypeChanges() {
         this.routeCreateForm.get('roadType')!.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe((value) => {
@@ -107,8 +167,9 @@ export class RouteCreatorComponent {
                     this.routeCreateForm.get('roadName')!.disable();
                 }
             });
+    }
 
-        //Add suscription to set the road number fields validators and values
+    private subscribeToRoadNameChanges() {
         this.routeCreateForm.get('roadName')!.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe((road) => {
@@ -130,8 +191,9 @@ export class RouteCreatorComponent {
                 }
 
             });
+    }
 
-            //Add suscription to set the road number fields validators and values
+    private subscribeToAllRoadChanges() {
         this.routeCreateForm.get('allRoad')!.valueChanges
             .pipe(takeUntil(this.onDestroy))
             .subscribe((value) => {
@@ -160,7 +222,9 @@ export class RouteCreatorComponent {
 
             }
             );
-        // Subscribe to the odd checkbox
+    }
+
+    private subscribeToOddChanges() {
         this.routeCreateForm.get('odd')?.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(oddChecked => {
             if (!this.routeCreateForm.get('allRoad')!.value) {
                 if (oddChecked) {
@@ -176,8 +240,9 @@ export class RouteCreatorComponent {
                 }
             }
         });
+    }
 
-        // Subscribe to the even checkbox
+    private subscribeToEvenChanges() {
         this.routeCreateForm.get('even')?.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(evenChecked => {
             if (!this.routeCreateForm.get('allRoad')!.value) {
                 if (evenChecked) {
@@ -195,39 +260,8 @@ export class RouteCreatorComponent {
         });
     }
 
-    //Autocomplete options filters
-    private townFilter(value: string | any): string[] {
-        let filterValue = '';
-        if (typeof value !== 'string') {
-            filterValue = value.name.toLowerCase();
-        } else {
-
-            filterValue = value.toLowerCase();
-        }
-        return this.towns.filter(town => town.name.toLowerCase().includes(filterValue));
-    }
-    private roadFilter(value: string | any): string[] {
-        let filterValue = '';
-        if (typeof value !== 'string') {
-            filterValue = value.name.toLowerCase();
-        } else {
-            filterValue = value.toLowerCase();
-
-        }
-        return this.roads.filter(road => road.name.toLowerCase().includes(filterValue));
-    }
-
-    private postCodeFilter(value: number): number[] {
-        const filterValue = value.toString();
-        return this.postCodes.filter(postCode => postCode.toString().includes(filterValue));
-    }
 
 
-
-    //Autocomplete display functions, to show the name of the object
-    public displayNameFn(object?: any): string {
-        return object ? object.name : undefined;
-    }
 
     //Form functions
 
