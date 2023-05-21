@@ -8,6 +8,6 @@ export function oddEvenChecked(control: FormGroup):ValidationErrors | null {
   if (odd?.value || even?.value) {
     return null;
   } else {
-    return { checkboxes: 'Debes seleccionar al menos un número' };
+    return { oddEvenValidation: 'Debes seleccionar al menos un número' };
   }
 };
