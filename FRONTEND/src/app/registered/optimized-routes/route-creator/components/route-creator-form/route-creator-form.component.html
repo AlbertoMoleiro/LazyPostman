@@ -40,8 +40,8 @@
             </mat-form-field>
         </div>
         <mat-divider></mat-divider>
+        <mat-checkbox class="fs-20" formControlName="allRoad" color="primary">Vía Completa</mat-checkbox>
         <div class="number-fields__box">
-            <mat-checkbox class="fs-20" formControlName="allRoad" color="primary">Vía Completa</mat-checkbox>
             <div class="number-fields">
                 <mat-checkbox formControlName="odd" color="primary">Impares</mat-checkbox>
                 <div class="number-fields__inputs">
@@ -73,15 +73,18 @@
                 </div>
             </div>
         </div>
-        <button mat-raised-button type="submit" color="primary" [disabled]="routeCreateForm.invalid">Añadir
-            Calle</button>
-        <mat-error >
-            <div *ngIf="routeCreateForm.errors?.['invalidRoadNumbers']">
-                Los números de la calle no son válidos. Ten en cuenta que los números mínimos no pueden ser mayores que los
-                máximos.
-            </div>
-            <div *ngIf="routeCreateForm.errors?.['oddEvenValidation']">
-                Debes seleccionar al menos una de las opciones (pares/impares).
-            </div>
-        </mat-error>
+
+        <div class="submit-box">
+            <mat-error >
+                <div *ngIf="routeCreateForm.errors?.['invalidRoadNumbers']">
+                    Los números de la calle no son válidos. Ten en cuenta que los números mínimos no pueden ser mayores que los
+                    máximos.
+                </div>
+                <div *ngIf="routeCreateForm.errors?.['oddEvenValidation']">
+                    Debes seleccionar al menos una de las opciones (pares/impares).
+                </div>
+            </mat-error>
+            <button mat-raised-button type="submit" color="primary" [disabled]="routeCreateForm.invalid">Añadir
+                Calle</button>
+        </div>
     </form>

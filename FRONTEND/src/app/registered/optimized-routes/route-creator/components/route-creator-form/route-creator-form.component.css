@@ -8,6 +8,7 @@ h2{
     border-radius: 10px;
     padding: 16px;
 }
+
 .number-fields__box{
     display: flex;
     align-items: center;
@@ -16,17 +17,30 @@ h2{
     padding-top: 16px;
 }
 .number-fields{
-   display: flex;
-   gap: 5px;
-   flex-direction: column;
-   /* border: solid 2px var(--primary-color);
+    width: 100%;
+    display: flex;
+    flex: 1;
+    gap: 5px;
+    flex-direction: column;
+    border: solid 2px #ccc;
     border-radius: 10px;
-    padding: 0 16px; */
+    padding: 0 16px;
 }
 .number-fields__inputs{
-display: flex;
-flex-direction: row;
-gap: 16px;
+    display: flex;
+
+    flex-direction: row;
+    gap: 16px;
+}
+@media (max-width: 768px){
+    .number-fields{
+        width: 100%;
+    }
+    .number-fields__inputs{
+        flex-direction: column;
+    }
+
+
 }
 button {
     align-self: flex-end;
@@ -59,3 +73,29 @@ button {
         flex-direction: column;
     }
 }
+
+
+.submit-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin-top: 16px;
+}
+.submit-box button{
+    min-width: 200px;
+    min-height: 40px;
+}
+@media (max-width: 768px){
+    .submit-box{
+        flex-direction: column;
+    }
+    .submit-box button{
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+
+
