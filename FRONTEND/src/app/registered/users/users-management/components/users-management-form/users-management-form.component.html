@@ -1,7 +1,7 @@
 <div class="container">
     <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
         <h2>Datos del Empleado</h2>
-        <div class="fields">
+        <div class="form_field">
             <mat-form-field appearance="fill">
                 <mat-label>Nombre</mat-label>
                 <input matInput type="text" placeholder="Nombre" formControlName="employeeName">
@@ -31,13 +31,6 @@
                 <mat-error *ngIf="!addEmployeeForm.controls['employeeCode'].valid && addEmployeeForm.controls['employeeCode'].touched">Debes
                     rellenar este campo.</mat-error>
             </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Codigo de Empleado</mat-label>
-                <input matInput type="text" placeholder="Codigo de Empleado" formControlName="employeeCode">
-                <mat-error *ngIf="!addEmployeeForm.controls['employeeCode'].valid && addEmployeeForm.controls['employeeCode'].touched">Debes
-                    rellenar este campo.</mat-error>
-            </mat-form-field>
             
             <mat-form-field appearance="outline">
                 <mat-label>Rol del empleado</mat-label>
@@ -47,6 +40,9 @@
                   <mat-option value="1">Administrador</mat-option>
                 </mat-select>
               </mat-form-field>            
-        </div>        
+        </div>  
+        <button mat-raised-button color="primary" type="submit" [disabled]="addEmployeeForm.invalid">
+            Añadir Usuario
+        </button>     
     </form>
 </div>
