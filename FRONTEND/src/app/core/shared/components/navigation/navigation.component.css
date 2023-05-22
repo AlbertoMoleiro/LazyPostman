@@ -40,3 +40,21 @@ mat-divider {
 .active mat-icon{
     color: var(--color-white);
 }
+.logo{
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+    margin: 0 auto;
+}
+.logo_title{
+    font-family: 'Georgia', Times, serif;
+    font-size: 32px;
+    color: var(--color-white);
+    margin-bottom: 5px;
+}
+@media (max-width: 500px){
+.logo_title{
+    font-size: 28px;
+}
+
+}

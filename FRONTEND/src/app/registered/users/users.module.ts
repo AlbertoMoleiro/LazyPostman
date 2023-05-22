@@ -9,15 +9,15 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
 import { UsersTableComponent } from './users-management/components/users-table/users-table.component';
 import {MatTableModule} from '@angular/material/table';
 
-
-
+import { UsersManagementFormComponent } from './users-management/components/users-management-form/users-management-form.component';
 
 
 @NgModule({
   declarations: [
     UserSettingsComponent,
     UsersManagementComponent,
-    UsersTableComponent
+    UsersTableComponent,
+    UsersManagementFormComponent
   ],
   imports: [
     CommonModule,
