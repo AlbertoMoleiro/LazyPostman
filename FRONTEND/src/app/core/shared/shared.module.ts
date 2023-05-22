@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -43,7 +44,8 @@ import { MatTableModule } from '@angular/material/table';
         MatSelectModule,
         MatAutocompleteModule,
         MatCheckboxModule,
-        MatTableModule
+        MatTableModule,
+        MatDialogModule
     ],
     exports: [
         HttpClientModule,
@@ -63,7 +65,8 @@ import { MatTableModule } from '@angular/material/table';
         MatSelectModule,
         MatAutocompleteModule,
         MatCheckboxModule,
-        MatTableModule
+        MatTableModule,
+        MatDialogModule
     ]
 })
 export class SharedModule { }
