@@ -1,23 +1,23 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 
 export const canActivate: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-    return authService.checkLogin().pipe(
-      map(() => true),
-      catchError(() => {
-        router.navigate(['/login']);
-        return of(false);
-      })
-    );
-  };
+  return authService.checkLogin().pipe(
+    map(() => true),
+    catchError(() => {
+      router.navigate(['/login']);
+      return of(false);
+    })
+  );
+};
 
-  export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => canActivate(route, state);
+export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => canActivate(route, state);

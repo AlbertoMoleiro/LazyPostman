@@ -4,10 +4,18 @@ h2{
 .form{
     width: 100%;
     height: 100%;
-    border: solid 3px var(--primary-color);
     border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
     padding: 16px;
+    background-color: var(--color-white);
 }
+@media (max-width: 768px){
+    .form{
+        border: none;
+        border-radius: 0;
+    }
+}
+
 .number-fields__box{
     display: flex;
     align-items: center;
@@ -16,17 +24,30 @@ h2{
     padding-top: 16px;
 }
 .number-fields{
-   display: flex;
-   gap: 5px;
-   flex-direction: column;
-   /* border: solid 2px var(--primary-color);
+    width: 100%;
+    display: flex;
+    flex: 1;
+    gap: 5px;
+    flex-direction: column;
+    border: solid 2px #ccc;
     border-radius: 10px;
-    padding: 0 16px; */
+    padding: 0 16px;
 }
 .number-fields__inputs{
-display: flex;
-flex-direction: row;
-gap: 16px;
+    display: flex;
+
+    flex-direction: row;
+    gap: 16px;
+}
+@media (max-width: 768px){
+    .number-fields{
+        width: 100%;
+    }
+    .number-fields__inputs{
+        flex-direction: column;
+    }
+
+
 }
 button {
     align-self: flex-end;
@@ -59,3 +80,34 @@ button {
         flex-direction: column;
     }
 }
+
+
+.submit-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin-top: 16px;
+}
+.submit-box button{
+    min-width: 200px;
+    min-height: 40px;
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+}
+.submit-box button:disabled{
+    background-color: #ccc;
+}
+@media (max-width: 768px){
+    .submit-box{
+        flex-direction: column;
+    }
+    .submit-box button{
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+
+

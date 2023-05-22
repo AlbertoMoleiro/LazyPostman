@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { RouteCreatorService } from 'src/app/core/services/route-creator.service';
 
 @Component({
     selector: 'app-route-creator',
@@ -6,9 +8,23 @@ import { Component } from '@angular/core';
     styleUrls: ['./route-creator.component.css']
 })
 export class RouteCreatorComponent {
+    showTable: boolean = true;
+    private onDestroy = new Subject<void>();
 
-    constructor() {
+    constructor(private routeCreatorService: RouteCreatorService) {
+    }
 
+    ngOnInit(): void {
+        this.routeCreatorService.getRoads().pipe(takeUntil(this.onDestroy))
+            .subscribe(roads => this.showTable = roads.length > 0);
+    }
+    ngOnDestroy() {
+        this.onDestroy.next();
+        this.onDestroy.complete();
+    }
+
+    createRoute() {
+        this.routeCreatorService.createRoute();
     }
 
 }
