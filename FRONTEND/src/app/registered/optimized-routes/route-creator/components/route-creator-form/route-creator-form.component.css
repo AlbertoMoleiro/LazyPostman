@@ -1,5 +1,6 @@
 h2{
     color: var(--primary-color);
+    font-size: 24px;
 }
 .form{
     width: 100%;

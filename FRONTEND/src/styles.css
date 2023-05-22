@@ -1,9 +1,10 @@
 
 :root{
-    --primary-color: rgb(0, 69, 125);
+    --primary-color: #00457d;
     --secondary-color: #3da9fc;
     --color-accent: #f44336;
     --color-white: #ffffff;
+    --color-blue-soft:#87BCDE;
 }
 html{
     box-sizing: border-box;

@@ -10,8 +10,8 @@
     max-width: 800px;
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 16px;    
-    
+    gap: 16px;
+
 }
 @media (max-width: 1500px) {
     .form_field {
@@ -29,5 +29,7 @@
     }
 }
 
-
-
+h2{
+    color: var(--primary-color);
+    font-size: 24px;
+}

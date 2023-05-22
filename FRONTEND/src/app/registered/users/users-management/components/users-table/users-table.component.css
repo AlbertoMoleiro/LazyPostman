@@ -1,19 +1,15 @@
-.container{
-    padding:16px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-}
 .tabla{
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+    overflow-x: scroll;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
 }
+
 th,td{
     text-align: center;
 }
 .header{
-    background-color: #96C1E6;
+    background-color: var(--color-blue-soft);
     text-align: center;
 }

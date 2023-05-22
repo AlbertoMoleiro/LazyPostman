@@ -2,7 +2,7 @@
     <h2>Lista de Vías Añadidas</h2>
     <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="deleteButton">
-            <th mat-header-cell *matHeaderCellDef>
+            <th class="header" mat-header-cell *matHeaderCellDef>
                 </th>
             <td mat-cell *matCellDef="let element">
                 <button mat-mini-fab color="warn" aria-label="Borrar elemento lista" (click)="deleteRoad(element)">
@@ -11,34 +11,34 @@
         </ng-container>
 
         <ng-container matColumnDef="postCode">
-            <th mat-header-cell *matHeaderCellDef> Código Postal </th>
+            <th class="header" mat-header-cell *matHeaderCellDef> Código Postal </th>
             <td mat-cell *matCellDef="let element"> {{element.postCode}}</td>
           </ng-container>
           <ng-container matColumnDef="roadType">
-            <th mat-header-cell *matHeaderCellDef> Tipo Vía </th>
+            <th class="header" mat-header-cell *matHeaderCellDef> Tipo Vía </th>
             <td mat-cell *matCellDef="let element"> {{element.roadType}} </td>
           </ng-container>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <th class="header" mat-header-cell *matHeaderCellDef> Nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.roadName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="minOdd">
-          <th mat-header-cell *matHeaderCellDef> Desde Impar </th>
+          <th class="header" mat-header-cell *matHeaderCellDef> Desde Impar </th>
           <td mat-cell *matCellDef="let element"> {{element.minOdd}} </td>
         </ng-container>
 
         <ng-container matColumnDef="maxOdd">
-          <th mat-header-cell *matHeaderCellDef> Hasta Impar </th>
+          <th class="header" mat-header-cell *matHeaderCellDef> Hasta Impar </th>
           <td mat-cell *matCellDef="let element"> {{element.maxOdd}} </td>
         </ng-container>
         <ng-container matColumnDef="minEven">
-            <th mat-header-cell *matHeaderCellDef> Desde Par </th>
+            <th class="header" mat-header-cell *matHeaderCellDef> Desde Par </th>
             <td mat-cell *matCellDef="let element"> {{element.minEven}} </td>
           </ng-container>
           <ng-container matColumnDef="maxEven">
-            <th mat-header-cell *matHeaderCellDef> Hasta Par </th>
+            <th class="header" mat-header-cell *matHeaderCellDef> Hasta Par </th>
             <td mat-cell *matCellDef="let element"> {{element.maxEven}} </td>
           </ng-container>
 

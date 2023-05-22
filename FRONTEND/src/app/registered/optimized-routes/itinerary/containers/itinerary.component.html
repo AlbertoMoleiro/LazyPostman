@@ -1,4 +1,11 @@
 <div class="container">
+    <div class="titleBox">
+        <h2 >Itinerario</h2>
+        <div class="buttons">
+            <button mat-raised-button color="primary" class="button_rute" (click)="goToRute()">Ver Ruta</button>
+            <button mat-raised-button color="primary" class="button_PDF" (click)="generatePDF()">PDF</button>
+        </div>
+    </div>
     <div class="tabla">
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="calle">
@@ -20,10 +27,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
-    <div class="buttons">
-        <button mat-raised-button color="primary" class="button_rute" (click)="goToRute()">Ver Ruta</button>
-        <button mat-raised-button color="primary" class="button_PDF" (click)="generatePDF()">PDF</button>
-    </div>
+
 </div>
 
 
