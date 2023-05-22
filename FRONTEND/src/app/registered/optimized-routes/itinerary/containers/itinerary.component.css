@@ -3,9 +3,12 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    gap: 16px;
 }
 .tabla{
     width: 85%;
+    border-radius: 10px;
+    overflow: hidden;
 }
 th{
     font-size: 16px;
@@ -21,6 +24,7 @@ th{
     margin-bottom:10px;
 }
 .buttons{
+    min-width: 96px;
     width:10%;
     display: flex;
     flex-direction: column;
@@ -28,13 +32,14 @@ th{
 @media (max-width: 900px) {
     .container {
       flex-direction: column;
+      gap: unset;
     }
-  
+
     .tabla {
       order: 2;
       width:100%;
     }
-  
+
     .buttons {
       order: 1;
       width: 100%;
@@ -47,6 +52,5 @@ th{
 
 }
 
-  
 
-  
+

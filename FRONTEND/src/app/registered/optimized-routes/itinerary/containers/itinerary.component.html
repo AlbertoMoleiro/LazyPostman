@@ -1,21 +1,21 @@
 <div class="container">
     <div class="tabla">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="calle">
               <th class="header" mat-header-cell *matHeaderCellDef>Calle</th>
               <td class="content" mat-cell *matCellDef="let element"> {{element.calle}} </td>
             </ng-container>
-        
+
             <ng-container matColumnDef="numero">
               <th class="header" mat-header-cell *matHeaderCellDef>Número </th>
               <td class="content" mat-cell *matCellDef="let element"> {{element.numero}} </td>
             </ng-container>
-        
+
             <ng-container matColumnDef="observaciones">
               <th class="header" mat-header-cell *matHeaderCellDef> Observaciones </th>
               <td class="content" mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
             </ng-container>
-          
+
             <tr class="header" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
@@ -26,5 +26,4 @@
     </div>
 </div>
 
-  
-  
+
