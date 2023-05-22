@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UsersManagementFormComponent } from '../components/users-management-form/users-management-form.component';
 
 @Component({
   selector: 'app-users-management',
@@ -12,9 +13,10 @@ constructor(public dialog: MatDialog) { }
 
 
     openForm() {
-        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-            data: {name: this.name, animal: this.animal},
-          }
+        const dialogRef = this.dialog.open(UsersManagementFormComponent, {
+            width: '500px',
+            height: '500px',
+          });
     }
 
 }
