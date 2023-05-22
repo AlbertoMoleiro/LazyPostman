@@ -8,7 +8,7 @@ import { RouteViewComponent } from './route-view/containers/route-view.component
 import { ItineraryComponent } from './itinerary/containers/itinerary.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedModule } from 'src/app/core/shared/shared.module';
-
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -20,7 +20,8 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
         CommonModule,
         GoogleMapsModule,
         SharedModule,
-        OptimizedRoutesRoutingModule
+        OptimizedRoutesRoutingModule,
+        MatTableModule
     ]
 })
 export class OptimizedRoutesModule { }

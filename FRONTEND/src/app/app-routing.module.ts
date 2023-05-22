@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/shared/components/not-found/not-found.component';
 import { canActivate } from './core/shared/guards/auth.guard';
 
+
 const routes: Routes = [
     {
         path: '',
