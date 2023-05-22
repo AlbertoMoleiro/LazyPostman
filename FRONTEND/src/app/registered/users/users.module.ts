@@ -6,7 +6,8 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UserSettingsComponent } from './user-settings/containers/user-settings.component';
 import { UsersManagementComponent } from './users-management/containers/users-management.component';
 import { SharedModule } from 'src/app/core/shared/shared.module';
-
+import { UsersTableComponent } from './users-management/components/users-table/users-table.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -15,12 +16,14 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
 @NgModule({
   declarations: [
     UserSettingsComponent,
-    UsersManagementComponent
+    UsersManagementComponent,
+    UsersTableComponent
   ],
   imports: [
     CommonModule,
     UsersRoutingModule,
-    SharedModule
+    SharedModule,
+    MatTableModule
   ]
 })
 export class UsersModule { }
