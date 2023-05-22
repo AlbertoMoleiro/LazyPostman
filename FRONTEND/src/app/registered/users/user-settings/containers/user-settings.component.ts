@@ -10,6 +10,7 @@ import { ConfirmPassword } from 'src/app/core/models/validators/ConfirmPassword.
 export class UserSettingsComponent implements OnInit {
     changePasswordForm: FormGroup;
     passwordPattern: RegExp = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)\S{8,255}$/;
+    hide = true;
 
     nombre: string = "Juan";
     apellidos: string = "Martínez Pérez";
@@ -34,7 +35,7 @@ export class UserSettingsComponent implements OnInit {
             {
                 validators: [
                     ConfirmPassword.confirmPasswordValidator(
-                        'password',
+                        'newPassword',
                         'confirmPassword'
                     ),
                 ],
