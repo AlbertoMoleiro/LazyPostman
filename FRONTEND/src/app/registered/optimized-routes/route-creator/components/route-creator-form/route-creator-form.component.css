@@ -4,8 +4,8 @@ h2{
 .form{
     width: 100%;
     height: 100%;
-    border: solid 3px var(--primary-color);
     border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
     padding: 16px;
     background-color: var(--color-white);
 }
@@ -93,6 +93,11 @@ button {
 .submit-box button{
     min-width: 200px;
     min-height: 40px;
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+}
+.submit-box button:disabled{
+    background-color: #ccc;
 }
 @media (max-width: 768px){
     .submit-box{

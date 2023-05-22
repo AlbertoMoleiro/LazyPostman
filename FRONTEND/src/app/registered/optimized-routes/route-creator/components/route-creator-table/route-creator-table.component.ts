@@ -1,29 +1,34 @@
+import { Subject, takeUntil } from 'rxjs';
 import { Component } from '@angular/core';
-interface Road {
-    id: number;
-    town: string;
-    postCode: number;
-    roadType: string;
-    name: string;
-    minOdd: number;
-    maxOdd: number;
-    minEven: number;
-    maxEven: number;
+import { Road } from 'src/app/core/models/interfaces/road.interface';
+import { RouteCreatorService } from 'src/app/core/services/route-creator.service';
 
-}
-const ELEMENT_DATA: Road[] = [
-    {id:1,town: 'Guadarrama', postCode: 28440, roadType: 'Avenida', name: 'Real', minOdd: 1, maxOdd: 13, minEven: 2, maxEven: 24},
-  ];
 @Component({
-  selector: 'app-route-creator-table',
-  templateUrl: './route-creator-table.component.html',
-  styleUrls: ['./route-creator-table.component.css']
+    selector: 'app-route-creator-table',
+    templateUrl: './route-creator-table.component.html',
+    styleUrls: ['./route-creator-table.component.css']
 })
 
 export class RouteCreatorTableComponent {
-    displayedColumns: string[] = ['deleteButton','postCode','roadType', 'name', 'minOdd', 'maxOdd', 'minEven', 'maxEven'];
-    dataSource = ELEMENT_DATA;
+    displayedColumns: string[] = ['deleteButton', 'postCode', 'roadType', 'name', 'minOdd', 'maxOdd', 'minEven', 'maxEven'];
+    dataSource: Road[] = [];
+    private onDestroy = new Subject<void>();
 
-    deleteRoad(id: number) {
+    constructor(private routeCreatorService: RouteCreatorService) {
+    }
+
+    ngOnInit(): void {
+        this.routeCreatorService.getRoads().pipe(takeUntil(this.onDestroy))
+            .subscribe(roads => { this.dataSource = roads });
+    }
+
+
+
+    ngOnDestroy() {
+        this.onDestroy.next();
+        this.onDestroy.complete();
+    }
+    deleteRoad(road: Road) {
+        this.routeCreatorService.deleteRoad(road);
     }
 }

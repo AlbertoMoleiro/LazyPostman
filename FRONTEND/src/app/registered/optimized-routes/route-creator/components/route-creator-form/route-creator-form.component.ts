@@ -6,6 +6,8 @@ import { autocompleteObjectValidator } from 'src/app/core/models/validators/auto
 import { autocompleteNumberValidator } from 'src/app/core/models/validators/autocompleteNumber.validator';
 import { roadNumberValidator } from '../roadNumber.validator';
 import { oddEvenChecked } from '../odd-even-checked.validator';
+import { RouteCreatorService } from 'src/app/core/services/route-creator.service';
+import { Road } from 'src/app/core/models/interfaces/road.interface';
 @Component({
     selector: 'app-route-creator-form',
     templateUrl: './route-creator-form.component.html',
@@ -34,7 +36,7 @@ export class RouteCreatorFormComponent {
     //Clean subscriptions
     private onDestroy = new Subject<void>();
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private routeCreatorService: RouteCreatorService) {
         this.initForm();
     }
 
@@ -92,7 +94,7 @@ export class RouteCreatorFormComponent {
         return this.towns.filter(town => town.name.toLowerCase().includes(filterValue));
     }
 
-    private roadFilter=(value: string | any): string[] => {
+    private roadFilter = (value: string | any): string[] => {
         let filterValue = '';
         if (typeof value !== 'string') {
             filterValue = value.name.toLowerCase();
@@ -103,7 +105,7 @@ export class RouteCreatorFormComponent {
         return this.roads.filter(road => road.name.toLowerCase().includes(filterValue));
     }
 
-    private postCodeFilter=(value: number): number[]=> {
+    private postCodeFilter = (value: number): number[] => {
         const filterValue = value.toString();
         return this.postCodes.filter(postCode => postCode.toString().includes(filterValue));
     }
@@ -265,7 +267,38 @@ export class RouteCreatorFormComponent {
     //Form functions
 
     submitStreet() {
-        console.log(this.routeCreateForm.getRawValue());
+        const formResult = this.routeCreateForm.getRawValue();
+        const road: Road = {
+            province: formResult.province,
+            town: formResult.town.name,
+            postCode: formResult.postCode,
+            roadType: formResult.roadType,
+            roadName: formResult.roadName.name,
+            minOdd: formResult.roadNumberMinOdd,
+            maxOdd: formResult.roadNumberMaxOdd,
+            minEven: formResult.roadNumberMinEven,
+            maxEven: formResult.roadNumberMaxEven
+        };
+
+        this.routeCreatorService.addRoad(road);
+
+        //reset form to initial state
+        this.routeCreateForm.reset({
+            province: 'Madrid',
+            town: '',
+            postCode: '',
+            roadType: '',
+            roadName: '',
+            roadNumberMinOdd: null,
+            roadNumberMaxOdd: null,
+            roadNumberMinEven: null,
+            roadNumberMaxEven: null,
+            allRoad: true,
+            odd: true,
+            even: true
+
+        });
+
     }
 
 }
