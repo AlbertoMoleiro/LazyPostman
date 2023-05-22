@@ -3,7 +3,12 @@
       <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
       <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
     </button>
-    <h1>Lazy Postman</h1>
+
+    <div class="logo" routerLink="/login">
+        <h1 class="logo_title">Lazy Postman</h1>
+        <img src="../../../../../assets/img/LazyPostman_logo_500_white.svg" alt="Logo Lazy postman"
+        width="56" height="56">
+</div>
   </mat-toolbar>
 
   <mat-sidenav-container>
