@@ -6,6 +6,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UserSettingsComponent } from './user-settings/containers/user-settings.component';
 import { UsersManagementComponent } from './users-management/containers/users-management.component';
 import { SharedModule } from 'src/app/core/shared/shared.module';
+import { UsersManagementFormComponent } from './users-management/components/users-management-form/users-management-form.component';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
 @NgModule({
   declarations: [
     UserSettingsComponent,
-    UsersManagementComponent
+    UsersManagementComponent,
+    UsersManagementFormComponent
   ],
   imports: [
     CommonModule,
