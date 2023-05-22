@@ -1,1 +1,11 @@
-<p>route-creator works!</p>
+<div class="container">
+    <div class="form">
+        <app-route-creator-form></app-route-creator-form>
+    </div>
+    <ng-container *ngIf="showTable">
+        <button mat-raised-button color="primary" (click)="createRoute()">Crear Ruta</button>
+        <div class="table">
+            <app-route-creator-table></app-route-creator-table>
+        </div>
+    </ng-container>
+</div>

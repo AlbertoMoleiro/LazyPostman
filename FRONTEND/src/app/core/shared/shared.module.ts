@@ -16,9 +16,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 
-import { AuthService } from './services/auth.service';
+
 
 @NgModule({
     declarations: [NotFoundComponent, NavigationComponent, PublicNavigationComponent],
@@ -35,7 +39,11 @@ import { AuthService } from './services/auth.service';
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatCheckboxModule,
+        MatTableModule
     ],
     exports: [
         HttpClientModule,
@@ -52,7 +60,10 @@ import { AuthService } from './services/auth.service';
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-    ],
-    providers: [AuthService],
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatCheckboxModule,
+        MatTableModule
+    ]
 })
-export class SharedModule {}
+export class SharedModule { }

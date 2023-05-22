@@ -5,3 +5,29 @@
 .form{
     margin-top: 30px;
 }
+
+.form_field{
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 16px;    
+    
+}
+@media (max-width: 1500px) {
+    .form_field {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 1200px) {
+    .form_field {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px){
+    .form_field {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
