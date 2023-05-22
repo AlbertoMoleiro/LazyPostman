@@ -13,10 +13,9 @@ constructor(public dialog: MatDialog) { }
 
 
     openForm() {
-        const dialogRef = this.dialog.open(UsersManagementFormComponent, {
-            width: '500px',
-            height: '500px',
-          });
+        const dialogRef = this.dialog.open(UsersManagementFormComponent,{
+            minWidth: '500px',
+        });
     }
 
 }

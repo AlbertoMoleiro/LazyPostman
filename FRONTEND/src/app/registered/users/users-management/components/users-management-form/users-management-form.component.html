@@ -31,7 +31,7 @@
                 <mat-error *ngIf="!addEmployeeForm.controls['employeeCode'].valid && addEmployeeForm.controls['employeeCode'].touched">Debes
                     rellenar este campo.</mat-error>
             </mat-form-field>
-            
+
             <mat-form-field appearance="outline">
                 <mat-label>Rol del empleado</mat-label>
                 <mat-select placeholder="Rol del empleado" formControlName="employeeCode">
@@ -39,10 +39,10 @@
                   <mat-option value="2">Encargado</mat-option>
                   <mat-option value="1">Administrador</mat-option>
                 </mat-select>
-              </mat-form-field>            
-        </div>  
+              </mat-form-field>
+        </div>
         <button mat-raised-button color="primary" type="submit" [disabled]="addEmployeeForm.invalid">
-            Añadir Usuario
-        </button>     
+            Añadir Empleado
+        </button>
     </form>
 </div>
