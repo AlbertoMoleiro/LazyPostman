@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./route-creator.component.css']
 })
 export class RouteCreatorComponent {
+    showTable: boolean = true;
 
     constructor() {
 

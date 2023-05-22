@@ -10,6 +10,7 @@ import { ItineraryComponent } from './itinerary/containers/itinerary.component';
 
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedModule } from 'src/app/core/shared/shared.module';
+import { RouteCreatorTableComponent } from './route-creator/components/route-creator-table/route-creator-table.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
         RouteCreatorComponent,
         RouteViewComponent,
         ItineraryComponent,
-        RouteCreatorFormComponent
+        RouteCreatorFormComponent,
+        RouteCreatorTableComponent
     ],
     imports: [
         CommonModule,

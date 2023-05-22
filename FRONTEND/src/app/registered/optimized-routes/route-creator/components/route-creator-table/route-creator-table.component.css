@@ -1,0 +1,25 @@
+h2{
+    color: var(--primary-color);
+}
+.container{
+    border-radius: 10px;
+    border: solid 3px var(--primary-color);
+    padding: 16px;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+@media (max-width: 768px){
+    .container{
+        border: none;
+    }
+}
+
+table{
+    box-shadow: none;
+
+}
+
+button{
+    width: 28px;
+    height: 28px;
+}

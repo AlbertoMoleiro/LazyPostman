@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table';
 
 import { AuthService } from './services/auth.service';
 
@@ -41,7 +42,8 @@ import { AuthService } from './services/auth.service';
         ReactiveFormsModule,
         MatSelectModule,
         MatAutocompleteModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTableModule
     ],
     exports: [
         HttpClientModule,
@@ -60,7 +62,8 @@ import { AuthService } from './services/auth.service';
         ReactiveFormsModule,
         MatSelectModule,
         MatAutocompleteModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTableModule
     ],
     providers: [AuthService],
 })
