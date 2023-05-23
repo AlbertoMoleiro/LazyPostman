@@ -1,8 +1,10 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 
 import { Component } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { NavLink } from 'src/app/core/models/interfaces/nav-link.interface';
+
 
 
 @Component({
@@ -18,9 +20,9 @@ export class NavigationComponent {
         { icon: 'map', name: 'Crear Ruta', route: '/registered/route/creator' },
         { icon: 'people', name: 'Gestión de Empleados', route: '/registered/user/management' },
         { icon: 'settings', name: 'Configuración', route: '/registered/user/settings' },
-        { icon: 'exit_to_app', name: 'Cerrar sesión', route: '/login' }
+        /* { icon: 'exit_to_app', name: 'Cerrar sesión', route: '/login' } */
     ];
-    constructor(private breakpointObserver:BreakpointObserver) {}
+    constructor(private breakpointObserver:BreakpointObserver, private authService:AuthService) {}
 
     ngOnInit(): void {
         this.breakpointObserver
@@ -30,4 +32,9 @@ export class NavigationComponent {
             this.opened = state.matches;
         });
     }
+
+    logout(): void {
+        this.authService.logout();
+    }
+
 }

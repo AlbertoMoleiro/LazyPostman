@@ -12,7 +12,7 @@ export const canActivate: CanActivateFn = (
   const router = inject(Router);
 
   return authService.checkLogin().pipe(
-    map(() => true),
+    map((result) => {result ? true : router.navigate(['/login']); return result;}),
     catchError(() => {
       router.navigate(['/login']);
       return of(false);

@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="right-column">
-        <form [formGroup]="loginForm" (ngSubmit)="goToHome()" class="formulario">
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="formulario">
             <div class="form-fields">
                 <h2 class="centrar">Inicio de sesión</h2>
                 <mat-form-field appearance="fill">
@@ -28,8 +28,8 @@
                 </mat-form-field>
                 <button mat-raised-button class="w-100" type="submit" color="primary"
                 [disabled]="loginForm.invalid">Inicio</button>
-                <button mat-stroked-button color="primary"  (click)="goToRecover()">¿Olvidaste tu contraseña?</button>
-                <button mat-stroked-button color="primary"  (click)="goToRegister()">¿No tienes una cuenta? Créala aquí</button>
+                <button mat-stroked-button color="primary" type="button" (click)="goToRecover()">¿Olvidaste tu contraseña?</button>
+                <button mat-stroked-button color="primary" type="button" (click)="goToRegister()">¿No tienes una cuenta? Créala aquí</button>
             </div>
         </form>
       </div>

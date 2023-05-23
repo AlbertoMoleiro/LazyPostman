@@ -21,6 +21,14 @@
             <a matListItemTitle>
                 {{link.name}}</a>
         </mat-list-item>
+        <mat-list-item routerLink="/login" routerLinkActive="active" (click)="logout()">
+            <div matListItemIcon >
+                <mat-icon color="primary">exit_to_app</mat-icon>
+            </div>
+            <a matListItemTitle>
+                Cerrar sesión
+            </a>
+        </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
