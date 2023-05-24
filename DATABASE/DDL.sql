@@ -152,16 +152,16 @@ INSERT INTO ROUTES (name, route) VALUES ('Route I', '{"start": "Location Q", "en
 INSERT INTO ROUTES (name, route) VALUES ('Route J', '{"start": "Location S", "end": "Location T"}');
 
 
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('John', 'Doe', '123456789', 'johndoe', 'password', NULL, 1, 1);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Jane', 'Smith', '987654321', 'janesmith', 'password', NULL, 2, 3);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('David', 'Johnson', '456789123', 'davidjohnson', 'password', 1, 1, 2);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Sarah', 'Williams', '321654987', 'sarahwilliams', 'password', 1, 2, 3);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Michael', 'Brown', '789123456', 'michaelbrown', 'password', 2, 1, 3);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Emily', 'Taylor', '654987321', 'emilytaylor', 'password', 2, 2, 2);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Daniel', 'Anderson', NULL, 'danielanderson', 'password', NULL, 1, 3);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Olivia', 'Thomas', NULL, 'oliviathomas', 'password', NULL, 2, 2);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('James', 'Jackson', NULL, 'jamesjackson', 'password', 1, 1, 3);
-INSERT INTO USERS (name, lastname, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Sophia', 'Harris', NULL, 'sophiaharris', 'password', 2, 2, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('John', 'Doe', 'Martinez', '123456789', 'johndoe', 'password', NULL, 1, 1);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Jane', 'Smith', NULL, '987654321', 'janesmith', 'password', NULL, 2, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('David', 'Johnson','Johnson', '456789123', 'davidjohnson', 'password', 1, 1, 2);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Sarah', 'Williams', NULL, '321654987', 'sarahwilliams', 'password', 1, 2, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Michael', 'Brown', NULL, '789123456', 'michaelbrown', 'password', 2, 1, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Emily', 'Taylor', 'Lopez','654987321', 'emilytaylor', 'password', 2, 2, 2);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Daniel', 'Anderson', 'Brown', NULL, 'danielanderson', 'password', NULL, 1, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Olivia', 'Thomas', NULL, NULL, 'oliviathomas', 'password', NULL, 2, 2);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('James', 'Jackson', NULL, NULL, 'jamesjackson', 'password', 1, 1, 3);
+INSERT INTO USERS (name, lastname1, lastname2, phone_number, login, password, id_manager, id_company, id_role) VALUES ('Sophia', 'Harris', 'White', NULL, 'sophiaharris', 'password', 2, 2, 3);
 
 
 INSERT INTO USERS_ROUTES (id_user, id_route) VALUES (1, 1);
