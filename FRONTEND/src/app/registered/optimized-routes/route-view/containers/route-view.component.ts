@@ -33,7 +33,8 @@ export class RouteViewComponent {
             travelMode: google.maps.TravelMode.DRIVING,
             waypoints: this.waypoints
         };
-        this.directionsResults$ = mapDirectionsService.route(request).pipe(map(response => response.result));
+        this.directionsResults$ = mapDirectionsService.route(request).pipe(map(response => { console.log(response); return response.result}));
+
 
     }
     ngOnInit(): void {

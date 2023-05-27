@@ -40,3 +40,38 @@ FRONTEND/typings
 # System files
 FRONTEND/DS_Store
 FRONTEND/Thumbs.db
+
+
+BACKEND/optimize-route/HELP.md
+BACKEND/optimize-route/target/
+BACKEND/optimize-route/!.mvn/wrapper/maven-wrapper.jar
+BACKEND/optimize-route/!**/src/main/**/target/
+BACKEND/optimize-route/!**/src/test/**/target/
+BACKEND/optimize-route/
+### STS ###
+BACKEND/optimize-route/.apt_generated
+BACKEND/optimize-route/.classpath
+BACKEND/optimize-route/.factorypath
+BACKEND/optimize-route/.project
+BACKEND/optimize-route/.settings
+BACKEND/optimize-route/.springBeans
+BACKEND/optimize-route/.sts4-cache
+
+### IntelliJ IDEA ###
+BACKEND/optimize-route/.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+BACKEND/optimize-route/nbproject/private/
+BACKEND/optimize-route/nbbuild/
+BACKEND/optimize-route/dist/
+BACKEND/optimize-route/nbdist/
+BACKEND/optimize-route/.nb-gradle/
+BACKEND/optimize-route/build/
+BACKEND/optimize-route/!**/src/main/**/build/
+BACKEND/optimize-route/!**/src/test/**/build/
+
+### VS Code ###
+BACKEND/optimize-route/.vscode/
