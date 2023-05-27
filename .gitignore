@@ -47,7 +47,7 @@ BACKEND/optimize-route/target/
 BACKEND/optimize-route/!.mvn/wrapper/maven-wrapper.jar
 BACKEND/optimize-route/!**/src/main/**/target/
 BACKEND/optimize-route/!**/src/test/**/target/
-BACKEND/optimize-route/
+
 ### STS ###
 BACKEND/optimize-route/.apt_generated
 BACKEND/optimize-route/.classpath
