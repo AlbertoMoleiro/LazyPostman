@@ -127,6 +127,8 @@ INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 4);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 5);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 6);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 7);
+INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 8);
+INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (1, 9);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (2, 2);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (2, 5);
 INSERT INTO ROLES_PERMISSIONS (id_role, id_permission) VALUES (2, 6);
