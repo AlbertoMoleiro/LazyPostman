@@ -13,7 +13,7 @@ public class GatewayConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("usersRoute", r -> r
-                        .path("/users/**")
+                        .path("/api/users/**")
                         .uri("http://localhost:8081")) // URL del microservicio de usuarios
                 .build();
     }
