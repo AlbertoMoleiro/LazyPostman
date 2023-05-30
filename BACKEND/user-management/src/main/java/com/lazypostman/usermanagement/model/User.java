@@ -36,13 +36,13 @@ public class User {
     @Column(nullable = false)
     private Date register;
     @Column(name = "id_manager")
-    private int idManager;
+    private Integer idManager;
 
     @Column(name = "id_company", nullable = false)
-    private int idCompany;
+    private Integer idCompany;
 
     @Column(name = "id_role", nullable = false)
-    private int idRole;
+    private Integer idRole;
 
 
 }

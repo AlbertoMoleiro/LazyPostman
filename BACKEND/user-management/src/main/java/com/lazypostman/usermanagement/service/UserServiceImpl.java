@@ -29,8 +29,8 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public User updateUser(Integer id, User user) {
-        User existingUser = repo.findById(id)
+    public User updateUser(User user) {
+        User existingUser = repo.findById(user.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         existingUser.setName(user.getName());
@@ -43,7 +43,6 @@ public class UserServiceImpl implements IUserService{
         existingUser.setIdCompany(user.getIdCompany());
         existingUser.setIdRole(user.getIdRole());
 
-        // Actualiza otros campos según sea necesario
 
         return repo.save(existingUser);
     }

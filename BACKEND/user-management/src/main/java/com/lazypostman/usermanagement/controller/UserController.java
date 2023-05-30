@@ -56,7 +56,7 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User userAux = userService.getUserById(user.getId());
         if (userAux == null) {
@@ -68,7 +68,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") int id) {
         User userAux = userService.getUserById(id);
-        if (userAux != null) {
+        if (userAux == null) {
             throw new ModelNotFoundException("User " + id + " not found");
         }
         userService.deleteUser(id);
