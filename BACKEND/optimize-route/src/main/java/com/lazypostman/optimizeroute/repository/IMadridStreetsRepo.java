@@ -1,0 +1,29 @@
+package com.lazypostman.optimizeroute.repository;
+
+import com.lazypostman.optimizeroute.entity.MadridStreets;
+import com.lazypostman.optimizeroute.model.formcreator.RoadProjection;
+import com.lazypostman.optimizeroute.model.formcreator.TownProjection;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Set;
+
+public interface IMadridStreetsRepo extends JpaRepository<MadridStreets, Long> {
+
+
+   @Query(value="SELECT DISTINCT cdmuni, dsmuni FROM madrid_streets" , nativeQuery = true)
+   Set<TownProjection> getTowns();
+
+    @Query(value = "SELECT dsvial_nor AS name, " +
+            "MIN(CASE WHEN MOD(numero, 2) = 1 THEN numero END) AS minOdd, " +
+            "MAX(CASE WHEN MOD(numero, 2) = 1 THEN numero END) AS maxOdd, " +
+            "MIN(CASE WHEN MOD(numero, 2) = 0 THEN numero END) AS minEven, " +
+            "MAX(CASE WHEN MOD(numero, 2) = 0 THEN numero END) AS maxEven " +
+            "FROM madrid_streets " +
+            "WHERE cdmuni = :codigo " +
+            "GROUP BY dsvial_nor",
+            nativeQuery = true)
+    List<RoadProjection> getRoadData(@Param("codigo") Integer codigo);
+}

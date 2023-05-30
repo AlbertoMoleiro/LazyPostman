@@ -1,4 +1,4 @@
-package com.lazypostman.optimizeroute.model;
+package com.lazypostman.optimizeroute.model.formcreator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
