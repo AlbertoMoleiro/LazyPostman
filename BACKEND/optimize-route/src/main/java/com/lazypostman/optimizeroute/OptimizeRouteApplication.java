@@ -27,10 +27,13 @@ private RouteService routeService;
 //		System.out.println(response.getResults()[0].getGeometry().getLocation());
 
 //		Prueba Route
-		List<Waypoint> waypoints = new ArrayList<>();
-		waypoints.add(new Waypoint(40.47842051514145,-3.8598305104235164));
-		waypoints.add(new Waypoint(40.479562909083214,-3.859178960798713));
-		System.out.println(routeService.calculateRoute("40.47894971475314,-3.857599781165978",waypoints));
-		;
+//		List<Waypoint> waypoints = new ArrayList<>();
+//		waypoints.add(new Waypoint(40.47842051514145,-3.8598305104235164));
+//		waypoints.add(new Waypoint(40.479562909083214,-3.859178960798713));
+//		routeService.optimizeRoute("40.47894971475314,-3.857599781165978",waypoints).getRoutes().forEach(r -> System.out.println(r.getWaypoint_order().toString()));
+//		;
+
+//		Prueba Optimize Route
+
 	}
 }
