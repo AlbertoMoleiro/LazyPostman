@@ -15,7 +15,7 @@ public interface IMadridStreetsRepo extends JpaRepository<MadridStreets, Long> {
 
 
     @Query(value = "SELECT DISTINCT cdmuni, dsmuni FROM madrid_streets", nativeQuery = true)
-    Set<TownProjection> getTowns();
+    Set<TownProjection> getTowns() throws Exception;
 
     @Query(value = "SELECT dsvial_nor AS name, " +
             "MIN(CASE WHEN MOD(numero, 2) = 1 THEN numero END) AS minOdd, " +
@@ -26,23 +26,13 @@ public interface IMadridStreetsRepo extends JpaRepository<MadridStreets, Long> {
             "WHERE cdmuni = :codigo " +
             "GROUP BY dsvial_nor",
             nativeQuery = true)
-    List<RoadProjection> getRoadData(@Param("codigo") Integer codigo);
+    List<RoadProjection> getRoadData(@Param("codigo") Integer codigo) throws Exception;
 
-    //Rangos de números entre minimos y máximos dependidendo de si es par o no
-    @Query("SELECT m.dsmuni AS town,m.cdtvia AS roadType,m.dsvialNor AS roadName, m.numero AS numero,m.coordX AS coordX, m.coordY AS coordY " +
-            "FROM MadridStreets m " +
-            "WHERE MOD(m.numero, 2) != 0 AND m.numero BETWEEN :start AND :end AND m.cdmuni = :cdmuni AND m.dsvialNor = :dsvialNor AND m.cdtvia = :cdtvia")
-    List<ItinineraryItemProjection> findOddNumberCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia);
-
-    @Query("SELECT m.dsmuni AS town,m.cdtvia AS roadType,m.dsvialNor AS roadName, m.numero AS numero,m.coordX AS coordX, m.coordY AS coordY " +
-            "FROM MadridStreets m " +
-            "WHERE MOD(m.numero, 2) = 0 AND m.numero BETWEEN :start AND :end AND m.cdmuni = :cdmuni AND m.dsvialNor = :dsvialNor AND m.cdtvia = :cdtvia")
-    List<ItinineraryItemProjection> findEvenNumberCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia);
 
     //Rango de numeros entro dos numeros
     @Query("SELECT m.dsmuni AS town,m.cdtvia AS roadType,m.dsvialNor AS roadName, m.numero AS roadNumber,m.coordX AS coordX, m.coordY AS coordY " +
             "FROM MadridStreets m " +
             "WHERE m.numero BETWEEN :start AND :end AND m.cdmuni = :cdmuni AND m.dsvialNor = :dsvialNor AND m.cdtvia = :cdtvia")
-    List<ItinineraryItemProjection> findCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia);
+    List<ItinineraryItemProjection> findCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia) throws Exception;
 
 }

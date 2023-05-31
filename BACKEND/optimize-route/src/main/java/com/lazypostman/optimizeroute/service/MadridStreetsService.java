@@ -22,14 +22,14 @@ public class MadridStreetsService implements  IMadridStreetsService{
 //    }
 
     @Override
-    public Set<Town> getTowns() {
+    public Set<Town> getTowns() throws Exception {
         return madridStreetsRepo.getTowns().stream()
                 .map(projection -> new Town(projection.getCdmuni(), projection.getDsmuni()))
                 .collect(Collectors.toSet());
     }
 
     @Override
-    public List<Road> getRoadsByTown(Integer cdmuni) {
+    public List<Road> getRoadsByTown(Integer cdmuni) throws Exception {
         return madridStreetsRepo.getRoadData(cdmuni).stream()
                 .map(projection -> new Road(
                         projection.getName(),

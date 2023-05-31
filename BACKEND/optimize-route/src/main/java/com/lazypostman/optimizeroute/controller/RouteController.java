@@ -23,17 +23,17 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
     @GetMapping("/towns")
-    public ResponseEntity<Set<Town>> getTowns() {
+    public ResponseEntity<Set<Town>> getTowns() throws Exception {
         return new ResponseEntity<>(madridStreetsService.getTowns(), HttpStatus.OK);
     }
 
     @GetMapping("/roads/{cdmuni}")
-    public ResponseEntity<List<Road>> getRoadsByTown(@PathVariable("cdmuni") Integer cdmuni) {
+    public ResponseEntity<List<Road>> getRoadsByTown(@PathVariable("cdmuni") Integer cdmuni) throws Exception {
         return new ResponseEntity<>(madridStreetsService.getRoadsByTown(cdmuni), HttpStatus.OK);
     }
 
     @PostMapping("/optimize")
-    public ResponseEntity<List<Waypoint>> calculateRoute(@RequestBody List<RequestRoad> roads,@RequestHeader("idUser") Integer idUser) {
+    public ResponseEntity<List<Waypoint>> calculateRoute(@RequestBody List<RequestRoad> roads,@RequestHeader("idUser") Integer idUser) throws Exception {
 
        return new ResponseEntity<>(routeService.calculateRoute(roads, idUser), HttpStatus.OK);
     }

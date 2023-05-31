@@ -3,8 +3,6 @@ package com.lazypostman.optimizeroute.service;
 
 import com.lazypostman.optimizeroute.model.ItineraryItem;
 import com.lazypostman.optimizeroute.model.geocoding.GeocodingLocation;
-import com.lazypostman.optimizeroute.model.geocoding.GeocodingResponse;
-import com.lazypostman.optimizeroute.model.geocoding.GeocodingResult;
 import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
 import com.lazypostman.optimizeroute.model.requestroute.RouteResponse;
 import com.lazypostman.optimizeroute.model.requestroute.Waypoint;
@@ -27,7 +25,7 @@ public class RouteService {
     private IMadridStreetsRepo madridStreetsRepo;
     private static final String API_KEY = "AIzaSyAx9PZiui8q41GiFN9Y_daSCyCpVYywQpw";
 
-    private List<Waypoint> geocodingWaypoints(List<RequestRoad> requestRoads) {
+    private List<Waypoint> geocodingWaypoints(List<RequestRoad> requestRoads) throws Exception {
         List<Waypoint> waypoints = new ArrayList<>();
         for (RequestRoad requestRoad : requestRoads) {
             String address = requestRoad.getRoadName()+ ", "+ (requestRoad.getMinOdd()<requestRoad.getMinEven()?requestRoad.getMinOdd():requestRoad.getMinEven()) + ", " + requestRoad.getTown().getDsmuni() + ", " + requestRoad.getProvince();
@@ -40,7 +38,7 @@ public class RouteService {
         }
         return waypoints;
     }
-    private List<Integer> optimizeRoute(List<Waypoint> waypoints, Waypoint origin) {
+    private List<Integer> optimizeRoute(List<Waypoint> waypoints, Waypoint origin) throws Exception {
 
         String waypointsStr = waypoints.stream()
                 .map(waypoint -> waypoint.getLat() + "," + waypoint.getLng())
@@ -61,22 +59,22 @@ public class RouteService {
         return route.getRoutes().get(0).getWaypoint_order();
     }
 
-    public List<Waypoint> calculateRoute(List<RequestRoad> roads, Integer idUser){
+    public List<Waypoint> calculateRoute(List<RequestRoad> roads, Integer idUser) throws Exception{
         List<Waypoint> waypoints = geocodingWaypoints(roads);
 
         //Obtener origen
-//        UriComponents uri = UriComponentsBuilder.newInstance()
-//                .scheme("https")
-//                .host("localhost:8080")
-//                .path("/manage/get-origin")
-//                .queryParam("idUser", idUser)
-//                .build();
-//
-//        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
-//
-//        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
-//        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
-        Waypoint originWaypoint = new Waypoint(40.67313914499323,-4.091827159379638);
+        UriComponents uri = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("localhost:8080")
+                .path("/route-management/company")
+                .queryParam("id", idUser)
+                .build();
+
+        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
+
+        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
+
+        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
         //Optimizar ruta
         List<Integer> order = optimizeRoute(waypoints,originWaypoint);
 
@@ -105,7 +103,7 @@ public class RouteService {
 
     };
 
-    private void createItinerary(List<ItineraryItem> roads){
+    private void createItinerary(List<ItineraryItem> roads) throws Exception{
 
         List<ItineraryItem> stops;
         List<ItineraryItem> itinerary = new ArrayList<>();
@@ -121,14 +119,9 @@ public class RouteService {
             roads.remove(0);
         }
 
-        //Imprimir en consola el itinerario
-        for (ItineraryItem item : itinerary) {
-            System.out.println(item.getRoadName() + " " + item.getRoadNumber());
-        }
-
 
     }
-    private List<ItineraryItem> optimizeStops(List<ItineraryItem> roads) {
+    private List<ItineraryItem> optimizeStops(List<ItineraryItem> roads) throws Exception {
 
         List<ItineraryItem> itinerary = new ArrayList<>();
         ItineraryItem currentStop = roads.get(0);

@@ -14,7 +14,7 @@ public class GeocodingService {
 
     private static final String API_KEY = "AIzaSyAx9PZiui8q41GiFN9Y_daSCyCpVYywQpw";
 
-    public GeocodingLocation getCoordinates(String address) {
+    public GeocodingLocation getCoordinates(String address) throws Exception {
         UriComponents uri = UriComponentsBuilder.newInstance()
                 .scheme("https")
                 .host("maps.googleapis.com")

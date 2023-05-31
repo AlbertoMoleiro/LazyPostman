@@ -1,5 +1,6 @@
 package com.lazypostman.optimizeroute.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lazypostman.optimizeroute.model.formcreator.Town;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class ItineraryItem {
     private Double coordX;
     private Double coordY;
 
+    @JsonIgnore
     public double distanceBetween(ItineraryItem otraCasa) {
         double dx = this.coordX - otraCasa.getCoordX();
         double dy = this.coordY - otraCasa.getCoordY();

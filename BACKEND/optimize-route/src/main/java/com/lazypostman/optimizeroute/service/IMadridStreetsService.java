@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface IMadridStreetsService {
 
-    Set<Town> getTowns();
+    Set<Town> getTowns() throws Exception;
 
-    List<Road> getRoadsByTown(Integer cdmuni);
+    List<Road> getRoadsByTown(Integer cdmuni) throws Exception;
 }
