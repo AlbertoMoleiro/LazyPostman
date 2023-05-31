@@ -1,6 +1,8 @@
 package com.lazypostman.optimizeroute;
 
+import com.lazypostman.optimizeroute.model.formcreator.Town;
 import com.lazypostman.optimizeroute.model.geocoding.GeocodingResponse;
+import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
 import com.lazypostman.optimizeroute.model.requestroute.Waypoint;
 import com.lazypostman.optimizeroute.service.GeocodingService;
 import com.lazypostman.optimizeroute.service.RouteService;
@@ -34,6 +36,9 @@ private RouteService routeService;
 //		;
 
 //		Prueba Optimize Route
-
+//		List<RequestRoad> roads = new ArrayList<>();
+//		roads.add(new RequestRoad("Madrid", new Town(68,"Guadarrama"),28440, "Calle", "ARCE",1,19,2,10));
+//		roads.add(new RequestRoad("Madrid", new Town(68,"Guadarrama"),28440, "Calle", "SAUCE",1,1,2,12));
+//		routeService.calculateRoute(roads,1);
 	}
 }

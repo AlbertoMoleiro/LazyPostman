@@ -40,7 +40,7 @@ public interface IMadridStreetsRepo extends JpaRepository<MadridStreets, Long> {
     List<ItinineraryItemProjection> findEvenNumberCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia);
 
     //Rango de numeros entro dos numeros
-    @Query("SELECT m.dsmuni AS town,m.cdtvia AS roadType,m.dsvialNor AS roadName, m.numero AS numero,m.coordX AS coordX, m.coordY AS coordY " +
+    @Query("SELECT m.dsmuni AS town,m.cdtvia AS roadType,m.dsvialNor AS roadName, m.numero AS roadNumber,m.coordX AS coordX, m.coordY AS coordY " +
             "FROM MadridStreets m " +
             "WHERE m.numero BETWEEN :start AND :end AND m.cdmuni = :cdmuni AND m.dsvialNor = :dsvialNor AND m.cdtvia = :cdtvia")
     List<ItinineraryItemProjection> findCoordsBetween(@Param("start") Integer start, @Param("end") Integer end, @Param("cdmuni") Integer cdmuni, @Param("dsvialNor") String dsvialNor, @Param("cdtvia") String cdtvia);

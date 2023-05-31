@@ -50,14 +50,14 @@ public class RouteService {
                 .scheme("https")
                 .host("maps.googleapis.com")
                 .path("/maps/api/directions/json")
-                .queryParam("origin", origin)
-                .queryParam("destination", origin)
+                .queryParam("origin", origin.getLat()+","+origin.getLng())
+                .queryParam("destination", origin.getLat()+","+origin.getLng())
                 .queryParam("waypoints", "optimize:true|" + waypointsStr)
                 .queryParam("key", API_KEY)
                 .build();
 
         RouteResponse route =new RestTemplate().getForObject(uri.toUriString(), RouteResponse.class);
-        assert route != null;
+
         return route.getRoutes().get(0).getWaypoint_order();
     }
 
@@ -65,18 +65,18 @@ public class RouteService {
         List<Waypoint> waypoints = geocodingWaypoints(roads);
 
         //Obtener origen
-        UriComponents uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("localhost:8080")
-                .path("/manage/get-origin")
-                .queryParam("idUser", idUser)
-                .build();
-
-        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
-
-        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
-        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
-
+//        UriComponents uri = UriComponentsBuilder.newInstance()
+//                .scheme("https")
+//                .host("localhost:8080")
+//                .path("/manage/get-origin")
+//                .queryParam("idUser", idUser)
+//                .build();
+//
+//        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
+//
+//        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
+//        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
+        Waypoint originWaypoint = new Waypoint(40.67313914499323,-4.091827159379638);
         //Optimizar ruta
         List<Integer> order = optimizeRoute(waypoints,originWaypoint);
 
@@ -106,13 +106,17 @@ public class RouteService {
     };
 
     private void createItinerary(List<ItineraryItem> roads){
+
         List<ItineraryItem> stops;
         List<ItineraryItem> itinerary = new ArrayList<>();
 
-        while(roads.size()>1){
+        while(roads.size()>0){
             ItineraryItem origin = roads.get(0);
-            stops = madridStreetsRepo.findCoordsBetween(origin.getRoadNumber(), roads.get(1).getRoadNumber(), origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
-            itinerary.addAll(optimizeStops(stops,origin));
+            Integer startNumber = origin.getRoadNumber()<roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
+            Integer endNumber = origin.getRoadNumber()>roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
+            stops = madridStreetsRepo.findCoordsBetween(startNumber, endNumber, origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
+
+            itinerary.addAll(optimizeStops(stops));
             roads.remove(0);
             roads.remove(0);
         }
@@ -124,16 +128,18 @@ public class RouteService {
 
 
     }
-    private List<ItineraryItem> optimizeStops(List<ItineraryItem> roads, ItineraryItem origin) {
+    private List<ItineraryItem> optimizeStops(List<ItineraryItem> roads) {
 
         List<ItineraryItem> itinerary = new ArrayList<>();
-        ItineraryItem currentStop = origin;
+        ItineraryItem currentStop = roads.get(0);
         roads.remove(0);
+
          while (!roads.isEmpty()){
                 itinerary.add(currentStop);
                 ItineraryItem nearestStop = null;
                 double minumDistance = Double.MAX_VALUE;
                 for (ItineraryItem stop : roads) {
+                    assert currentStop != null;
                     double distance = currentStop.distanceBetween(stop);
                     if (distance < minumDistance) {
                         nearestStop = stop;
