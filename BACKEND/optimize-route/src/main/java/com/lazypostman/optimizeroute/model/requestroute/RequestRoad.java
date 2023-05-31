@@ -1,5 +1,6 @@
 package com.lazypostman.optimizeroute.model.requestroute;
 
+import com.lazypostman.optimizeroute.model.formcreator.Town;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RequestRoad {
     private String province;
-    private String town;
+    private Town town;
     private Integer postCode;
     private String roadType;
     private String roadName;

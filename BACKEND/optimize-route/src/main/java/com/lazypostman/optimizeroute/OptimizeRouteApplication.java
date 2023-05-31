@@ -1,6 +1,8 @@
 package com.lazypostman.optimizeroute;
 
+import com.lazypostman.optimizeroute.model.formcreator.Town;
 import com.lazypostman.optimizeroute.model.geocoding.GeocodingResponse;
+import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
 import com.lazypostman.optimizeroute.model.requestroute.Waypoint;
 import com.lazypostman.optimizeroute.service.GeocodingService;
 import com.lazypostman.optimizeroute.service.RouteService;
@@ -27,10 +29,16 @@ private RouteService routeService;
 //		System.out.println(response.getResults()[0].getGeometry().getLocation());
 
 //		Prueba Route
-		List<Waypoint> waypoints = new ArrayList<>();
-		waypoints.add(new Waypoint(40.47842051514145,-3.8598305104235164));
-		waypoints.add(new Waypoint(40.479562909083214,-3.859178960798713));
-		System.out.println(routeService.calculateRoute("40.47894971475314,-3.857599781165978",waypoints));
-		;
+//		List<Waypoint> waypoints = new ArrayList<>();
+//		waypoints.add(new Waypoint(40.47842051514145,-3.8598305104235164));
+//		waypoints.add(new Waypoint(40.479562909083214,-3.859178960798713));
+//		routeService.optimizeRoute("40.47894971475314,-3.857599781165978",waypoints).getRoutes().forEach(r -> System.out.println(r.getWaypoint_order().toString()));
+//		;
+
+//		Prueba Optimize Route
+//		List<RequestRoad> roads = new ArrayList<>();
+//		roads.add(new RequestRoad("Madrid", new Town(68,"Guadarrama"),28440, "Calle", "ARCE",1,19,2,10));
+//		roads.add(new RequestRoad("Madrid", new Town(68,"Guadarrama"),28440, "Calle", "SAUCE",1,1,2,12));
+//		routeService.calculateRoute(roads,1);
 	}
 }
