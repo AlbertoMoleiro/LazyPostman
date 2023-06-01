@@ -16,7 +16,9 @@ public class ItineraryItem {
     private String roadType;
     private String roadName;
     private Integer roadNumber;
+    @JsonIgnore
     private Double coordX;
+    @JsonIgnore
     private Double coordY;
 
     @JsonIgnore
