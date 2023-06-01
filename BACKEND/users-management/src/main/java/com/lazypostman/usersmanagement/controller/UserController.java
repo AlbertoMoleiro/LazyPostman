@@ -4,8 +4,6 @@ import com.lazypostman.usersmanagement.exceptions.ModelNotFoundException;
 import com.lazypostman.usersmanagement.model.User;
 import com.lazypostman.usersmanagement.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -38,14 +33,10 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/hateos/{id}")
-    public EntityModel<User> getUserByIdH(@PathVariable("id") int id) throws Exception {
-        User userAux = userService.getUserById(id);
-        if (userAux == null) {
-            throw new ModelNotFoundException("User " + id + " not found");
-        }
-        WebMvcLinkBuilder LinkOne = linkTo(methodOn(this.getClass()).getUserById(id));
-        return EntityModel.of(userAux).add(LinkOne.withRel("user-link"));
+    @GetMapping("/responsibles/{id}/users")
+    public ResponseEntity<List<User>> getUsersByResponsibility(@PathVariable("id") Integer id) {
+        List<User> users = userService.getUsersUnderResponsibility(id);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping
@@ -59,9 +50,19 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User userAux = userService.getUserById(user.getId());
         if (userAux == null) {
-            throw  new ModelNotFoundException("User " + user.getId() + " not found");
+            throw new ModelNotFoundException("User " + user.getId() + " not found");
         }
         return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/change-password")
+    public ResponseEntity<User> changePassword(@PathVariable("id") Integer id, @RequestBody String newPassword) {
+        User userAux = userService.getUserById(id);
+        if (userAux == null) {
+            throw new ModelNotFoundException("User " + id + " not found");
+        }
+        User updatedUser = userService.changePassword(id, newPassword);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

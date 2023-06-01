@@ -12,8 +12,11 @@ public class UsersManagementApplication implements CommandLineRunner {
         SpringApplication.run(UsersManagementApplication.class, args);
     }
 
+
     @Override
     public void run(String... args) throws Exception {
-        
+        System.out.println("\n***************************");
+        System.out.println("USERS-MANAGEMENT STARTED");
+        System.out.println("***************************\n");
     }
 }

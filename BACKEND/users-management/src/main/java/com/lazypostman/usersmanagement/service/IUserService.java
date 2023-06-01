@@ -10,4 +10,6 @@ public interface IUserService {
     User createUser(User user);
     User updateUser(User user);
     void deleteUser(Integer id);
+    User changePassword(Integer id, String newPassword);
+    List<User> getUsersUnderResponsibility(Integer id);
 }
