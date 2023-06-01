@@ -1,6 +1,8 @@
+import { Town } from "./town.interface";
+
 export interface Road {
     province: string;
-    town: string;
+    town: Town;
     postCode: number;
     roadType: string;
     roadName: string;

@@ -8,6 +8,7 @@ import { roadNumberValidator } from '../roadNumber.validator';
 import { oddEvenChecked } from '../odd-even-checked.validator';
 import { RouteCreatorService } from 'src/app/core/services/route-creator.service';
 import { Road } from 'src/app/core/models/interfaces/road.interface';
+import { Town } from 'src/app/core/models/interfaces/town.interface';
 @Component({
     selector: 'app-route-creator-form',
     templateUrl: './route-creator-form.component.html',
@@ -17,7 +18,8 @@ export class RouteCreatorFormComponent {
     routeCreateForm: FormGroup = new FormGroup({});
 
     //TODO: Get this from the backend
-    towns: any[] = [{ name: "Las Rozas", postCode: [28001, 28067, 12345, 28282, 29292, 27272, 26262, 25252, 24242, 23232, 21212, 21322, 21422, 21522] }, { name: "Guadarrama", postCode: [28440] }, { name: "Gargantilla del Lozoya y Pinilla de Buitrago", postCode: [28200] }];
+    // towns: any[] = [{ name: "Las Rozas", postCode: [28001, 28067, 12345, 28282, 29292, 27272, 26262, 25252, 24242, 23232, 21212, 21322, 21422, 21522] }, { name: "Guadarrama", postCode: [28440] }, { name: "Gargantilla del Lozoya y Pinilla de Buitrago", postCode: [28200] }];
+    towns: Town[] = [];
     filteredTowns: Observable<any[]> = new Observable<any[]>();
 
     roads: any[] = [{ name: "falsa", minOdd: 5, maxOdd: 123, minEven: 4, maxEven: 124 }, { name: "Real", minOdd: 1, maxOdd: 7, minEven: 2, maxEven: 22 }];
@@ -41,8 +43,15 @@ export class RouteCreatorFormComponent {
     }
 
     ngOnInit() {
-        this.initAutocompleteFilters();
+
         this.subscribeToFormChanges();
+
+        //TODO: Get this from the backend
+        this.routeCreatorService.getTowns().subscribe((towns: Town[]) => {
+            this.towns = towns;
+            this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
+            this.initAutocompleteFilters();
+        });
     }
     ngOnDestroy() {
         this.onDestroy.next();
@@ -83,7 +92,7 @@ export class RouteCreatorFormComponent {
         );
     }
 
-    private townFilter = (value: string | any): string[] => {
+    private townFilter = (value: string | any): Town[] => {
         let filterValue = '';
         if (typeof value !== 'string') {
             filterValue = value.name.toLowerCase();
