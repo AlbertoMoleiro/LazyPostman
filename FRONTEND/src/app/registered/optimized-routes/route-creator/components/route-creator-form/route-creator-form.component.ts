@@ -28,7 +28,9 @@ export class RouteCreatorFormComponent {
     postCodes: number[] = [];
     filteredPostCodes: Observable<number[]> = new Observable<number[]>();
 
-    roadTypes: string[] = ["Calle", "Avenida", "Plaza", "Camino", "Paseo", "Carretera", "Travesía", "Callejón", "Calleja", "Callejuela"];
+    roadTypes: string[] = [
+        "Acces","Arry", "Avda", "Avia", "Barro", "Branc", "Bulev", "Calle", "Campa", "Caser", "Cjto", "Cllja", "Cllon", "Cmno", "Col", "Compj", "Cra", "Crril", "Cstan", "Ctra", "Custa","Cсada", "Disem","Escal", "Estac","Extrr", "Finca","Gale", "Grup", "Gta", "Jdin", "Lugar", "Parti", "Paseo", "Pbdo", "Pista", "Plaza", "Plzla", "Pnte", "Polig", "Pque",  "Praje", "Prol", "Psaje", "Puert", "Pzo", "Rcda", "Rcon", "Ronda", "Rtda", "Sbida", "Sect", "Senda", "Sitio", "Trva", "Urb", "Via", "Vreda","Zona"
+    ];
 
     //Regex for odd numbers
     oddRegex: RegExp = /^[0-9]*[13579]$/;
@@ -47,7 +49,9 @@ export class RouteCreatorFormComponent {
         this.subscribeToFormChanges();
 
         //TODO: Get this from the backend
-        this.routeCreatorService.getTowns().subscribe((towns: Town[]) => {
+        this.routeCreatorService.getTowns()
+        .pipe(takeUntil(this.onDestroy))
+        .subscribe((towns: Town[]) => {
             this.towns = towns;
             this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
             this.initAutocompleteFilters();
@@ -172,7 +176,13 @@ export class RouteCreatorFormComponent {
             .pipe(takeUntil(this.onDestroy))
             .subscribe((value) => {
                 if (value) {
-                    this.routeCreateForm.get('roadName')!.enable();
+                    this.routeCreatorService.getRoadNames(this.routeCreateForm.get('town')?.value.cdmuni)
+                    .pipe(takeUntil(this.onDestroy))
+                    .subscribe((roads: Road[]) => {
+                        this.roads = roads;
+                        this.filteredRoads = this.initAutocompleteFilter('roadName', this.roadFilter);
+                        this.routeCreateForm.get('roadName')!.enable();
+                    });
                 } else {
                     this.routeCreateForm.get('roadName')!.disable();
                 }
@@ -306,7 +316,7 @@ export class RouteCreatorFormComponent {
             odd: true,
             even: true
 
-        });
+        }, { emitEvent: false });
 
     }
 

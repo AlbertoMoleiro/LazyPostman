@@ -41,6 +41,9 @@ export class RouteCreatorService {
     getTowns(): Observable<any> {
         return this.http.get(this.BASE_URL+'/towns');
     }
+    getRoadNames(cdmuni:number): Observable<any> {
+        return this.http.get(this.BASE_URL+'/roads/'+cdmuni);
+    }
 
     createRoute() {
         const requestRoads:RequestRoads = {

@@ -3,8 +3,6 @@ package com.lazypostman.optimizeroute.controller;
 import com.lazypostman.optimizeroute.dto.RequestRoadDTO;
 import com.lazypostman.optimizeroute.dto.TownDTO;
 import com.lazypostman.optimizeroute.model.formcreator.Road;
-import com.lazypostman.optimizeroute.model.formcreator.Town;
-import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
 import com.lazypostman.optimizeroute.model.requestroute.Waypoint;
 import com.lazypostman.optimizeroute.service.IPostalCodesService;
 import com.lazypostman.optimizeroute.service.MadridStreetsService;
