@@ -39,9 +39,9 @@ public class UserServiceImpl implements IUserService{
         existingUser.setLogin(user.getLogin());
         existingUser.setPassword(user.getPassword());
         existingUser.setRegister(user.getRegister());
-        existingUser.setIdManager(user.getIdManager());
-        existingUser.setIdCompany(user.getIdCompany());
-        existingUser.setIdRole(user.getIdRole());
+        existingUser.setManager(user.getManager());
+        existingUser.setCompany(user.getCompany());
+        existingUser.setRol(user.getRol());
 
 
         return repo.save(existingUser);
@@ -59,11 +59,5 @@ public class UserServiceImpl implements IUserService{
         existingUser.setPassword(newPassword);
         return repo.save(existingUser);
     }
-
-    @Override
-    public List<User> getUsersUnderResponsibility(Integer id) {
-        return repo.findByManagerId(id);
-    }
-
 
 }

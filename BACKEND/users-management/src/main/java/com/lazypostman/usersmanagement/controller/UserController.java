@@ -1,7 +1,11 @@
 package com.lazypostman.usersmanagement.controller;
 
+import com.lazypostman.usersmanagement.dto.PasswordDTO;
+import com.lazypostman.usersmanagement.dto.UserDTO;
 import com.lazypostman.usersmanagement.exceptions.ModelNotFoundException;
+import com.lazypostman.usersmanagement.model.Rol;
 import com.lazypostman.usersmanagement.model.User;
+import com.lazypostman.usersmanagement.service.IRolService;
 import com.lazypostman.usersmanagement.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,6 +24,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IRolService rolService;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -33,35 +42,63 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/responsibles/{id}/users")
-    public ResponseEntity<List<User>> getUsersByResponsibility(@PathVariable("id") Integer id) {
-        List<User> users = userService.getUsersUnderResponsibility(id);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<Rol>> getAllRoles() {
+        return new ResponseEntity<>(rolService.getAllRoles(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody User user) throws Exception {
-        User userAux = userService.createUser(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userAux.getId()).toUri();
-        return ResponseEntity.created(location).build();
+
+@PostMapping("/update")
+public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
+    User newUser = new User();
+    newUser.setName(userDTO.getName());
+    newUser.setLastname1(userDTO.getLastname1());
+    newUser.setLastname2(userDTO.getLastname2());
+    newUser.setPhoneNumber(userDTO.getPhoneNumber());
+    newUser.setLogin(userDTO.getLogin());
+    newUser.setPassword("qwerty"+userDTO.getName());
+    newUser.setRegister(Date.valueOf(LocalDate.now()));
+    newUser.setManager(userDTO.getManagerId());
+    newUser.setCompany(userService.getUserById(userDTO.getManagerId()).getCompany());
+    newUser.setRol(userDTO.getIdRole());
+
+    userService.createUser(newUser);
+    // Devolver una respuesta con el código 201 (Created) y la URI del nuevo usuario
+    return ResponseEntity.created(URI.create("/users/" + newUser.getId())).build();
+}
+
+@PutMapping("/update")
+public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
+    User userAux = userService.getUserById(userDTO.getId());
+    if (userAux == null) {
+        throw new ModelNotFoundException("User " + userService.getUserById(userDTO.getId()) + " not found");
     }
 
-    @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User userAux = userService.getUserById(user.getId());
-        if (userAux == null) {
-            throw new ModelNotFoundException("User " + user.getId() + " not found");
-        }
-        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
-    }
+    userAux.setName(userDTO.getName());
+    userAux.setLastname1(userDTO.getLastname1());
+    userAux.setLastname2(userDTO.getLastname2());
+    userAux.setPhoneNumber(userDTO.getPhoneNumber());
+    userAux.setManager(userDTO.getManagerId());
+    userAux.setLogin(userDTO.getLogin());
+    userAux.setRol(userDTO.getIdRole());
 
-    @PutMapping("/{id}/change-password")
-    public ResponseEntity<User> changePassword(@PathVariable("id") Integer id, @RequestBody String newPassword) {
+    User updatedUser = userService.updateUser(userAux);
+    return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+}
+
+
+    @PutMapping("update/password")
+    public ResponseEntity<User> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
         User userAux = userService.getUserById(id);
         if (userAux == null) {
             throw new ModelNotFoundException("User " + id + " not found");
         }
-        User updatedUser = userService.changePassword(id, newPassword);
+        if (!passwordDTO.getPassword().equals(userAux.getPassword())) {
+            throw new RuntimeException("Invalid current password");
+        }
+        userAux.setPassword(passwordDTO.getNewPassword());
+        User updatedUser = userService.updateUser(userAux);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
