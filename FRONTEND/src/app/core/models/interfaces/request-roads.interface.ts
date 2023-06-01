@@ -1,6 +1,6 @@
 import { Road } from "./road.interface";
 
 export interface RequestRoads {
-    name: string;
+    routeName: string;
     roads: Road[];
 }

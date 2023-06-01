@@ -47,10 +47,10 @@ export class RouteCreatorService {
 
     createRoute() {
         const requestRoads:RequestRoads = {
-            name: 'Ruta 1',
+            routeName: 'Ruta 1',
             roads: this.roads
         };
-        this.http.post(this.BASE_URL+'/route/optimize',requestRoads).subscribe(
+        this.http.post(this.BASE_URL+'/optimize',requestRoads,{ headers: { 'userId': '4' } }).subscribe(
             {
                 next: data => {
                     console.log(data);

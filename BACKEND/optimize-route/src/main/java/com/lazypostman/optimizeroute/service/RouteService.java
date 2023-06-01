@@ -32,7 +32,7 @@ public class RouteService {
         //Obtener origen
         UriComponents uri = UriComponentsBuilder.newInstance()
                 .scheme("http")
-                .host("localhost:8081")
+                .host("localhost:8080")
                 .path("/route_management/company/" + idUser)
                 .build();
 

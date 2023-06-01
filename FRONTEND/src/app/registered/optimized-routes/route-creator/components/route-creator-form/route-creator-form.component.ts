@@ -289,7 +289,7 @@ export class RouteCreatorFormComponent {
         const formResult = this.routeCreateForm.getRawValue();
         const road: Road = {
             province: formResult.province,
-            town: formResult.town.name,
+            town: formResult.town,
             postCode: formResult.postCode,
             roadType: formResult.roadType,
             roadName: formResult.roadName.name,
@@ -302,7 +302,7 @@ export class RouteCreatorFormComponent {
         this.routeCreatorService.addRoad(road);
 
         //reset form to initial state
-        this.routeCreateForm.reset({
+/*         this.routeCreateForm.reset({
             province: 'Madrid',
             town: '',
             postCode: '',
@@ -316,7 +316,7 @@ export class RouteCreatorFormComponent {
             odd: true,
             even: true
 
-        }, { emitEvent: false });
+        }); */
 
     }
 
