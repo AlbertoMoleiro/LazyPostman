@@ -18,17 +18,22 @@ export class UsersManagementFormComponent {
           employeeName: ['', Validators.required],
           apellido1: ['', Validators.required],
           apellido2: ['', Validators.required],
-          employeeCode: ['', Validators.required]
+          phoneNumber: ['', Validators.required],
+          managerId: ['', Validators.required],
+          login: ['', Validators.required],
+        idRole: ['', Validators.required]
         });
     }
     onSubmit() {
         const user :User={
-            idUser: null,
+            id: null,
             name: this.addEmployeeForm.value.employeeName,
-            lastName1: this.addEmployeeForm.value.apellido1,
-            lastName2: this.addEmployeeForm.value.apellido2,
-            username: this.addEmployeeForm.value.employeeCode,
-            rol: this.addEmployeeForm.value.rol
+            lastname1: this.addEmployeeForm.value.apellido1,
+            lastname2: this.addEmployeeForm.value.apellido2,
+            phoneNumber: this.addEmployeeForm.value.phoneNumber,
+            managerId: this.addEmployeeForm.value.managerId,
+            login: this.addEmployeeForm.value.login,
+            idRole: this.addEmployeeForm.value.idRole
         };
         this.usersService.addUser(user);
         this.dialogRef.close();

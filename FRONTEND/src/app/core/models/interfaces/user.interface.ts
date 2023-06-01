@@ -1,8 +1,10 @@
 export interface User {
-    idUser: number | null;
+    id: number | null;
     name: string;
-    lastName1: string;
-    lastName2: string;
-    username: string;
-    rol: string;
+    lastname1: string;
+    lastname2: string;
+    phoneNumber:number;
+    managerId:number;
+    login: string;
+    idRole: string;
 }

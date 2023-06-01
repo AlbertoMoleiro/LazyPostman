@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsersService } from 'src/app/core/services/users.service';
 
 export interface User {
   id:number;
@@ -24,13 +25,20 @@ const ELEMENT_DATA: User[] = [
 })
 export class UsersTableComponent {
   displayedColumns: string[] = ['nombre', 'apellido1', 'apellido2','codigo_empleado','rol','asignar','promociona'];
-  dataSource = ELEMENT_DATA;
+  dataSource:User[] = [];
 
+  constructor(private userService:UsersService){
+
+  }
+
+  ngOnInit():void{
+
+  }
   assign(id: number) {
 
   }
 
   promote(id: number) {
-    
+
   }
 }

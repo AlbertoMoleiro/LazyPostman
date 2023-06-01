@@ -1,30 +1,48 @@
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/interfaces/user.interface';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+    private BASE_URL = 'http://localhost:8080/users';
 
     users: User[] = [
         {
-            idUser: 1,
+            id: 1,
             name: 'Juan',
-            lastName1: 'Perez',
-            lastName2: 'Gomez',
-            username: 'juanpg',
-            rol: '1'
+            lastname1: 'Perez',
+            lastname2: 'Gomez',
+            phoneNumber: 123456789,
+            managerId: 1,
+            login: 'juanpg',
+            idRole: '1'
         }];
 
     usersSubject: Subject<User[]> = new Subject<User[]>();
 
-  constructor() {
+  constructor(private http:HttpClient) {
     this.usersSubject.next(this.users);
   }
 
     addUser(user: User) {
-        this.users.push(user);
-        this.usersSubject.next([...this.users]);
+        /* this.users.push(user);
+        this.usersSubject.next([...this.users]); */
+        this.http.post(this.BASE_URL+'/update',user).subscribe(
+            {
+                next: data => {
+                    console.log(data);
+                },
+                error: error => {
+                    console.error('There was an error!', error);
+                },
+                complete: () => {
+                    console.log('Complete!');
+                }
+
+            });
+
     }
 
     getUsers():Observable<User[]> {
@@ -42,7 +60,7 @@ export class UsersService {
     setUserRol(user: User, rol: string) {
         const index = this.users.indexOf(user);
         if (index > -1) {
-            this.users[index].rol = rol;
+            this.users[index].idRole = rol;
         }
         this.usersSubject.next([...this.users]);
     }

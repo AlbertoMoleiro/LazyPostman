@@ -11,7 +11,7 @@ import { ItineraryComponent } from './itinerary/containers/itinerary.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedModule } from 'src/app/core/shared/shared.module';
 import { RouteCreatorTableComponent } from './route-creator/components/route-creator-table/route-creator-table.component';
-import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
     declarations: [
@@ -26,7 +26,6 @@ import {MatTableModule} from '@angular/material/table';
         GoogleMapsModule,
         SharedModule,
         OptimizedRoutesRoutingModule,
-        MatTableModule
     ]
 })
 export class OptimizedRoutesModule { }

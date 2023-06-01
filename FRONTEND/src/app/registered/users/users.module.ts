@@ -7,7 +7,7 @@ import { UserSettingsComponent } from './user-settings/containers/user-settings.
 import { UsersManagementComponent } from './users-management/containers/users-management.component';
 import { SharedModule } from 'src/app/core/shared/shared.module';
 import { UsersTableComponent } from './users-management/components/users-table/users-table.component';
-import {MatTableModule} from '@angular/material/table';
+
 
 import { UsersManagementFormComponent } from './users-management/components/users-management-form/users-management-form.component';
 
@@ -23,7 +23,6 @@ import { UsersManagementFormComponent } from './users-management/components/user
     CommonModule,
     UsersRoutingModule,
     SharedModule,
-    MatTableModule
   ]
 })
 export class UsersModule { }

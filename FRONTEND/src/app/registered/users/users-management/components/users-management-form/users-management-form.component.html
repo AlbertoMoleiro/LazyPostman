@@ -24,17 +24,29 @@
                 <mat-error *ngIf="!addEmployeeForm.controls['apellido2'].valid && addEmployeeForm.controls['apellido2'].touched">Debes
                     rellenar este campo.</mat-error>
             </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Teléfono</mat-label>
+                <input matInput type="tel" placeholder="Teléfono" formControlName="phoneNumber">
+                <mat-error *ngIf="!addEmployeeForm.controls['phoneNumber'].valid && addEmployeeForm.controls['phoneNumber'].touched">Debes
+                    rellenar este campo.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Identificación del Responsable</mat-label>
+                <input matInput type="number" placeholder="Identificacor" formControlName="managerId">
+                <mat-error *ngIf="!addEmployeeForm.controls['managerId'].valid && addEmployeeForm.controls['managerId'].touched">Debes
+                    rellenar este campo.</mat-error>
+            </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Codigo de Empleado</mat-label>
-                <input matInput type="text" placeholder="Codigo de Empleado" formControlName="employeeCode">
-                <mat-error *ngIf="!addEmployeeForm.controls['employeeCode'].valid && addEmployeeForm.controls['employeeCode'].touched">Debes
+                <mat-label>Nombre Usuario Aplicación</mat-label>
+                <input matInput type="text" placeholder="Username" formControlName="login">
+                <mat-error *ngIf="!addEmployeeForm.controls['login'].valid && addEmployeeForm.controls['login'].touched">Debes
                     rellenar este campo.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Rol del empleado</mat-label>
-                <mat-select placeholder="Rol del empleado" formControlName="employeeCode">
+                <mat-select placeholder="Rol del empleado" formControlName="idRole">
                   <mat-option value="3">Empleado</mat-option>
                   <mat-option value="2">Encargado</mat-option>
                   <mat-option value="1">Administrador</mat-option>
