@@ -1,6 +1,7 @@
 package com.lazypostman.optimizeroute.service;
 
 
+import com.lazypostman.optimizeroute.dto.RouteCreatorDTO;
 import com.lazypostman.optimizeroute.model.ItineraryItem;
 import com.lazypostman.optimizeroute.model.geocoding.GeocodingLocation;
 import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
@@ -24,7 +25,60 @@ public class RouteService {
     @Autowired
     private IMadridStreetsRepo madridStreetsRepo;
     private static final String API_KEY = "AIzaSyAx9PZiui8q41GiFN9Y_daSCyCpVYywQpw";
+    public List<Waypoint> calculateRoute(List<RequestRoad> roads, Integer idUser,String routeName) throws Exception{
+        //Obtener coordenadas de las calles
+        List<Waypoint> waypoints = geocodingWaypoints(roads);
 
+        //Obtener origen
+        UriComponents uri = UriComponentsBuilder.newInstance()
+                .scheme("http")
+                .host("localhost:8081")
+                .path("/route_management/company/" + idUser)
+                .build();
+
+        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
+
+        //Obtener coordenadas del origen
+        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
+
+        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
+
+        //Optimizar ruta
+        List<Integer> order = optimizeRoute(waypoints,originWaypoint);
+
+        //Ordernar Roads
+        List<ItineraryItem> orderedRoads = new ArrayList<>();
+        for (RequestRoad road : roads) {
+
+            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(),road.getMinOdd()<road.getMinEven()?road.getMinOdd():road.getMinEven(),0.0,0.0));
+            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), road.getMaxEven()>road.getMaxOdd()?road.getMaxEven():road.getMaxOdd(),0.0,0.0));
+        }
+        List<ItineraryItem> orderedItinerary = new ArrayList<>();
+        for (Integer i : order) {
+            orderedItinerary.add(orderedRoads.get(i));
+        }
+        //Crear Itinerario
+        List<ItineraryItem> itinerary = createItinerary(orderedItinerary);
+
+        //Ordenar waypoints
+        List<Waypoint> orderedWaypoints = new ArrayList<>();
+
+        for (Integer i : order) {
+            orderedWaypoints.add(waypoints.get(i));
+        }
+
+        //Enviar itinerary al servicio de rutas de 8081
+        UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("localhost:8080")
+                .path("/route-management/itinerary")
+                .build();
+
+
+        RouteCreatorDTO routeCreate =  new RestTemplate().postForObject(uriSaveRoute.toUriString(), new RouteCreatorDTO(routeName,orderedWaypoints,itinerary), RouteCreatorDTO.class);
+        return orderedWaypoints;
+
+    };
     private List<Waypoint> geocodingWaypoints(List<RequestRoad> requestRoads) throws Exception {
         List<Waypoint> waypoints = new ArrayList<>();
         for (RequestRoad requestRoad : requestRoads) {
@@ -59,55 +113,11 @@ public class RouteService {
         return route.getRoutes().get(0).getWaypoint_order();
     }
 
-    public List<Waypoint> calculateRoute(List<RequestRoad> roads, Integer idUser) throws Exception{
-        List<Waypoint> waypoints = geocodingWaypoints(roads);
-
-        //Obtener origen
-        UriComponents uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("localhost:8080")
-                .path("/route-management/company")
-                .queryParam("id", idUser)
-                .build();
-
-        String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
-
-        GeocodingLocation geocodedOrigin = geocodingService.getCoordinates(origin);
-
-        Waypoint originWaypoint = new Waypoint(geocodedOrigin.getLat(), geocodedOrigin.getLng());
-        //Optimizar ruta
-        List<Integer> order = optimizeRoute(waypoints,originWaypoint);
-
-        //Ordernar Roads
-        List<ItineraryItem> orderedRoads = new ArrayList<>();
-        for (RequestRoad road : roads) {
-
-            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(),road.getMinOdd()<road.getMinEven()?road.getMinOdd():road.getMinEven(),0.0,0.0));
-            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), road.getMaxEven()>road.getMaxOdd()?road.getMaxEven():road.getMaxOdd(),0.0,0.0));
-        }
-        List<ItineraryItem> orderedItinerary = new ArrayList<>();
-        for (Integer i : order) {
-            orderedItinerary.add(orderedRoads.get(i));
-        }
-        //Crear Itinerario
-        createItinerary(orderedItinerary);
-
-        //Ordenar waypoints
-        List<Waypoint> orderedWaypoints = new ArrayList<>();
-
-        for (Integer i : order) {
-            orderedWaypoints.add(waypoints.get(i));
-        }
-
-        return orderedWaypoints;
-
-    };
-
-    private void createItinerary(List<ItineraryItem> roads) throws Exception{
+    private List<ItineraryItem> createItinerary(List<ItineraryItem> roads) throws Exception{
 
         List<ItineraryItem> stops;
         List<ItineraryItem> itinerary = new ArrayList<>();
-
+        System.out.println(roads);
         while(roads.size()>0){
             ItineraryItem origin = roads.get(0);
             Integer startNumber = origin.getRoadNumber()<roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
@@ -118,6 +128,7 @@ public class RouteService {
             roads.remove(0);
             roads.remove(0);
         }
+        return itinerary;
 
 
     }

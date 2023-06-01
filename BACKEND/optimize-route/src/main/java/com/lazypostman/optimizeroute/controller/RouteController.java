@@ -1,5 +1,6 @@
 package com.lazypostman.optimizeroute.controller;
 
+import com.lazypostman.optimizeroute.dto.RequestRoadDTO;
 import com.lazypostman.optimizeroute.model.formcreator.Road;
 import com.lazypostman.optimizeroute.model.formcreator.Town;
 import com.lazypostman.optimizeroute.model.requestroute.RequestRoad;
@@ -33,8 +34,7 @@ public class RouteController {
     }
 
     @PostMapping("/optimize")
-    public ResponseEntity<List<Waypoint>> calculateRoute(@RequestBody List<RequestRoad> roads,@RequestHeader("idUser") Integer idUser) throws Exception {
-
-       return new ResponseEntity<>(routeService.calculateRoute(roads, idUser), HttpStatus.OK);
+    public ResponseEntity<List<Waypoint>> calculateRoute(@RequestBody RequestRoadDTO roads, @RequestHeader("userId") Integer userId) throws Exception {
+        return new ResponseEntity<>(routeService.calculateRoute(roads.getRoads(), userId,roads.getRouteName()), HttpStatus.OK);
     }
 }
