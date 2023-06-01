@@ -51,4 +51,19 @@ public class UserServiceImpl implements IUserService{
     public void deleteUser(Integer id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public User changePassword(Integer id, String newPassword) {
+        User existingUser = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        existingUser.setPassword(newPassword);
+        return repo.save(existingUser);
+    }
+
+    @Override
+    public List<User> getUsersUnderResponsibility(Integer id) {
+        return repo.findByManagerId(id);
+    }
+
+
 }
