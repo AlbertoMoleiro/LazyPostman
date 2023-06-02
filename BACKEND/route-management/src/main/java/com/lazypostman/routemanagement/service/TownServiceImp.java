@@ -14,4 +14,14 @@ public class TownServiceImp implements ITownService {
     public String getTownName(int id) {
         return repoTown.findById(id).get().getName();
     }
+
+    @Override
+    public String getPostalCode(int id) {
+        return repoTown.findById(id).get().getPostalCode();
+    }
+
+    @Override
+    public int getProvinceId(int id) {
+        return repoTown.findById(id).get().getIdProvince();
+    }
 }

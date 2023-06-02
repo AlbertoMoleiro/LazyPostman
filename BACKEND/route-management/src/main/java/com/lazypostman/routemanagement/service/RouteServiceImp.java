@@ -1,6 +1,8 @@
 package com.lazypostman.routemanagement.service;
 
+import com.lazypostman.routemanagement.model.Itinerary;
 import com.lazypostman.routemanagement.model.Route;
+import com.lazypostman.routemanagement.model.WayPoint;
 import com.lazypostman.routemanagement.repository.IRouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,24 +25,12 @@ public class RouteServiceImp implements IRouteService {
     }
 
     @Override
-    public Route createRoute(Route route) {
+    public Route createRoute(String nombre, List<WayPoint> waypoints, List<Itinerary> itinerary) {
+        Route route = new Route ();
+        route.setName(nombre);
+        route.setRoute(waypoints);
+        route.setItinerary(itinerary);
         return repoRoute.save(route);
     }
 
-    @Override
-    public Route updateRoute(Route route) {
-        Route existingRoute = repoRoute.findById(route.getId()).orElse(null);
-        if (existingRoute != null) {
-            existingRoute.setName(route.getName());
-            existingRoute.setRoute(route.getRoute());
-
-            return repoRoute.save(existingRoute);
-        }
-        return null;
-    }
-
-    @Override
-    public void deleteRoute(Integer id) {
-       repoRoute.deleteById(id);
-    }
 }
