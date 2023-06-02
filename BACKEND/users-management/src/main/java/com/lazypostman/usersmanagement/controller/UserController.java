@@ -109,7 +109,7 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
 }
 
 
-    @PutMapping("update/password")
+    @PutMapping("/update/password")
     public ResponseEntity<User> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
         User userAux = userService.getUserById(id);
         if (userAux == null) {
