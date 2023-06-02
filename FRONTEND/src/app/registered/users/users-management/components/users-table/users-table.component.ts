@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UsersManagementFormComponent } from '../users-management-form/users-management-form.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RequestRoute } from 'src/app/core/models/interfaces/request-route.interface';
+import { AssignRouteComponent } from '../assign-route/assign-route.component';
 
 
 @Component({
@@ -18,8 +19,7 @@ export class UsersTableComponent {
     dataSource: User[] = [];
     isAdmin: boolean = false;
     roles: string[] = ['Administrador', 'Responsable', 'Empleado'];
-    routes: RequestRoute[] = [{ idRoute: 1, name: "Ruta1" }, { idRoute: 2, name: "Ruta2" }, { idRoute: 3, name: "Ruta3" }];
-    selected: RequestRoute = { idRoute: 1, name: "Ruta1" };
+
     private onDestroy$ = new Subject<void>();
     constructor(private userService: UsersService, public dialog: MatDialog, private authService: AuthService) {
         this.userService.getUsers().pipe(
@@ -27,7 +27,6 @@ export class UsersTableComponent {
         ).subscribe(
             (users: User[]) => {
                 this.dataSource = users;
-                console.log(this.dataSource);
             });
 
 
@@ -43,7 +42,10 @@ export class UsersTableComponent {
         )
     }
     assignRoute(id: number) {
-
+        this.dialog.open(AssignRouteComponent, {
+            minWidth: '500px',
+            data: { id: id }
+        });
     }
 
     modifyUser(id: number) {

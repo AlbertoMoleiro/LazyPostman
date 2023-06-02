@@ -10,6 +10,7 @@ import { UsersTableComponent } from './users-management/components/users-table/u
 
 
 import { UsersManagementFormComponent } from './users-management/components/users-management-form/users-management-form.component';
+import { AssignRouteComponent } from './users-management/components/assign-route/assign-route.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UsersManagementFormComponent } from './users-management/components/user
     UserSettingsComponent,
     UsersManagementComponent,
     UsersTableComponent,
-    UsersManagementFormComponent
+    UsersManagementFormComponent,
+    AssignRouteComponent
   ],
   imports: [
     CommonModule,

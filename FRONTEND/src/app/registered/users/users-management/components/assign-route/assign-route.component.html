@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Asignar Ruta</h2>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Rol del empleado</mat-label>
+        <mat-select [(value)]="selected">
+            <ng-container *ngFor="let route of routes">
+                <mat-option *ngIf="!routesUser.includes(route)"  [value]="route.idRoute">{{route.name}}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="button_assign" (click)="assignRoute()">Asignar ruta</button>
+</div>
