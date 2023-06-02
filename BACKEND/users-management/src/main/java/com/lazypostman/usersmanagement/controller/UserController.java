@@ -10,6 +10,7 @@ import com.lazypostman.usersmanagement.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -109,16 +110,18 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
 }
 
 
-    @PutMapping("update/password")
+    @PutMapping("/update/password")
     public ResponseEntity<User> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
         User userAux = userService.getUserById(id);
         if (userAux == null) {
             throw new ModelNotFoundException("User " + id + " not found");
         }
-        if (!passwordDTO.getPassword().equals(userAux.getPassword())) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(passwordDTO.getPassword(), userAux.getPassword())) {
             throw new RuntimeException("Invalid current password");
         }
-        userAux.setPassword(passwordDTO.getNewPassword());
+        String encodedPassword = passwordEncoder.encode(passwordDTO.getNewPassword());
+        userAux.setPassword(encodedPassword);
         User updatedUser = userService.updateUser(userAux);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }

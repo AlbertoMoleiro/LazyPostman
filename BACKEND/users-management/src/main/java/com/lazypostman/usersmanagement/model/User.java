@@ -38,7 +38,7 @@ public class User {
     @Column(name = "register", nullable = false)
     private Date register;
 
-    @Column(name = "id_manager", nullable = false)
+    @Column(name = "id_manager")
     private Integer managerId;
 
     @ManyToOne
