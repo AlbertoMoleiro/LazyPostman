@@ -36,3 +36,8 @@ img{
     max-height: 300px;
     object-fit: cover;
 }
+
+.title{
+    width: 90%;
+    text-align: center;
+}

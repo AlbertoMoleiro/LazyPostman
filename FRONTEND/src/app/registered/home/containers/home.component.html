@@ -1,15 +1,18 @@
+<ng-container *ngIf="cards.length==0">
+    <h1 class="title">¡Aún no has Creado Ninguna Ruta!</h1>
+</ng-container>
 <div class="contenedor">
     <mat-card class="tarjeta" *ngFor="let card of cards">
-        <img mat-card-image [src]="card.imageUrl" />
+        <img mat-card-image [src]="card.image" />
         <mat-card-header>
             <mat-card-title>{{ card.title }}</mat-card-title>
         </mat-card-header>
-
         <mat-card-content>
             <p>{{ card.description }}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" routerLink="/registered/route/view">Ver Ruta</button>
+            <button mat-raised-button color="primary" (click)="goToRouteView(card.idRoute)">Ver Ruta</button>
         </mat-card-actions>
     </mat-card>
 </div>
+

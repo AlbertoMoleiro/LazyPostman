@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { Card } from 'src/app/core/models/interfaces/card.interface';
+import { RequestRoute } from 'src/app/core/models/interfaces/request-route.interface';
+import { RouteManagementService } from 'src/app/core/services/route-management.service';
 
 @Component({
     selector: 'app-home',
@@ -6,27 +11,26 @@ import { Component } from '@angular/core';
     styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-    cards = [
-        {
-          title: 'Ruta 1',
-          imageUrl: 'https://rentandrollmadrid.com/wp-content/uploads/2020/04/ruta-zona-sureste-600x600.jpg',
-          description: 'Es la descripción de la Ruta 1.'
-        },
-        {
-          title: 'Ruta 2',
-          imageUrl: 'https://rentandrollmadrid.com/wp-content/uploads/2020/04/ruta-zona-noreste-600x600.jpg',
-          description: 'Es la descripción de la Ruta 2.'
-        },
-        {
-          title: 'Ruta 3',
-          imageUrl: 'https://rentandrollmadrid.com/wp-content/uploads/2020/04/ruta-zona-centro-600x600.jpg',
-          description: 'Es la descripción de la Ruta 3.'
-        },
-        {
-            title: 'Ruta 4',
-            imageUrl: 'https://rentandrollmadrid.com/wp-content/uploads/2020/04/ruta-zona-centro-600x600.jpg',
-            description: 'Es la descripción de la Ruta 4.'
-          }
-      ];
+    cards: Card[] = []
+    private onDestroy$ = new Subject<void>();
+    userId: number = 0;
+    constructor(private router:Router,private routeManagementService: RouteManagementService) {
+        this.userId = Number(localStorage.getItem('userId'));
+        this.routeManagementService.getRoutesUser(this.userId).pipe(
+            takeUntil(this.onDestroy$),
+        ).subscribe(
+            (routes: RequestRoute[]) => {
+                this.cards = routes.map((route: RequestRoute) => { return {idRoute:route.idRoute, title: route.name, description: "Descripción", image: '../../../assets/images/' + Math.floor(Math.random() * 3) + 1 + '.jpg' } });
+            });
+
+    }
+    goToRouteView(idRoute:number){
+        this.router.navigate(['/registered/route-view',idRoute]);
+    }
+
+    ngOnDestroy(): void {
+        this.onDestroy$.next();
+        this.onDestroy$.complete();
+    }
 }
 
