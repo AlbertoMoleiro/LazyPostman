@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "companies")
 public class Company {
     @Id
-    private Long id;
+    private Integer id;
 
     @Column(name = "cif", nullable = false, unique = true)
     private String cif;

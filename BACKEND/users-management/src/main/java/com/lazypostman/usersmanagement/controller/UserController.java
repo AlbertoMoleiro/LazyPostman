@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,29 @@ public class UserController {
     private IRolService rolService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getAllUsers(@RequestHeader("userId") Integer userId) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            throw new ModelNotFoundException("User " + userId + " not found");
+        }
+
+        List<UserDTO> userDTOs;
+        if (user.getIdRole() == 1) {
+            // Usuario con rol "Admin"
+            List<User> users = userService.getAllUsersByCompanyId(user.getCompany().getId());
+            userDTOs = convertToDTOs(users);
+        } else if (user.getIdRole() == 2) {
+            // Usuario con rol "Manager"
+            List<User> users = userService.getAllUsersByManagerId(userId);
+            userDTOs = convertToDTOs(users);
+        } else {
+            throw new RuntimeException("Invalid user role");
+        }
+
+        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
@@ -108,5 +129,22 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
             throw new ModelNotFoundException("User " + id + " not found");
         }
         userService.deleteUser(id);
+    }
+
+    private List<UserDTO> convertToDTOs(List<User> users) {
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setId(user.getId());
+            userDTO.setName(user.getName());
+            userDTO.setLastname1(user.getLastname1());
+            userDTO.setLastname2(user.getLastname2());
+            userDTO.setPhoneNumber(user.getPhoneNumber());
+            userDTO.setManagerId(user.getManagerId());
+            userDTO.setLogin(user.getLogin());
+            userDTO.setIdRole(user.getIdRole());
+            userDTOs.add(userDTO);
+        }
+        return userDTOs;
     }
 }

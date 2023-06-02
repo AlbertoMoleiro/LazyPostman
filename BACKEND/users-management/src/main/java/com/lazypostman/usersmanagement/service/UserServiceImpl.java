@@ -60,4 +60,14 @@ public class UserServiceImpl implements IUserService{
         return repo.save(existingUser);
     }
 
+    @Override
+    public List<User> getAllUsersByCompanyId(Integer companyId) {
+        return repo.findAllByCompany_Id(companyId);
+    }
+
+    @Override
+    public List<User> getAllUsersByManagerId(Integer managerId) {
+        return repo.findAllByManagerId(managerId);
+    }
+
 }
