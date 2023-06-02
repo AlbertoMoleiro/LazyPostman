@@ -4,7 +4,7 @@ import { User } from '../models/interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { PasswordUpdate } from '../models/interfaces/passwordUpdate.interface';
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UsersService {
     private BASE_URL = 'http://localhost:8080/users';
@@ -13,14 +13,14 @@ export class UsersService {
 
     usersSubject: Subject<User[]> = new Subject<User[]>();
 
-  constructor(private http:HttpClient) {
-    this.usersSubject.next(this.users);
-  }
+    constructor(private http: HttpClient) {
+        this.usersSubject.next(this.users);
+    }
 
     addUser(user: User) {
         /* this.users.push(user);
         this.usersSubject.next([...this.users]); */
-        this.http.post(this.BASE_URL+'/update',user).subscribe(
+        this.http.post(this.BASE_URL + '/update', user).subscribe(
             {
                 next: data => {
                     console.log(data);
@@ -36,21 +36,21 @@ export class UsersService {
 
     }
 
-    getUsers():Observable<User[]> {
-        return this.http.get<User[]>(this.BASE_URL);
-
+    getUsers(): Observable<User[]> {
+        const userId = localStorage.getItem('userId');
+        return this.http.get<User[]>(this.BASE_URL + '/all/' + userId);
 
     }
-    getUser(id: number):Observable<User> {
-        return this.http.get<User>(this.BASE_URL+'/'+id);
+    getUser(id: number): Observable<User> {
+        return this.http.get<User>(this.BASE_URL + '/' + id);
     }
 
     deleteUser(user: User) {
 
     }
 
-    updatePassword(updatePassword:PasswordUpdate) {
-         this.http.put(this.BASE_URL+'/update/password',updatePassword,{headers: {'userId':updatePassword.idUser.toString()}}).subscribe(
+    updatePassword(updatePassword: PasswordUpdate) {
+        this.http.put(this.BASE_URL + '/update/password', updatePassword, { headers: { 'userId': updatePassword.idUser.toString() } }).subscribe(
             {
                 next: data => {
                     console.log(data);
