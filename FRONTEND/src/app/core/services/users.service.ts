@@ -2,6 +2,7 @@ import { Observable, Subject, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
+import { PasswordUpdate } from '../models/interfaces/passwordUpdate.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -45,18 +46,21 @@ export class UsersService {
     }
 
     deleteUser(user: User) {
-        const index = this.users.indexOf(user);
-        if (index > -1) {
-            this.users.splice(index, 1);
-        }
-        this.usersSubject.next([...this.users]);
+
     }
 
-    setUserRol(user: User, rol: string) {
-        const index = this.users.indexOf(user);
-        if (index > -1) {
-            this.users[index].idRole = rol;
-        }
-        this.usersSubject.next([...this.users]);
+    updatePassword(updatePassword:PasswordUpdate) {
+         this.http.put(this.BASE_URL+'/update/password',updatePassword,{headers: {'userId':updatePassword.idUser.toString()}}).subscribe(
+            {
+                next: data => {
+                    console.log(data);
+                },
+                error: error => {
+                    console.error('There was an error!', error);
+                },
+                complete: () => {
+                    console.log('Complete!');
+                }
+            });
     }
 }
