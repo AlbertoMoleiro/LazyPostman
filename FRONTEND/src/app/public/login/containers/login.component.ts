@@ -19,26 +19,25 @@ export class LoginComponent {
           });
     }
     login(){
-        // const user:UserLogin = {
-        //     login: this.loginForm.value.user,
-        //     password: this.loginForm.value.password
-        // }
-        // this.authService.login(user).subscribe(
-        //     {
-        //         next: (userLogged) => {
-        //             localStorage.setItem('userId', userLogged.userId.toString());
-        //             localStorage.setItem('idRole', userLogged.idRole.toString());
-        //             this.router.navigate(['/registered/home']);
-        //         },
-        //         error: (error) => {
-        //             alert("Contraseña o usuario incorrecto");
-        //         }
+        const user:UserLogin = {
+            login: this.loginForm.value.user,
+            password: this.loginForm.value.password
+        }
+        this.authService.login(user).subscribe(
+            {
+                next: (userLogged) => {
+                    localStorage.setItem('userId', userLogged.userId.toString());
+                    localStorage.setItem('idRole', userLogged.idRole.toString());
+                    this.router.navigate(['/registered/home']);
+                },
+                error: (error) => {
+                    alert("Contraseña o usuario incorrecto");
+                }
 
-        //     }
+            }
 
-    // );
-    localStorage.setItem('userId', '1');
-    localStorage.setItem('idRole', '1');
+    );
+
 
 
     }
