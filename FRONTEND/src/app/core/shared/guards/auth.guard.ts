@@ -20,4 +20,21 @@ export const canActivate: CanActivateFn = (
   );
 };
 
+//CanActivate by Role
+export const canActivateRole: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+    ) => {
+    const authService = inject(AuthService);
+    const router = inject(Router);
+
+    return authService.checkRole().pipe(
+        map((result) => {result ? true : router.navigate(['/registered/home']); return result;}),
+        catchError(() => {
+            router.navigate(['/registered/home']);
+            return of(false);
+        })
+    );
+};
+
 export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => canActivate(route, state);

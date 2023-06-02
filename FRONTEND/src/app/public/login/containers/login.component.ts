@@ -23,11 +23,21 @@ export class LoginComponent {
             login: this.loginForm.value.user,
             password: this.loginForm.value.password
         }
-        if(this.authService.login(user)){
-            this.router.navigate(['/registered']);
-        }else{
-            alert("Usuario o contraseña incorrectos");
-        }
+        this.authService.login(user).subscribe(
+            {
+                next: (userLogged) => {
+                    localStorage.setItem('userId', userLogged.userId.toString());
+                    localStorage.setItem('idRole', userLogged.idRole.toString());
+                    this.router.navigate(['/registered/home']);
+                },
+                error: (error) => {
+                    alert("Contraseña o usuario incorrecto");
+                }
+
+            }
+
+    );
+
 
     }
     goToRecover(){

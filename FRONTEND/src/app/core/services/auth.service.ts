@@ -1,39 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { UserLogin } from './../models/interfaces/user-login.interface';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { UserLogged } from '../models/interfaces/user-logged.interface';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-    private users:UserLogin[] =[
-        {login: 'admin', password: 'admin'},
-    ];
 
-  constructor() { }
+    private BASE_URL: string = 'http://localhost:8080/auth';
 
-  checkLogin(): Observable<boolean> {
-    let result: boolean = false;
-    if(localStorage.getItem('user')){
-        result = true;
-    }
-    return of(result);
+    constructor(private http: HttpClient) { }
 
-  }
-
-  login(user:UserLogin): boolean {
-    let result: boolean = false;
-    this.users.forEach((u)=>{
-        if(u.login === user.login && u.password === user.password){
-            localStorage.setItem('user', JSON.stringify(user));
+    checkLogin(): Observable<boolean> {
+        let result: boolean = false;
+        if (localStorage.getItem('userId')) {
             result = true;
         }
-    });
-    return result;
-  }
+        return of(result);
+
+    }
+    checkRole(): Observable<boolean> {
+        let result: boolean = false;
+        if (Number(localStorage.getItem('idRole')) < 3 ) {
+            result = true;
+        }
+        return of(result);
+    }
+
+
+    login(user: UserLogin): Observable<UserLogged> {
+        return this.http.post<UserLogged>(`${this.BASE_URL}/login`, user);
+    }
 
     logout(): void {
-        localStorage.removeItem('user');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('idRole');
     }
 
 
