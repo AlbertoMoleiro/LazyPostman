@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RouteAssign } from '../models/interfaces/route-assign.interface';
 import { Observable } from 'rxjs';
+import { Itinerary } from '../models/interfaces/itinerary.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +39,7 @@ export class RouteManagementService {
         return this.http.get(this.BASE_URL + '/'+idRoute);
     }
 
-    getItinerary(idRoute:number):Observable<any>{//waypoint class
+    getItinerary(idRoute:number):Observable<any>{
         return this.http.get(this.BASE_URL + '/itinerary/'+idRoute);
     }
 

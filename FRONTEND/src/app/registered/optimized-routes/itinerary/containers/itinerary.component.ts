@@ -1,63 +1,68 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-export interface Itinerario {
-  calle: string;
-  numero: string;
-  observaciones: string;
-}
-
-const ELEMENT_DATA: Itinerario[] = [
-  {calle: 'Cipriano Mera', numero: '1', observaciones: 'LLegada en bus línea 9'},
-  {calle: 'Cipriano Mera', numero: '2', observaciones: ''},
-  {calle: 'Cipriano Mera', numero: '3', observaciones: ''},
-  {calle: 'Cipriano Mera', numero: '4', observaciones: 'Local Sindical CGT'},
-  {calle: 'Cipriano Mera', numero: '5', observaciones: ''},
-  {calle: 'Cipriano Mera', numero: '6', observaciones: ''},
-  {calle: 'Cipriano Mera', numero: '7', observaciones: 'Buzón de alcance'},
-  {calle: 'Cipriano Mera', numero: '8', observaciones: ''},
-  {calle: 'Cipriano Mera', numero: '9', observaciones: 'Regreso en bus línea 9'},
-  {calle: 'Cipriano Mera', numero: '10', observaciones: ''},
-  {calle: 'Liberta', numero: '6', observaciones: ''},
-  {calle: 'Liberta', numero: '7', observaciones: 'Colegio'},
-  {calle: 'Liberta', numero: '8', observaciones: ''},
-  {calle: 'Liberta', numero: '9', observaciones: ''},
-  {calle: 'Liberta', numero: '10', observaciones: ''},
-  {calle: 'Liberta', numero: '11', observaciones: ''},
-  {calle: 'Liberta', numero: '12', observaciones: 'Regreso a empresa'},
-];
+import { Itinerary } from 'src/app/core/models/interfaces/itinerary.interface';
+import { RouteManagementService } from 'src/app/core/services/route-management.service';
 
 @Component({
-  selector: 'app-itinerary',
-  templateUrl: './itinerary.component.html',
-  styleUrls: ['./itinerary.component.css']
+    selector: 'app-itinerary',
+    templateUrl: './itinerary.component.html',
+    styleUrls: ['./itinerary.component.css']
 })
 export class ItineraryComponent {
 
-  displayedColumns: string[] = ['calle', 'numero', 'observaciones'];
-  dataSource = ELEMENT_DATA;
+    displayedColumns: string[] = ['province','town','postCode','roadName', 'roadNumber'];
+    dataSource:Itinerary[] = [];
+    idRoute:number=0;
+    constructor(private router: Router, private routeManagement:RouteManagementService,private activatedRoute:ActivatedRoute) {
 
-  constructor(private router: Router){
+        this.idRoute=this.activatedRoute.snapshot.params['id'];
+        this.routeManagement.getItinerary(this.idRoute).subscribe(
+            (itineraries: Itinerary[]) => {
+                this.dataSource = itineraries;
+            });
+/*             this.dataSource = [
+                {
+                    province:"Madrid",
+                    town:{
+                        cdmuni:68,
+                        dsmuni:"Guadarrama"
+                    },
+                    postCode:28440,
+                    roadType:"Calle",
+                    roadName:"ABEDUL",
+                    roadNumber:1,
+                },
+                {
+                    province:"Madrid",
+                    town:{
+                        cdmuni:68,
+                        dsmuni:"Guadarrama"
+                    },
+                    postCode:28440,
+                    roadType:"Calle",
+                    roadName:"ABEDUL",
+                    roadNumber:1,
+                }] */
 
-  }
+    }
 
-  generatePDF() {
-    const doc = new jsPDF('l', 'mm', 'a4');
-  
-    const tableColumnNames = [['Calle', 'Número', 'Observaciones']];
-    const data = ELEMENT_DATA.map((itinerario) => [itinerario.calle, itinerario.numero, itinerario.observaciones]);
-  
-    autoTable(doc, {
-      head: tableColumnNames,
-      body: data
-    });
-  
-    doc.save('tabla.pdf');
-  }
+    generatePDF() {
+        const doc = new jsPDF('l', 'mm', 'a4');
 
-  goToRute() {
-    this.router.navigate(['/registered/route/view']);
-}
+        const tableColumnNames = [['Provincia','Localidad','Código Postal','Calle', 'Número']];
+        const data = this.dataSource.map((itinerario) => [itinerario.province,itinerario.town.dsmuni,itinerario.postCode, itinerario.roadType +" "+itinerario.roadName, itinerario.roadNumber]);
+
+        autoTable(doc, {
+            head: tableColumnNames,
+            body: data
+        });
+
+        doc.save('tabla.pdf');
+    }
+
+    goToRute() {
+        this.router.navigate(['/registered/route/view',this.idRoute]);
+    }
 }

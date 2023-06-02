@@ -8,19 +8,26 @@
     </div>
     <div class="tabla">
         <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="calle">
+            <ng-container matColumnDef="province">
+                <th class="header" mat-header-cell *matHeaderCellDef>Provincia</th>
+                <td class="content" mat-cell *matCellDef="let element"> {{element.province}} </td>
+              </ng-container>
+              <ng-container matColumnDef="town">
+                <th class="header" mat-header-cell *matHeaderCellDef>Localidad</th>
+                <td class="content" mat-cell *matCellDef="let element"> {{element.town.dsmuni}} </td>
+              </ng-container>
+              <ng-container matColumnDef="postCode">
+                <th class="header" mat-header-cell *matHeaderCellDef>Código postal</th>
+                <td class="content" mat-cell *matCellDef="let element"> {{element.postCode}} </td>
+              </ng-container>
+            <ng-container matColumnDef="roadName">
               <th class="header" mat-header-cell *matHeaderCellDef>Calle</th>
-              <td class="content" mat-cell *matCellDef="let element"> {{element.calle}} </td>
+              <td class="content" mat-cell *matCellDef="let element"> {{element.roadType + " " + element.roadName}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="numero">
+            <ng-container matColumnDef="roadNumber">
               <th class="header" mat-header-cell *matHeaderCellDef>Número </th>
-              <td class="content" mat-cell *matCellDef="let element"> {{element.numero}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="observaciones">
-              <th class="header" mat-header-cell *matHeaderCellDef> Observaciones </th>
-              <td class="content" mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
+              <td class="content" mat-cell *matCellDef="let element"> {{element.roadNumber}} </td>
             </ng-container>
 
             <tr class="header" mat-header-row *matHeaderRowDef="displayedColumns"></tr>

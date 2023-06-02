@@ -54,7 +54,7 @@ export class RouteViewComponent {
         this.activatedRoute.params.pipe(
             takeUntil(this.onDestroy$)
         ).subscribe(params => {
-             this.idRoute = +params['idRoute'];
+             this.idRoute = +params['id'];
              this.getWaypoints();
          });
     }
@@ -113,7 +113,7 @@ export class RouteViewComponent {
     }
 
     goToItinerary() {
-        this.router.navigate(['/registered/route/itinerary']);
+        this.router.navigate(['/registered/route/itinerary', this.idRoute]);
     }
 
     ngOnDestroy(): void {

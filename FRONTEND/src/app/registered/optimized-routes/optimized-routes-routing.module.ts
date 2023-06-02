@@ -7,7 +7,7 @@ import { RouteViewComponent } from './route-view/containers/route-view.component
 const routes: Routes = [
     {path: '', redirectTo: 'creator', pathMatch: 'full'},
     {path: 'creator', component: RouteCreatorComponent},
-    {path:'itinerary', component: ItineraryComponent},
+    {path:'itinerary/:id', component: ItineraryComponent},
     {path:'view/:id', component: RouteViewComponent},
 
 ];
