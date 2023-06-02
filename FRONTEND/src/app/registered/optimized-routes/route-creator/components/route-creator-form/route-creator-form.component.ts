@@ -38,7 +38,7 @@ export class RouteCreatorFormComponent {
     evenRegex: RegExp = /^[0-9]*[02468]$/;
 
     //Clean subscriptions
-    private onDestroy = new Subject<void>();
+    private onDestroy$ = new Subject<void>();
 
     constructor(private formBuilder: FormBuilder, private routeCreatorService: RouteCreatorService) {
         this.initForm();
@@ -50,7 +50,7 @@ export class RouteCreatorFormComponent {
 
         //TODO: Get this from the backend
         this.routeCreatorService.getTowns()
-        .pipe(takeUntil(this.onDestroy))
+        .pipe(takeUntil(this.onDestroy$))
         .subscribe((towns: Town[]) => {
             this.towns = towns;
             this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
@@ -58,8 +58,8 @@ export class RouteCreatorFormComponent {
         });
     }
     ngOnDestroy() {
-        this.onDestroy.next();
-        this.onDestroy.complete();
+        this.onDestroy$.next();
+        this.onDestroy$.complete();
     }
 
     //Initialization Form
@@ -90,7 +90,7 @@ export class RouteCreatorFormComponent {
 
     private initAutocompleteFilter(field: string, filtro: (value: any) => any[]): Observable<any[]> {
         return this.routeCreateForm.get(field)!.valueChanges.pipe(
-            takeUntil(this.onDestroy),
+            takeUntil(this.onDestroy$),
             startWith(''),
             map(value => filtro(value || '')),
         );
@@ -141,7 +141,7 @@ export class RouteCreatorFormComponent {
 
     private subscribeToTownChanges() {
         this.routeCreateForm.get('town')?.valueChanges
-            .pipe(takeUntil(this.onDestroy))
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe(town => {
                 //Reset postCode and set validator with
                 const postCodes = town?.postCode || [];
@@ -161,7 +161,7 @@ export class RouteCreatorFormComponent {
 
     private subscribeToPostCodeChanges() {
         this.routeCreateForm.get('postCode')!.valueChanges
-            .pipe(takeUntil(this.onDestroy))
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe((value) => {
                 if (value) {
                     this.routeCreateForm.get('roadType')!.enable();
@@ -173,11 +173,11 @@ export class RouteCreatorFormComponent {
 
     private subscribeToRoadTypeChanges() {
         this.routeCreateForm.get('roadType')!.valueChanges
-            .pipe(takeUntil(this.onDestroy))
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe((value) => {
                 if (value) {
                     this.routeCreatorService.getRoadNames(this.routeCreateForm.get('town')?.value.cdmuni)
-                    .pipe(takeUntil(this.onDestroy))
+                    .pipe(takeUntil(this.onDestroy$))
                     .subscribe((roads: Road[]) => {
                         this.roads = roads;
                         this.filteredRoads = this.initAutocompleteFilter('roadName', this.roadFilter);
@@ -191,7 +191,7 @@ export class RouteCreatorFormComponent {
 
     private subscribeToRoadNameChanges() {
         this.routeCreateForm.get('roadName')!.valueChanges
-            .pipe(takeUntil(this.onDestroy))
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe((road) => {
                 if (road) {
                     //Set the road number fields validators
@@ -215,7 +215,7 @@ export class RouteCreatorFormComponent {
 
     private subscribeToAllRoadChanges() {
         this.routeCreateForm.get('allRoad')!.valueChanges
-            .pipe(takeUntil(this.onDestroy))
+            .pipe(takeUntil(this.onDestroy$))
             .subscribe((value) => {
 
                 if (value) {
@@ -245,7 +245,7 @@ export class RouteCreatorFormComponent {
     }
 
     private subscribeToOddChanges() {
-        this.routeCreateForm.get('odd')?.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(oddChecked => {
+        this.routeCreateForm.get('odd')?.valueChanges.pipe(takeUntil(this.onDestroy$)).subscribe(oddChecked => {
             if (!this.routeCreateForm.get('allRoad')!.value) {
                 if (oddChecked) {
                     this.routeCreateForm.get('roadNumberMinOdd')?.enable();
@@ -263,7 +263,7 @@ export class RouteCreatorFormComponent {
     }
 
     private subscribeToEvenChanges() {
-        this.routeCreateForm.get('even')?.valueChanges.pipe(takeUntil(this.onDestroy)).subscribe(evenChecked => {
+        this.routeCreateForm.get('even')?.valueChanges.pipe(takeUntil(this.onDestroy$)).subscribe(evenChecked => {
             if (!this.routeCreateForm.get('allRoad')!.value) {
                 if (evenChecked) {
                     this.routeCreateForm.get('roadNumberMinEven')?.enable();

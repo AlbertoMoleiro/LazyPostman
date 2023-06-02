@@ -1,22 +1,10 @@
 import { Component } from '@angular/core';
 import { UsersService } from 'src/app/core/services/users.service';
+import { Subject, takeUntil } from 'rxjs';
+import { User } from 'src/app/core/models/interfaces/user.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { UsersManagementFormComponent } from '../users-management-form/users-management-form.component';
 
-export interface User {
-  id:number;
-  nombre: string;
-  apellido1:string;
-  apellido2:string;
-  codigo_empleado:string;
-  rol: string;
-}
-
-const ELEMENT_DATA: User[] = [
-  {id:1,nombre:'Juan', apellido1: 'Pérez', apellido2:'Sanz',codigo_empleado:'JuanPS',rol:'rol1'},
-  {id:2,nombre:'María', apellido1: 'García', apellido2:'Jeréz',codigo_empleado:'MariGJ',rol:'rol2'},
-  {id:3,nombre:'Ana', apellido1: 'Díaz', apellido2:'Fernández',codigo_empleado:'AnaDF',rol:'rol2'},
-  {id:4,nombre:'Emilio', apellido1: 'López', apellido2:'Martínez',codigo_empleado:'EmiLM',rol:'rol3'},
-  {id:5,nombre:'Ernesto', apellido1: 'Florez', apellido2:'Cruz',codigo_empleado:'ErneFC',rol:'rol3'},
-];
 
 @Component({
   selector: 'app-users-table',
@@ -24,21 +12,39 @@ const ELEMENT_DATA: User[] = [
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent {
-  displayedColumns: string[] = ['nombre', 'apellido1', 'apellido2','codigo_empleado','rol','asignar','promociona'];
+  displayedColumns: string[] = ['nombre', 'apellido1', 'apellido2','telefono','codigo_empleado','rol','asignar','promociona'];
   dataSource:User[] = [];
 
-  constructor(private userService:UsersService){
+  private onDestroy$ = new Subject<void>();
+  constructor(private userService:UsersService,public dialog: MatDialog){
+    this.userService.getUsers().pipe(
+        takeUntil(this.onDestroy$),
+         ).subscribe(
+        (users:User[]) => {
+            this.dataSource = users;
+            console.log(this.dataSource);
+        });
+
 
   }
 
   ngOnInit():void{
 
   }
-  assign(id: number) {
+  assignRoute(id: number) {
 
   }
 
-  promote(id: number) {
+  modifyUser(id: number) {
+    const dialogRef = this.dialog.open(UsersManagementFormComponent,{
+        minWidth: '500px',
+        data: {id: id}
+    });
 
   }
+
+    ngOnDestroy(): void {
+        this.onDestroy$.next();
+        this.onDestroy$.complete();
+    }
 }

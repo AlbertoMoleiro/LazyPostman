@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="addEmployeeForm" (submit)="onSubmit()">
         <h2>Datos del Empleado</h2>
         <div class="form_field">
             <mat-form-field appearance="fill">
@@ -46,15 +46,25 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Rol del empleado</mat-label>
-                <mat-select placeholder="Rol del empleado" formControlName="idRole">
+                <mat-select [(value)]="selected" formControlName="idRole">
                   <mat-option value="3">Empleado</mat-option>
                   <mat-option value="2">Encargado</mat-option>
                   <mat-option value="1">Administrador</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="addEmployeeForm.invalid">
-            Añadir Empleado
-        </button>
+        <div class="flex-between">
+            <button *ngIf="!data else modifyButtons" mat-raised-button color="primary" type="submit" [disabled]="addEmployeeForm.invalid">
+                Añadir Empleado
+            </button>
+                <ng-template #modifyButtons>
+                <button  mat-raised-button color="primary" type="submit" [disabled]="addEmployeeForm.invalid">
+                    Modificar Empleado
+                </button>
+            </ng-template>
+                <button  mat-raised-button color="warn" type="button" (click)="dialogRef.close()">
+                    Cerar
+                </button>
+            </div>
     </form>
 </div>
