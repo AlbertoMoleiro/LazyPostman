@@ -39,13 +39,13 @@ public class User {
     private Date register;
 
     @Column(name = "id_manager", nullable = false)
-    private Integer manager;
+    private Integer managerId;
 
     @ManyToOne
     @JoinColumn(name = "id_company", nullable = false)
     private Company company;
 
     @Column(name = "id_role")
-    private Integer rol;
+    private Integer idRole;
 
 }

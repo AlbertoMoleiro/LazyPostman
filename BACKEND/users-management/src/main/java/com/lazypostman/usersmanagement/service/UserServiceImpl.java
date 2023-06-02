@@ -39,9 +39,9 @@ public class UserServiceImpl implements IUserService{
         existingUser.setLogin(user.getLogin());
         existingUser.setPassword(user.getPassword());
         existingUser.setRegister(user.getRegister());
-        existingUser.setManager(user.getManager());
+        existingUser.setManagerId(user.getManagerId());
         existingUser.setCompany(user.getCompany());
-        existingUser.setRol(user.getRol());
+        existingUser.setIdRole(user.getIdRole());
 
 
         return repo.save(existingUser);

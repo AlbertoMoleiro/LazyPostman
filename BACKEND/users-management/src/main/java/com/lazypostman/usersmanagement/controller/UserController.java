@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.sql.Date;
@@ -49,7 +48,7 @@ public class UserController {
     }
 
 
-@PostMapping("/update")
+@PostMapping
 public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
     User newUser = new User();
     newUser.setName(userDTO.getName());
@@ -59,9 +58,9 @@ public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
     newUser.setLogin(userDTO.getLogin());
     newUser.setPassword("qwerty"+userDTO.getName());
     newUser.setRegister(Date.valueOf(LocalDate.now()));
-    newUser.setManager(userDTO.getManagerId());
+    newUser.setManagerId(userDTO.getManagerId());
     newUser.setCompany(userService.getUserById(userDTO.getManagerId()).getCompany());
-    newUser.setRol(userDTO.getIdRole());
+    newUser.setIdRole(userDTO.getIdRole());
 
     userService.createUser(newUser);
     // Devolver una respuesta con el código 201 (Created) y la URI del nuevo usuario
@@ -79,9 +78,9 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
     userAux.setLastname1(userDTO.getLastname1());
     userAux.setLastname2(userDTO.getLastname2());
     userAux.setPhoneNumber(userDTO.getPhoneNumber());
-    userAux.setManager(userDTO.getManagerId());
+    userAux.setManagerId(userDTO.getManagerId());
     userAux.setLogin(userDTO.getLogin());
-    userAux.setRol(userDTO.getIdRole());
+    userAux.setIdRole(userDTO.getIdRole());
 
     User updatedUser = userService.updateUser(userAux);
     return new ResponseEntity<>(updatedUser, HttpStatus.OK);
