@@ -70,25 +70,28 @@ public class UserController {
     }
 
 
-@PostMapping
-public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
-    User newUser = new User();
-    newUser.setId(userDTO.getId());
-    newUser.setName(userDTO.getName());
-    newUser.setLastname1(userDTO.getLastname1());
-    newUser.setLastname2(userDTO.getLastname2());
-    newUser.setPhoneNumber(userDTO.getPhoneNumber());
-    newUser.setLogin(userDTO.getLogin());
-    newUser.setPassword("qwerty"+userDTO.getName());
-    newUser.setRegister(Date.valueOf(LocalDate.now()));
-    newUser.setManagerId(userDTO.getManagerId());
-    newUser.setCompany(userService.getUserById(userDTO.getManagerId()).getCompany());
-    newUser.setIdRole(userDTO.getIdRole());
+    @PostMapping
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
+        User newUser = new User();
+        newUser.setId(userDTO.getId());
+        newUser.setName(userDTO.getName());
+        newUser.setLastname1(userDTO.getLastname1());
+        newUser.setLastname2(userDTO.getLastname2());
+        newUser.setPhoneNumber(userDTO.getPhoneNumber());
+        newUser.setLogin(userDTO.getLogin());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encryptedPassword = passwordEncoder.encode("qwerty" + userDTO.getName());
+        newUser.setPassword(encryptedPassword);
+        newUser.setRegister(Date.valueOf(LocalDate.now()));
+        newUser.setManagerId(userDTO.getManagerId());
+        newUser.setCompany(userService.getUserById(userDTO.getManagerId()).getCompany());
+        newUser.setIdRole(userDTO.getIdRole());
 
-    userService.createUser(newUser);
-    // Devolver una respuesta con el código 201 (Created) y la URI del nuevo usuario
-    return ResponseEntity.created(URI.create("/users/" + newUser.getId())).build();
-}
+        userService.createUser(newUser);
+
+        return ResponseEntity.created(URI.create("/users/" + newUser.getId())).build();
+    }
+
 
 @PutMapping("/update")
 public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
