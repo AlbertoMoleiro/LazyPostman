@@ -72,6 +72,7 @@ public class UserController {
 @PostMapping
 public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
     User newUser = new User();
+    newUser.setId(userDTO.getId());
     newUser.setName(userDTO.getName());
     newUser.setLastname1(userDTO.getLastname1());
     newUser.setLastname2(userDTO.getLastname2());
