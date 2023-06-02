@@ -1,13 +1,10 @@
 package com.lazypostman.routemanagement.controller;
 
-import com.lazypostman.routemanagement.model.Company;
+import com.lazypostman.routemanagement.dto.RequestRouteDTO;
 import com.lazypostman.routemanagement.model.Route;
 import com.lazypostman.routemanagement.model.UserRoute;
 import com.lazypostman.routemanagement.model.UserRouteId;
-import com.lazypostman.routemanagement.service.ICompanyService;
-import com.lazypostman.routemanagement.service.IRouteService;
-import com.lazypostman.routemanagement.service.ITownService;
-import com.lazypostman.routemanagement.service.IUserRouteService;
+import com.lazypostman.routemanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/route_management")
+@RequestMapping("/route-management")
 public class Controller {
     @Autowired
     private ICompanyService companyService;
@@ -26,44 +23,48 @@ public class Controller {
     private ITownService townService;
     @Autowired
     private IUserRouteService userRouteService;
-
-    @GetMapping
-    public ResponseEntity<List<Route>> getAllRoutes(){
-        return new ResponseEntity(routeService.getAllRoutes(), HttpStatus.OK);
-    }
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private IProvinceService provinceService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Route> getRouteById(@PathVariable("id") int id){
         return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
     }
 
+
     @PostMapping("/create-route")
-    public ResponseEntity<Route> createRoute(@RequestBody Route route){
-        return new ResponseEntity(routeService.createRoute(route), HttpStatus.OK);
+    public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
+        return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<Route> updateRoute(@RequestBody Route route){
-        return new ResponseEntity(routeService.updateRoute(route), HttpStatus.OK);
+    //•	GET /route-management /users-routes/{userId}: permite a los usuarios obtener su lista de rutas disponibles.
+
+    @PostMapping("/users-routes-create/")
+    public ResponseEntity<UserRoute> createUserRoute(@RequestBody UserRouteId userRoute){
+        return new ResponseEntity(userRouteService.createUserRoute(new UserRoute(userRoute)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id){
-        routeService.deleteRoute(id);
-    }
+    //•	GET /route-management /manager/routes /{userId}: Obtiene la lista de rutas de disponible
+    // para el usuario responsable, estas son las rutas propias y las de los empleados a su cargo.
 
     @GetMapping("/company/{id}")
-    public ResponseEntity<String> getLocationCompany(@PathVariable("id") int id){
-        String address = companyService.getAddress(id);
-        String twon = townService.getTownName(id);
-        String location = "Twon: "+twon+" | Address: "+address;
+    public ResponseEntity<String> getLocation(@PathVariable("id") int id){
+        Integer idCompany = userService.getCompany(id);
+        String address = companyService.getAddress(idCompany);
+        Integer idTown = companyService.getTown(idCompany);
+        String townName = townService.getTownName(idTown);
+        String postalCode = townService.getPostalCode(idTown);
+        Integer idProvince = townService.getProvinceId(idTown);
+        String province = provinceService.getName(idProvince);
+
+        String location = townName+" "+postalCode+" "+province+" Calle "+address;
         return new ResponseEntity(location, HttpStatus.OK);
     }
 
-    @PostMapping("/users_routes_create/")
-    public ResponseEntity<UserRoute> createUserRoute(@RequestBody UserRouteId userRoute){
-
-        System.out.println(userRoute.toString());
-        return new ResponseEntity(userRouteService.createUserRoute(new UserRoute(userRoute)), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Route>> getAllRoutes(){
+        return new ResponseEntity(routeService.getAllRoutes(), HttpStatus.OK);
     }
 }
