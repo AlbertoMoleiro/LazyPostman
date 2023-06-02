@@ -24,9 +24,7 @@ export class HomeComponent {
             });
 
     }
-    goToRouteView(idRoute:number){
-        this.router.navigate(['/registered/route-view',idRoute]);
-    }
+ 
 
     ngOnDestroy(): void {
         this.onDestroy$.next();

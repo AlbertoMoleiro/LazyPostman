@@ -8,7 +8,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'creator', pathMatch: 'full'},
     {path: 'creator', component: RouteCreatorComponent},
     {path:'itinerary', component: ItineraryComponent},
-    {path:'view', component: RouteViewComponent},
+    {path:'view/:id', component: RouteViewComponent},
 
 ];
 
