@@ -29,8 +29,8 @@ public class UserController {
     @Autowired
     private IRolService rolService;
 
-    @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers(@RequestHeader("userId") Integer userId) {
+    @GetMapping("/all/{id}")
+    public ResponseEntity<List<UserDTO>> getAllUsers(@PathVariable("userId") Integer userId) {
         User user = userService.getUserById(userId);
         if (user == null) {
             throw new ModelNotFoundException("User " + userId + " not found");
