@@ -20,7 +20,6 @@ export class NavigationComponent {
         { icon: 'map', name: 'Crear Ruta', route: '/registered/route/creator' },
         { icon: 'people', name: 'Gestión de Empleados', route: '/registered/user/management' },
         { icon: 'settings', name: 'Configuración', route: '/registered/user/settings' },
-        /* { icon: 'exit_to_app', name: 'Cerrar sesión', route: '/login' } */
     ];
     constructor(private breakpointObserver:BreakpointObserver, private authService:AuthService) {}
 

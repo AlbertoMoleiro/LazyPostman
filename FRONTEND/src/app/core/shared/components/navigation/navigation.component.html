@@ -1,7 +1,9 @@
 <mat-toolbar class="mat-elevation-z8" color="primary">
     <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+      <mat-icon *ngIf="!opened else close"> menu </mat-icon>
+      <ng-template #close>
+          <mat-icon> close </mat-icon>
+      </ng-template>
     </button>
 
     <div class="logo" routerLink="/login">
