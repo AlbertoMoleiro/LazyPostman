@@ -21,9 +21,16 @@ export class AuthService {
         return of(result);
 
     }
-    checkRole(): Observable<boolean> {
+    checkManager(): Observable<boolean> {
         let result: boolean = false;
-        if (Number(localStorage.getItem('idRole')) < 3 ) {
+        if (Number(localStorage.getItem('idRole')) < 3) {
+            result = true;
+        }
+        return of(result);
+    }
+    checkAdmin(): Observable<boolean> {
+        let result: boolean = false;
+        if (localStorage.getItem('idRole') == '1') {
             result = true;
         }
         return of(result);
@@ -31,7 +38,7 @@ export class AuthService {
 
 
     login(user: UserLogin): Observable<UserLogged> {
-         return this.http.post<UserLogged>(`${this.BASE_URL}/login`, user);
+        return this.http.post<UserLogged>(`${this.BASE_URL}/login`, user);
     }
 
     logout(): void {

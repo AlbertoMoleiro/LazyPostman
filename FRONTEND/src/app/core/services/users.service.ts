@@ -7,19 +7,14 @@ import { PasswordUpdate } from '../models/interfaces/passwordUpdate.interface';
     providedIn: 'root'
 })
 export class UsersService {
-    private BASE_URL = 'http://localhost:8080/users';
+    private BASE_URL = 'http://localhost:8081/users';
 
-    users: User[] = [];
-
-    usersSubject: Subject<User[]> = new Subject<User[]>();
 
     constructor(private http: HttpClient) {
-        this.usersSubject.next(this.users);
+
     }
 
     addUser(user: User) {
-        /* this.users.push(user);
-        this.usersSubject.next([...this.users]); */
         this.http.post(this.BASE_URL + '/update', user).subscribe(
             {
                 next: data => {

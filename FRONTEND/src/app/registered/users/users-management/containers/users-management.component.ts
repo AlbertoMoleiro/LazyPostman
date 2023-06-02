@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersManagementFormComponent } from '../components/users-management-form/users-management-form.component';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Subject,takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-users-management',
@@ -8,8 +10,17 @@ import { UsersManagementFormComponent } from '../components/users-management-for
   styleUrls: ['./users-management.component.css']
 })
 export class UsersManagementComponent {
-
-constructor(public dialog: MatDialog) { }
+isAdmin:boolean = false;
+private onDestroy$ = new Subject<void>();
+constructor(public dialog: MatDialog,private authService:AuthService) {
+    this.authService.checkAdmin().pipe(
+        takeUntil(this.onDestroy$)
+    ).subscribe(
+        (result) => {
+            this.isAdmin = result;
+        }
+    )
+ }
 
 
     openForm() {
@@ -18,4 +29,11 @@ constructor(public dialog: MatDialog) { }
         });
     }
 
+    ngOnDestroy(): void {
+        this.onDestroy$.next();
+        this.onDestroy$.complete();
+    }
+
 }
+
+

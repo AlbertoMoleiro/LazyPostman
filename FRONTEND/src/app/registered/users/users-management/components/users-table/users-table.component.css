@@ -13,3 +13,9 @@ th,td{
     background-color: var(--color-blue-soft);
     text-align: center;
 }
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}

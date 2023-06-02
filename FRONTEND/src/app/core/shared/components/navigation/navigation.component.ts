@@ -8,9 +8,9 @@ import { NavLink } from 'src/app/core/models/interfaces/nav-link.interface';
 
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
     mode: MatDrawerMode = 'side';
@@ -21,14 +21,14 @@ export class NavigationComponent {
         { icon: 'settings', name: 'Configuración', route: '/registered/user/settings' },
     ];
 
-    constructor(private breakpointObserver:BreakpointObserver, private authService:AuthService) {
+    constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
 
         //Añadir gestión de empleados si es responsable
-        this.authService.checkRole().subscribe(
+        this.authService.checkManager().subscribe(
             {
                 next: (result) => {
-                if(result)
-                this.links.splice(2, 0, { icon: 'people', name: 'Gestión de Empleados', route: '/registered/user/management' });
+                    if (result)
+                        this.links.splice(2, 0, { icon: 'people', name: 'Gestión de Empleados', route: '/registered/user/management' });
                 }
             });
 
@@ -36,11 +36,11 @@ export class NavigationComponent {
 
     ngOnInit(): void {
         this.breakpointObserver
-        .observe(['(min-width: 600px)'])
-        .subscribe((state: BreakpointState) => {
-          this.mode = state.matches ? 'side' : 'over';
-            this.opened = state.matches;
-        });
+            .observe(['(min-width: 600px)'])
+            .subscribe((state: BreakpointState) => {
+                this.mode = state.matches ? 'side' : 'over';
+                this.opened = state.matches;
+            });
 
 
     }
