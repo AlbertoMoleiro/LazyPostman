@@ -17,5 +17,4 @@ public class UserDTO {
     private Integer managerId;
     private String login;
     private Integer idRole;
-    private Rol rol;
 }
