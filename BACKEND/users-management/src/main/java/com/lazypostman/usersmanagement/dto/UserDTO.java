@@ -1,5 +1,6 @@
 package com.lazypostman.usersmanagement.dto;
 
+import com.lazypostman.usersmanagement.model.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class UserDTO {
     private Integer managerId;
     private String login;
     private Integer idRole;
+    private Rol rol;
 }
