@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private IRolService rolService;
 
-    @GetMapping("/all/{id}")
+    @GetMapping("/all/{userId}")
     public ResponseEntity<List<UserDTO>> getAllUsers(@PathVariable("userId") Integer userId) {
         User user = userService.getUserById(userId);
         if (user == null) {
