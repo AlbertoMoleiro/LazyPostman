@@ -16,7 +16,7 @@ export class RouteCreatorService {
 
     private BASE_URL = 'http://localhost:8080/route';
 
-    constructor(private router: Router,private http:HttpClient) { }
+    constructor(private http:HttpClient) { }
 
     //Table Methods
 
@@ -37,34 +37,23 @@ export class RouteCreatorService {
         return this.roadsSubject.asObservable();
     }
 
-    //Getting from backç
+    //Getting from backend
     getTowns(): Observable<any> {
         return this.http.get(this.BASE_URL+'/towns');
     }
     getRoadNames(cdmuni:number): Observable<any> {
         return this.http.get(this.BASE_URL+'/roads/'+cdmuni);
     }
+    cleanRoads(){
+        this.roads = [];
+        this.roadsSubject.next([...this.roads]);
+    }
 
-    createRoute() {
+    createRoute():Observable<any> {
         const requestRoads:RequestRoads = {
             routeName: 'Ruta 1',
             roads: this.roads
         };
-        this.http.post(this.BASE_URL+'/optimize',requestRoads,{ headers: { 'userId': '4' } }).subscribe(
-            {
-                next: data => {
-                    console.log(data);
-                },
-                error: error => {
-                    console.error('There was an error!', error);
-                },
-                complete: () => {
-                    console.log('Complete');
-                }
-            }
-        );
-        this.roads = [];
-        this.roadsSubject.next([...this.roads]);
-        this.router.navigate(['/registered/route/view']);
+       return  this.http.post(this.BASE_URL+'/optimize',requestRoads,{ headers: { 'userId': '4' } });
     }
 }

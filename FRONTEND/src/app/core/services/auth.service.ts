@@ -9,7 +9,7 @@ import { UserLogged } from '../models/interfaces/user-logged.interface';
 })
 export class AuthService {
 
-    private BASE_URL: string = 'http://localhost:8080/auth';
+    private BASE_URL: string = 'http://localhost:8082/auth';
 
     constructor(private http: HttpClient) { }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { RouteCreatorService } from 'src/app/core/services/route-creator.service';
 
@@ -11,7 +12,7 @@ export class RouteCreatorComponent {
     showTable: boolean = true;
     private onDestroy = new Subject<void>();
 
-    constructor(private routeCreatorService: RouteCreatorService) {
+    constructor(private routeCreatorService: RouteCreatorService,private router:Router) {
     }
 
     ngOnInit(): void {
@@ -24,7 +25,22 @@ export class RouteCreatorComponent {
     }
 
     createRoute() {
-        this.routeCreatorService.createRoute();
+        this.routeCreatorService.createRoute().subscribe(
+            {
+                next: data => {
+                    console.log(data);
+                    this.routeCreatorService.cleanRoads();
+                    this.router.navigate(['/registered/home']);
+                },
+                error: error => {
+                    alert("Error al crear ruta");
+                    console.error('There was an error!', error);
+                },
+                complete: () => {
+                    console.log('Complete');
+                }
+            }
+        );;
     }
 
 }

@@ -12,20 +12,9 @@ export class RouteManagementService {
 
     constructor(private http: HttpClient) { }
 
-    assignRoute(idUser: number, idRoute: number) {
+    assignRoute(idUser: number, idRoute: number):Observable<any> {
         const routeAssign: RouteAssign = { idRoute: idRoute, userId: idUser, };
-        this.http.put(this.BASE_URL + '/assign/', routeAssign).subscribe(
-            {
-                next: data => {
-                    console.log(data);
-                },
-                error: error => {
-                    console.error('There was an error!', error);
-                },
-                complete: () => {
-                    console.log('Complete!');
-                }
-            });
+        return this.http.put(this.BASE_URL + '/assign/', routeAssign)
     }
 
     getRoutesUser(idUser: number): Observable<any> {

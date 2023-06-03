@@ -75,10 +75,18 @@ export class UserSettingsComponent implements OnInit {
 
         const passwordUpdate:PasswordUpdate = {idUser:this.id,password:currentPassword,newPassword:newPassword};
         // Realizar la llamada a la API o servicio para cambiar la contraseña
-        this.usersService.updatePassword(passwordUpdate);
+        this.usersService.updatePassword(passwordUpdate).subscribe(
+            {
+                next: data => {
+                    console.log(data);
+                    alert("Contraseña cambiada correctamente");
+                    this.changePasswordForm.reset();
+                },
+                error: error => {
+                    alert("Error al cambiar la contraseña");
+                    console.error('There was an error!', error);
+                }
+            });;
 
-
-        // Restablecer el formulario
-        this.changePasswordForm.reset();
     }
 }

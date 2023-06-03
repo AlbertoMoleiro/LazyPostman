@@ -27,7 +27,7 @@ export class AssignRouteComponent {
             (routes: RequestRoute[]) => {
                 this.routesUser = routes;
             });
-            
+
         this.routeManagement.getRoutesManager(this.idManager).pipe(
             takeUntil(this.onDestroy$),
         ).subscribe(
@@ -38,8 +38,18 @@ export class AssignRouteComponent {
 
 
     assignRoute() {
-        this.routeManagement.assignRoute(this.data.id, this.selected.idRoute);
-        this.dialogRef.close();
+        this.routeManagement.assignRoute(this.data.id, this.selected.idRoute).subscribe(
+            {
+                next: data => {
+                    alert("Ruta asignada correctamente");
+                    this.dialogRef.close();
+                },
+                error: error => {
+                    alert("Error al asignar ruta");
+                    console.error('There was an error!', error);
+                }
+            });;
+
     }
 
     ngOnDestroy(): void {

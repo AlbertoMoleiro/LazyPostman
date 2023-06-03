@@ -14,21 +14,8 @@ export class UsersService {
 
     }
 
-    addUser(user: User) {
-        this.http.post(this.BASE_URL + '/update', user).subscribe(
-            {
-                next: data => {
-                    console.log(data);
-                },
-                error: error => {
-                    console.error('There was an error!', error);
-                },
-                complete: () => {
-                    console.log('Complete!');
-                }
-
-            });
-
+    addUser(user: User): Observable<any> {
+        return this.http.post(this.BASE_URL + '/update', user);
     }
 
     getUsers(): Observable<User[]> {
@@ -44,18 +31,7 @@ export class UsersService {
 
     }
 
-    updatePassword(updatePassword: PasswordUpdate) {
-        this.http.put(this.BASE_URL + '/update/password', updatePassword, { headers: { 'userId': updatePassword.idUser.toString() } }).subscribe(
-            {
-                next: data => {
-                    console.log(data);
-                },
-                error: error => {
-                    console.error('There was an error!', error);
-                },
-                complete: () => {
-                    console.log('Complete!');
-                }
-            });
+    updatePassword(updatePassword: PasswordUpdate): Observable<any> {
+        return this.http.put(this.BASE_URL + '/update/password', updatePassword, { headers: { 'userId': updatePassword.idUser.toString() } });
     }
 }

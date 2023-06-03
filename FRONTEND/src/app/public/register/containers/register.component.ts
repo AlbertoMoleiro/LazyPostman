@@ -96,7 +96,16 @@ export class RegisterComponent {
             password: this.registerForm.get('password')?.value
         }
 
-        this.registerService.registerCompany(company);
+        this.registerService.registerCompany(company).pipe(takeUntil(this.onDestroy$)).subscribe(
+            {
+                next: data => {
+                        this.router.navigate(['/login']);
+                },
+                error: error => {
+                    alert("Error al registrar la empresa");
+                    console.error('There was an error!', error);
+                }
+            });
 
     }
 }

@@ -58,8 +58,18 @@ export class UsersManagementFormComponent {
             login: this.addEmployeeForm.value.login,
             idRole: this.addEmployeeForm.value.idRole
         };
-        this.usersService.addUser(user);
-        this.dialogRef.close();
+        this.usersService.addUser(user).pipe(takeUntil(this.onDestroy$)).subscribe(
+            {
+                next: data => {
+                    this.dialogRef.close();
+                    console.log(data);
+                },
+                error: error => {
+                    alert("Error al crear usuario");
+                    console.error('There was an error!', error);
+                }
+            });;
+
     }
 
     ngOnDestroy(): void {
