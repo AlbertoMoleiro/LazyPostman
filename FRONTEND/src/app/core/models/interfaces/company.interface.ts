@@ -1,10 +1,10 @@
 export interface Company {
-    CIF: string;
+    cif: string;
     businessName: string;
     address: string;
     province: string;
-    postCode: string;
-    phoneNumber: string;
+    idTown: number;
+    phoneNumber: number;
     email: string;
     password: string;
 }

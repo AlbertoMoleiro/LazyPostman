@@ -1,5 +1,6 @@
 package com.lazypostman.companyregistration.controller;
 
+import com.lazypostman.companyregistration.dto.CompanyDTO;
 import com.lazypostman.companyregistration.model.Company;
 import com.lazypostman.companyregistration.service.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> createCompany(@RequestBody Company company){
+    public ResponseEntity<Company> createCompany(@RequestBody CompanyDTO company){
 
         return new ResponseEntity(companyService.createCompany(company), HttpStatus.OK);
     }

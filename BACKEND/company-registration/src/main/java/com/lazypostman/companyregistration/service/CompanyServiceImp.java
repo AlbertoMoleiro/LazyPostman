@@ -1,10 +1,12 @@
 package com.lazypostman.companyregistration.service;
 
+import com.lazypostman.companyregistration.dto.CompanyDTO;
 import com.lazypostman.companyregistration.model.Company;
 import com.lazypostman.companyregistration.model.User;
 import com.lazypostman.companyregistration.repository.ICompanyRepository;
 import com.lazypostman.companyregistration.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,21 +26,30 @@ public class CompanyServiceImp implements ICompanyService{
     }
 
     @Override
-    public Company createCompany(Company company) {
+    public Company createCompany(CompanyDTO company) {
+        Company companyPersist = new Company();
+        companyPersist.setCif(company.getCif());
+        companyPersist.setBusinessName(company.getBusinessName());
+        companyPersist.setPhoneNumber(company.getPhoneNumber());
+        companyPersist.setEmail(company.getEmail());
+        companyPersist.setIdTown(company.getIdTown());
+        companyPersist.setAddress(company.getAddress());
+        repo.save(companyPersist);
 
-        repo.save(company);
+
         User user = new User();
-        user.setName("admin");
+        user.setName(company.getBusinessName());
         user.setRegister(LocalDate.now());
         user.setLastname1("admin");
-        user.setLastname2("admin");
-        user.setLogin("admin");
-        user.setPassword("admin");
-        user.setIdCompany(company.getId());
+        user.setLogin(company.getEmail());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encryptedPassword = passwordEncoder.encode(company.getPassword());
+        user.setPassword(encryptedPassword);
+        user.setIdCompany(companyPersist.getId());
         user.setIdRole(1);
         repoUser.save(user);
 
-        return company;
+        return companyPersist;
     }
 
     @Override
