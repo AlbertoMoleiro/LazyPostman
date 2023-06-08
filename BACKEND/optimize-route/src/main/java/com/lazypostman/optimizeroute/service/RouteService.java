@@ -9,6 +9,8 @@ import com.lazypostman.optimizeroute.model.requestroute.RouteResponse;
 import com.lazypostman.optimizeroute.model.requestroute.Waypoint;
 import com.lazypostman.optimizeroute.repository.IMadridStreetsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -68,14 +70,29 @@ public class RouteService {
         }
 
         //Enviar itinerary al servicio de rutas de 8081
+//        UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()
+//                .scheme("http")
+//                .host("localhost:8082")
+//                .path("/route-management/create-route")
+//                .build();
+//
+//
+//        RouteCreatorDTO routeCreate =  new RestTemplate().postForObject(uriSaveRoute.toUriString(), new RouteCreatorDTO(routeName,orderedWaypoints,itinerary), RouteCreatorDTO.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("userId", idUser.toString());
+
         UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()
                 .scheme("http")
                 .host("localhost:8082")
                 .path("/route-management/create-route")
                 .build();
 
+        RouteCreatorDTO routeDTO = new RouteCreatorDTO(routeName, orderedWaypoints, itinerary);
+        HttpEntity<RouteCreatorDTO> entity = new HttpEntity<>(routeDTO, headers);
 
-        RouteCreatorDTO routeCreate =  new RestTemplate().postForObject(uriSaveRoute.toUriString(), new RouteCreatorDTO(routeName,orderedWaypoints,itinerary), RouteCreatorDTO.class);
+        RestTemplate restTemplate = new RestTemplate();
+        RouteCreatorDTO routeCreate = restTemplate.postForObject(uriSaveRoute.toUriString(), entity, RouteCreatorDTO.class);
+
         return orderedWaypoints;
 
     };

@@ -30,12 +30,14 @@ public class Controller {
     @Autowired
     private IProvinceService provinceService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/route/{id}")
     public ResponseEntity<List<WayPoint>> getRouteById(@PathVariable("id") int id){
-        return new ResponseEntity(routeService.getRouteById(id).getRoute(), HttpStatus.OK);
+        return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
     }
+    //@GetMapping("/routes/{userId}")
 
-    @GetMapping("itinerary/{id}")
+
+    @GetMapping("/itinerary/{id}")
     public ResponseEntity<Route> getItinerary(@PathVariable("id") Integer id){
         return new ResponseEntity(routeService.getItineraryById(id), HttpStatus.OK);
     }
