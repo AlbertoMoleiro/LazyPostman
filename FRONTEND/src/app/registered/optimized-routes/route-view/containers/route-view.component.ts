@@ -63,6 +63,7 @@ export class RouteViewComponent {
             takeUntil(this.onDestroy$),
         ).subscribe(
             (route: any) => {
+                console.log(route);
                 this.waypoints = route.map((waypoint: any) => { return { location: { lat: waypoint.lat, lng: waypoint.lng }, stopover: true } });
                 this.calculateRoute();
             });

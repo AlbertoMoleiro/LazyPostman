@@ -46,7 +46,7 @@ export class UserSettingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.id = Number(localStorage.getItem('userId'));
+        this.id = Number(localStorage.getItem('userId'));
         this.usersService.getUser(this.id).subscribe(
             {
                 next: data => {

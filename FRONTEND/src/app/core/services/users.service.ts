@@ -15,7 +15,7 @@ export class UsersService {
     }
 
     addUser(user: User): Observable<any> {
-        return this.http.post(this.BASE_URL + '/update', user);
+        return this.http.post(this.BASE_URL + '/create', user);
     }
 
     getUsers(): Observable<User[]> {
