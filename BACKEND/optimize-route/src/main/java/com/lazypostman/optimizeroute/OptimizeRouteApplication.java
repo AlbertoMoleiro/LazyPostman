@@ -24,6 +24,9 @@ private RouteService routeService;
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("\n***************************");
+		System.out.println("OPTIMIZE-ROUTE STARTED");
+		System.out.println("***************************\n");
 //		Prueba Geocoding
 //		GeocodingResponse response = geocodingService.getCoordinates("Calle GENERAL MOSCARDO 4 Guadarrama Madrid");
 //		System.out.println(response.getResults()[0].getGeometry().getLocation());

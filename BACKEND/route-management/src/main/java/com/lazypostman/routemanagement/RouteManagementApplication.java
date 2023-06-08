@@ -13,6 +13,9 @@ public class RouteManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("\n***************************");
+		System.out.println("ROUTE-MANAGEMENT STARTED");
+		System.out.println("***************************\n");
 
 	}
 }
