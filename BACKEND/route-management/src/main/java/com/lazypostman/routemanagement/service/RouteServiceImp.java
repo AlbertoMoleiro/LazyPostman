@@ -1,5 +1,6 @@
 package com.lazypostman.routemanagement.service;
 
+import com.google.gson.Gson;
 import com.lazypostman.routemanagement.model.Itinerary;
 import com.lazypostman.routemanagement.model.Route;
 import com.lazypostman.routemanagement.model.WayPoint;
@@ -27,10 +28,19 @@ public class RouteServiceImp implements IRouteService {
     @Override
     public Route createRoute(String nombre, List<WayPoint> waypoints, List<Itinerary> itinerary) {
         Route route = new Route ();
+        //System.out.println("***********************" + itinerary);
+
         route.setName(nombre);
         route.setRoute(waypoints);
         route.setItinerary(itinerary);
         return repoRoute.save(route);
+    }
+
+    @Override
+    public List <Itinerary> getItineraryById(Integer id) {
+
+        List <Itinerary> itinerary = repoRoute.findById(id).get().getItinerary();
+        return itinerary;
     }
 
 }

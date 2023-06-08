@@ -1,13 +1,18 @@
 package com.lazypostman.routemanagement;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RouteManagementApplication {
+public class RouteManagementApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RouteManagementApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+
+	}
 }

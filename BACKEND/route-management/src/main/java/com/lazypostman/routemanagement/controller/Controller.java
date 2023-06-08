@@ -7,6 +7,7 @@ import com.lazypostman.routemanagement.model.UserRouteId;
 import com.lazypostman.routemanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,13 @@ public class Controller {
         return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
     }
 
+    @GetMapping("itinerary/{id}")
+    public ResponseEntity<Route> getItinerary(@PathVariable("id") Integer id){
+        return new ResponseEntity(routeService.getItineraryById(id), HttpStatus.OK);
+    }
 
-    @PostMapping("/create-route")
+
+    @PostMapping(path="/create-route", consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
         return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
     }
