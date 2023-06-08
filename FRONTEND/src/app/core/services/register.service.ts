@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-    private BASE_URL = 'http://localhost:8081/company';
+    private BASE_URL = 'http://localhost:8083/company';
 
     constructor(private http: HttpClient) { }
 

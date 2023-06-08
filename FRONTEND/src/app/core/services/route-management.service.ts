@@ -8,7 +8,7 @@ import { Itinerary } from '../models/interfaces/itinerary.interface';
     providedIn: 'root'
 })
 export class RouteManagementService {
-    private BASE_URL = 'http://localhost:8081/route-management';
+    private BASE_URL = 'http://localhost:8082/route-management';
 
     constructor(private http: HttpClient) { }
 

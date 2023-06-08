@@ -18,7 +18,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -114,7 +114,7 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
 
 
     @PutMapping("/update/password")
-    public ResponseEntity<User> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
+    public ResponseEntity<String> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
         User userAux = userService.getUserById(id);
         if (userAux == null) {
             throw new ModelNotFoundException("User " + id + " not found");
@@ -126,7 +126,7 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
         String encodedPassword = passwordEncoder.encode(passwordDTO.getNewPassword());
         userAux.setPassword(encodedPassword);
         User updatedUser = userService.updateUser(userAux);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        return  ResponseEntity.ok("Updated password");
     }
 
     @DeleteMapping("/{id}")
