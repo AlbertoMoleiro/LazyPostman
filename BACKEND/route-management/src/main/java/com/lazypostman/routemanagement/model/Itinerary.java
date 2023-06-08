@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class Itinerary {
     private String province;
-    private String town;
+    private Town town;
     private Integer postCode;
     private String roadType;
     private String roadName;

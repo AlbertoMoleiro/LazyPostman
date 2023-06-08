@@ -4,7 +4,7 @@ export interface Company {
     address: string;
     province: string;
     idTown: number;
-    phoneNumber: number;
+    phoneNumber: string;
     email: string;
     password: string;
 }

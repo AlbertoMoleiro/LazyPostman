@@ -18,7 +18,7 @@ export class RouteManagementService {
     }
 
     getRoutesUser(idUser: number): Observable<any> {
-        return this.http.get(this.BASE_URL + '/user-routes/' + idUser);
+        return this.http.get(this.BASE_URL + '/' + idUser);
     }
 
     getRoutesManager(idUser: number): Observable<any> {

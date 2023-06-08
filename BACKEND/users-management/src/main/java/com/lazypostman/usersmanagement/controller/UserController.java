@@ -70,7 +70,7 @@ public class UserController {
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
         User newUser = new User();
         newUser.setId(userDTO.getId());
@@ -114,7 +114,7 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
 
 
     @PutMapping("/update/password")
-    public ResponseEntity<String> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
+    public ResponseEntity<?> changePassword(@RequestHeader("userId") Integer id, @RequestBody PasswordDTO passwordDTO) {
         User userAux = userService.getUserById(id);
         if (userAux == null) {
             throw new ModelNotFoundException("User " + id + " not found");
@@ -126,7 +126,7 @@ public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
         String encodedPassword = passwordEncoder.encode(passwordDTO.getNewPassword());
         userAux.setPassword(encodedPassword);
         User updatedUser = userService.updateUser(userAux);
-        return  ResponseEntity.ok("Updated password");
+        return  new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

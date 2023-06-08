@@ -4,6 +4,7 @@ import com.lazypostman.routemanagement.dto.RequestRouteDTO;
 import com.lazypostman.routemanagement.model.Route;
 import com.lazypostman.routemanagement.model.UserRoute;
 import com.lazypostman.routemanagement.model.UserRouteId;
+import com.lazypostman.routemanagement.model.WayPoint;
 import com.lazypostman.routemanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8085"},allowedHeaders = "*")
 @RestController
 @RequestMapping("/route-management")
 public class Controller {
@@ -30,8 +31,8 @@ public class Controller {
     private IProvinceService provinceService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Route> getRouteById(@PathVariable("id") int id){
-        return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
+    public ResponseEntity<List<WayPoint>> getRouteById(@PathVariable("id") int id){
+        return new ResponseEntity(routeService.getRouteById(id).getRoute(), HttpStatus.OK);
     }
 
     @GetMapping("itinerary/{id}")
@@ -40,7 +41,7 @@ public class Controller {
     }
 
 
-    @PostMapping(path="/create-route", consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/create-route")
     public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
         return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
     }

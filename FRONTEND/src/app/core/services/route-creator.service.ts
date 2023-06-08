@@ -54,6 +54,7 @@ export class RouteCreatorService {
             routeName: 'Ruta 1',
             roads: this.roads
         };
-       return  this.http.post(this.BASE_URL+'/optimize',requestRoads,{ headers: { 'userId': '4' } });
+        const idUser = localStorage.getItem('userId');
+       return  this.http.post(this.BASE_URL+'/optimize',requestRoads,{ headers: { 'userId': idUser!.toString() } });
     }
 }

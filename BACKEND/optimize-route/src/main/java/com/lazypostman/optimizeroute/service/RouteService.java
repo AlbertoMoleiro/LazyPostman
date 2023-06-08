@@ -32,8 +32,8 @@ public class RouteService {
         //Obtener origen
         UriComponents uri = UriComponentsBuilder.newInstance()
                 .scheme("http")
-                .host("localhost:8080")
-                .path("/route_management/company/" + idUser)
+                .host("localhost:8082")
+                .path("/route-management/company/" + idUser)
                 .build();
 
         String origin = new RestTemplate().getForObject(uri.toUriString(), String.class);
@@ -69,9 +69,9 @@ public class RouteService {
 
         //Enviar itinerary al servicio de rutas de 8081
         UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("localhost:8080")
-                .path("/route-management/itinerary")
+                .scheme("http")
+                .host("localhost:8082")
+                .path("/route-management/create-route")
                 .build();
 
 
