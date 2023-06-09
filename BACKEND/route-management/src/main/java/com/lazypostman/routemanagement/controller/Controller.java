@@ -34,7 +34,6 @@ public class Controller {
     public ResponseEntity<List<WayPoint>> getRouteById(@PathVariable("id") int id){
         return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
     }
-    //@GetMapping("/routes/{userId}")
 
 
     @GetMapping("/itinerary/{id}")

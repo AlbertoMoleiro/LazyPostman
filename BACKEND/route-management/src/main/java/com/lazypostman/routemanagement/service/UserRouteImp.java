@@ -29,14 +29,8 @@ public class UserRouteImp implements IUserRouteService{
                 .map(user -> user.getId())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
-        for (int i = 0; i < manager.size(); i++) {
-            Integer value = manager.get(i);
-            System.out.println(value);
-        }
-
+                
         if(manager.contains(id)){
-            System.out.println("Entra");
             List<Integer> usuarios = userRepo.findAll().stream().filter(user -> user.getManagerId()==id)
                     .map(user -> user.getId())
                     .collect(Collectors.toList());
@@ -48,7 +42,6 @@ public class UserRouteImp implements IUserRouteService{
                     .collect(Collectors.toList());
 
         }else{
-            System.out.println("No entra");
             return userRouteRepo.findAll().stream().filter(userRoute -> userRoute.getId().getUserId()==id )
                     .map(userRoute -> userRoute.getId().getRouteId())
                     .collect(Collectors.toList());

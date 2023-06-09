@@ -14,11 +14,4 @@ public class UserRoute {
 
     @EmbeddedId
     private UserRouteId id;
-
-/*    @Column(name = "id_user", nullable = false)
-    private Integer idUser;
-
-
-    @Column(name = "id_route", nullable = false)
-    private Integer idRoute;*/
 }
