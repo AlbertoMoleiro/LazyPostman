@@ -42,21 +42,16 @@ public class Controller {
         return new ResponseEntity(routeService.getItineraryById(id), HttpStatus.OK);
     }
 
-
-    @PostMapping(path="/create-route")
-    public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
-        return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Route>> getAllRoutes(){
+        return new ResponseEntity(routeService.getAllRoutes(), HttpStatus.OK);
     }
 
-    //•	GET /route-management /users-routes/{userId}: permite a los usuarios obtener su lista de rutas disponibles.
-
-    @PostMapping("/users-routes-create/")
-    public ResponseEntity<UserRoute> createUserRoute(@RequestBody UserRouteId userRoute){
-        return new ResponseEntity(userRouteService.createUserRoute(new UserRoute(userRoute)), HttpStatus.OK);
+    @GetMapping("/users-routes/{id}")
+    public ResponseEntity<List<Integer>> getRoutesUser(@PathVariable("id") Integer id){
+        return new ResponseEntity(userRouteService.getRoutesUser(id), HttpStatus.OK);
     }
 
-    //•	GET /route-management /manager/routes /{userId}: Obtiene la lista de rutas de disponible
-    // para el usuario responsable, estas son las rutas propias y las de los empleados a su cargo.
 
     @GetMapping("/company/{id}")
     public ResponseEntity<String> getLocation(@PathVariable("id") int id){
@@ -72,8 +67,13 @@ public class Controller {
         return new ResponseEntity(location, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Route>> getAllRoutes(){
-        return new ResponseEntity(routeService.getAllRoutes(), HttpStatus.OK);
+    @PostMapping(path="/create-route")
+    public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
+        return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
+    }
+
+    @PostMapping("/assign")
+    public ResponseEntity<UserRoute> createUserRoute(@RequestBody UserRouteId userRoute){
+        return new ResponseEntity(userRouteService.createUserRoute(new UserRoute(userRoute)), HttpStatus.OK);
     }
 }

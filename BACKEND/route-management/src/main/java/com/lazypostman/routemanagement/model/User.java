@@ -23,6 +23,8 @@ public class User {
     private String login;
     private String password;
     private LocalDate register;
+    @Column(name = "id_manager")
+    private Integer managerId;
     @Column(name = "id_company", nullable = false)
     private Integer idCompany;
 
