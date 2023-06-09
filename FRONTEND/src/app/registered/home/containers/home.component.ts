@@ -20,11 +20,11 @@ export class HomeComponent {
             takeUntil(this.onDestroy$),
         ).subscribe(
             (routes: RequestRoute[]) => {
-                this.cards = routes.map((route: RequestRoute) => { return {idRoute:route.idRoute, title: route.name, description: "Descripción", image: '../../../assets/images/' + Math.floor(Math.random() * 3) + 1 + '.jpg' } });
+                this.cards = routes.map((route: RequestRoute) => { return {idRoute:route.idRoute, title: route.name, description: "Descripción", image: '../../../assets/img/' + (Math.floor(Math.random() * 3) + 1) + '.jpg' } });
             });
 
     }
- 
+
 
     ngOnDestroy(): void {
         this.onDestroy$.next();

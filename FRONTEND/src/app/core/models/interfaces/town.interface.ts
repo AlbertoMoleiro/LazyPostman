@@ -1,5 +1,5 @@
 export interface Town {
-    cdmuni:number
-    name: string;
+    cdmuni: number
+    dsmuni: string;
     postCode: number[];
 }

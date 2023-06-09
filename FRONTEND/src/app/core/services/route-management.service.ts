@@ -18,14 +18,14 @@ export class RouteManagementService {
     }
 
     getRoutesUser(idUser: number): Observable<any> {
-        return this.http.get(this.BASE_URL + '/' + idUser);
+        return this.http.get(this.BASE_URL + '/users-routes/' + idUser);
     }
 
     getRoutesManager(idUser: number): Observable<any> {
         return this.http.get(this.BASE_URL + '/manager/routes/' + idUser);
     }
     getRoute(idRoute:number):Observable<any>{//waypoint class
-        return this.http.get(this.BASE_URL + '/'+idRoute);
+        return this.http.get(this.BASE_URL + '/route/'+idRoute);
     }
 
     getItinerary(idRoute:number):Observable<any>{

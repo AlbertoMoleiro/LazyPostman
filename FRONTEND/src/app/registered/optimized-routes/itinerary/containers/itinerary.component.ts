@@ -21,30 +21,8 @@ export class ItineraryComponent {
         this.routeManagement.getItinerary(this.idRoute).subscribe(
             (itineraries: Itinerary[]) => {
                 this.dataSource = itineraries;
+                console.log(itineraries);
             });
-/*             this.dataSource = [
-                {
-                    province:"Madrid",
-                    town:{
-                        cdmuni:68,
-                        dsmuni:"Guadarrama"
-                    },
-                    postCode:28440,
-                    roadType:"Calle",
-                    roadName:"ABEDUL",
-                    roadNumber:1,
-                },
-                {
-                    province:"Madrid",
-                    town:{
-                        cdmuni:68,
-                        dsmuni:"Guadarrama"
-                    },
-                    postCode:28440,
-                    roadType:"Calle",
-                    roadName:"ABEDUL",
-                    roadNumber:1,
-                }] */
 
     }
 

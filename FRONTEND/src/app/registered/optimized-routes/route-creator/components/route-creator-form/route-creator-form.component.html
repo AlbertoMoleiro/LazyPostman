@@ -9,8 +9,8 @@
             <mat-form-field appearance="outline">
                 <mat-label>Localidad</mat-label>
                 <input matInput formControlName="town" type="text" [matAutocomplete]="towns" />
-                <mat-autocomplete #towns="matAutocomplete" [displayWith]="displayNameFn">
-                    <mat-option *ngFor="let town of filteredTowns |async" [value]="town">{{town.name}}</mat-option>
+                <mat-autocomplete #towns="matAutocomplete" [displayWith]="displayNameTownFn">
+                    <mat-option *ngFor="let town of filteredTowns |async" [value]="town">{{town.dsmuni}}</mat-option>
                 </mat-autocomplete>
                 <mat-error>Selecciona un elemento de la lista.</mat-error>
             </mat-form-field>

@@ -29,7 +29,7 @@ export class RouteCreatorFormComponent {
     filteredPostCodes: Observable<number[]> = new Observable<number[]>();
 
     roadTypes: string[] = [
-        "Acces","Arry", "Avda", "Avia", "Barro", "Branc", "Bulev", "Calle", "Campa", "Caser", "Cjto", "Cllja", "Cllon", "Cmno", "Col", "Compj", "Cra", "Crril", "Cstan", "Ctra", "Custa","Cсada", "Disem","Escal", "Estac","Extrr", "Finca","Gale", "Grup", "Gta", "Jdin", "Lugar", "Parti", "Paseo", "Pbdo", "Pista", "Plaza", "Plzla", "Pnte", "Polig", "Pque",  "Praje", "Prol", "Psaje", "Puert", "Pzo", "Rcda", "Rcon", "Ronda", "Rtda", "Sbida", "Sect", "Senda", "Sitio", "Trva", "Urb", "Via", "Vreda","Zona"
+        "Acces", "Arry", "Avda", "Avia", "Barro", "Branc", "Bulev", "Calle", "Campa", "Caser", "Cjto", "Cllja", "Cllon", "Cmno", "Col", "Compj", "Cra", "Crril", "Cstan", "Ctra", "Custa", "Cсada", "Disem", "Escal", "Estac", "Extrr", "Finca", "Gale", "Grup", "Gta", "Jdin", "Lugar", "Parti", "Paseo", "Pbdo", "Pista", "Plaza", "Plzla", "Pnte", "Polig", "Pque", "Praje", "Prol", "Psaje", "Puert", "Pzo", "Rcda", "Rcon", "Ronda", "Rtda", "Sbida", "Sect", "Senda", "Sitio", "Trva", "Urb", "Via", "Vreda", "Zona"
     ];
 
     //Regex for odd numbers
@@ -50,12 +50,12 @@ export class RouteCreatorFormComponent {
 
         //TODO: Get this from the backend
         this.routeCreatorService.getTowns()
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe((towns: Town[]) => {
-            this.towns = towns;
-            this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
-            this.initAutocompleteFilters();
-        });
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((towns: Town[]) => {
+                this.towns = towns;
+                this.filteredTowns = this.initAutocompleteFilter('town', this.townFilter);
+                this.initAutocompleteFilters();
+            });
     }
     ngOnDestroy() {
         this.onDestroy$.next();
@@ -98,13 +98,14 @@ export class RouteCreatorFormComponent {
 
     private townFilter = (value: string | any): Town[] => {
         let filterValue = '';
+
         if (typeof value !== 'string') {
-            filterValue = value.name.toLowerCase();
+            filterValue = value.dsmuni.toLowerCase();
         } else {
 
             filterValue = value.toLowerCase();
         }
-        return this.towns.filter(town => town.name.toLowerCase().includes(filterValue));
+        return this.towns.filter(town => town.dsmuni.toLowerCase().includes(filterValue));
     }
 
     private roadFilter = (value: string | any): string[] => {
@@ -125,6 +126,9 @@ export class RouteCreatorFormComponent {
     //Autocomplete display functions, to show the name of the object
     public displayNameFn(object?: any): string {
         return object ? object.name : undefined;
+    }
+    public displayNameTownFn(object?: any): string {
+        return object ? object.dsmuni : undefined;
     }
 
     //Subscriptions
@@ -177,12 +181,12 @@ export class RouteCreatorFormComponent {
             .subscribe((value) => {
                 if (value) {
                     this.routeCreatorService.getRoadNames(this.routeCreateForm.get('town')?.value.cdmuni)
-                    .pipe(takeUntil(this.onDestroy$))
-                    .subscribe((roads: Road[]) => {
-                        this.roads = roads;
-                        this.filteredRoads = this.initAutocompleteFilter('roadName', this.roadFilter);
-                        this.routeCreateForm.get('roadName')!.enable();
-                    });
+                        .pipe(takeUntil(this.onDestroy$))
+                        .subscribe((roads: Road[]) => {
+                            this.roads = roads;
+                            this.filteredRoads = this.initAutocompleteFilter('roadName', this.roadFilter);
+                            this.routeCreateForm.get('roadName')!.enable();
+                        });
                 } else {
                     this.routeCreateForm.get('roadName')!.disable();
                 }
@@ -302,21 +306,21 @@ export class RouteCreatorFormComponent {
         this.routeCreatorService.addRoad(road);
 
         //reset form to initial state
-/*         this.routeCreateForm.reset({
-            province: 'Madrid',
-            town: '',
-            postCode: '',
-            roadType: '',
-            roadName: '',
-            roadNumberMinOdd: null,
-            roadNumberMaxOdd: null,
-            roadNumberMinEven: null,
-            roadNumberMaxEven: null,
-            allRoad: true,
-            odd: true,
-            even: true
+        /*         this.routeCreateForm.reset({
+                    province: 'Madrid',
+                    town: '',
+                    postCode: '',
+                    roadType: '',
+                    roadName: '',
+                    roadNumberMinOdd: null,
+                    roadNumberMaxOdd: null,
+                    roadNumberMinEven: null,
+                    roadNumberMaxEven: null,
+                    allRoad: true,
+                    odd: true,
+                    even: true
 
-        }); */
+                }); */
 
     }
 
