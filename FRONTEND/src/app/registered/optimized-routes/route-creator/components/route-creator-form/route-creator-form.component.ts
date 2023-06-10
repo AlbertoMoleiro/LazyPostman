@@ -205,10 +205,10 @@ export class RouteCreatorFormComponent {
                     this.routeCreateForm.get('roadNumberMaxEven')!.setValidators([Validators.required, Validators.pattern(this.evenRegex), Validators.min(road.minEven), Validators.max(road.maxEven)]);
 
                     //Set the road number fields values
-                    this.routeCreateForm.get('roadNumberMinOdd')!.setValue(road.minOdd);
-                    this.routeCreateForm.get('roadNumberMaxOdd')!.setValue(road.maxOdd);
-                    this.routeCreateForm.get('roadNumberMinEven')!.setValue(road.minEven);
-                    this.routeCreateForm.get('roadNumberMaxEven')!.setValue(road.maxEven);
+                    this.routeCreateForm.get('roadNumberMinOdd')!.setValue(road.minOdd==0?null:road.minOdd);
+                    this.routeCreateForm.get('roadNumberMaxOdd')!.setValue(road.maxOdd==0?null:road.maxOdd);
+                    this.routeCreateForm.get('roadNumberMinEven')!.setValue(road.minEven==0?null:road.minEven);
+                    this.routeCreateForm.get('roadNumberMaxEven')!.setValue(road.maxEven==0?null:road.maxEven);
 
                     //Enable allRoad field
                     this.routeCreateForm.get('allRoad')!.enable();

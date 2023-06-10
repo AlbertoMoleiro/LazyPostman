@@ -11,7 +11,7 @@ import { RouteCreatorService } from 'src/app/core/services/route-creator.service
 export class RouteCreatorComponent {
     showTable: boolean = true;
     private onDestroy = new Subject<void>();
-
+    routeName:string = "";
     constructor(private routeCreatorService: RouteCreatorService,private router:Router) {
     }
 
@@ -25,10 +25,9 @@ export class RouteCreatorComponent {
     }
 
     createRoute() {
-        this.routeCreatorService.createRoute().subscribe(
+        this.routeCreatorService.createRoute(this.routeName).subscribe(
             {
                 next: data => {
-                    console.log(data);
                     this.routeCreatorService.cleanRoads();
                     this.router.navigate(['/registered/home']);
                 },

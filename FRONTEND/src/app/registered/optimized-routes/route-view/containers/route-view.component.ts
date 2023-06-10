@@ -31,18 +31,6 @@ export class RouteViewComponent {
     idRoute:number = 0;
     onDestroy$ = new Subject<void>();
     constructor(private router: Router, private mapDirectionsService: MapDirectionsService, private activatedRoute:ActivatedRoute, private routeManagement:RouteManagementService) {
-
-        /* Así estaba antes no tocar hasta que funcione todo */
-        /* const request: google.maps.DirectionsRequest = {
-            destination: { lat: 40.481450490571746, lng: -3.855249568664476 },
-            origin: { lat: 40.481450490571746, lng: -3.855249568664476 },
-            optimizeWaypoints: false,
-            travelMode: google.maps.TravelMode.DRIVING,
-            waypoints: this.waypoints
-        };
-        this.directionsResults$ = this.mapDirectionsService.route(request).pipe(takeUntil(this.onDestroy$),map(response => response.result)); */
-
-
     }
     ngOnInit(): void {
         this.getIdRoute();
@@ -63,41 +51,10 @@ export class RouteViewComponent {
             takeUntil(this.onDestroy$),
         ).subscribe(
             (route: any) => {
-                console.log(route);
                 this.waypoints = route.map((waypoint: any) => { return { location: { lat: waypoint.lat, lng: waypoint.lng }, stopover: true } });
                 this.calculateRoute();
             });
 
-            /* Prueba sin routmanagement  */
-         /*    const route = [    {
-                "lat": 40.67325599999999,
-                "lng": -4.0915057
-            },{
-                lat: 40.6711539,
-                lng: -4.0948169
-            },
-            {
-                lat: 40.6706376,
-                lng: -4.0964994
-            },
-            {
-                lat: 40.6708924,
-                lng: -4.096188199999999
-            },
-            {
-                lat: 40.6712372,
-                lng: -4.0960919
-            },
-            {
-                lat: 40.67058919999999,
-                lng: -4.093102
-            },
-            {
-                lat: 40.6701427,
-                lng: -4.094245
-            }]
-            this.waypoints = route.map((waypoint: any) => { return { location: { lat: waypoint.lat, lng: waypoint.lng }, stopover: true } });
-            this.calculateRoute(); */
     }
     calculateRoute() {
 

@@ -21,7 +21,6 @@ export class ItineraryComponent {
         this.routeManagement.getItinerary(this.idRoute).subscribe(
             (itineraries: Itinerary[]) => {
                 this.dataSource = itineraries;
-                console.log(itineraries);
             });
 
     }

@@ -49,9 +49,9 @@ export class RouteCreatorService {
         this.roadsSubject.next([...this.roads]);
     }
 
-    createRoute():Observable<any> {
+    createRoute(routeName:string):Observable<any> {
         const requestRoads:RequestRoads = {
-            routeName: 'Ruta 1',
+            routeName: routeName,
             roads: this.roads
         };
         const idUser = localStorage.getItem('userId');

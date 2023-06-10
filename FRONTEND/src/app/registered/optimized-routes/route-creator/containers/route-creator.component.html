@@ -3,7 +3,13 @@
         <app-route-creator-form></app-route-creator-form>
     </div>
     <ng-container *ngIf="showTable">
-        <button mat-raised-button color="primary" (click)="createRoute()">Crear Ruta</button>
+        <div class="route_settings">
+            <button mat-raised-button color="primary" [disabled]="routeName.length==0" (click)="createRoute()">Crear Ruta</button>
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre de la Ruta</mat-label>
+                <input matInput [(ngModel)]="routeName" type="text" />
+            </mat-form-field>
+        </div>
         <div class="table">
             <app-route-creator-table></app-route-creator-table>
         </div>

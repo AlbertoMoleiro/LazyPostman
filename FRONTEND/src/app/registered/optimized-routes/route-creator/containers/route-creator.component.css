@@ -13,12 +13,23 @@
 button{
     min-width: 200px;
     min-height: 40px;
-    align-self: flex-start;
-    margin-right: 16px;
-    margin-left: 16px;
+    margin-bottom: 16px;
+}
+
+
+.route_settings{
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
 }
 @media (max-width: 768px){
     button{
         align-self: unset;
+    }
+    .route_settings{
+        flex-direction: column-reverse;
+        align-items: unset;
+        gap: 0;
     }
 }

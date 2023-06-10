@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CommonModule } from '@angular/common';
@@ -46,7 +46,8 @@ import { RouteCreatorService } from '../services/route-creator.service';
         MatAutocompleteModule,
         MatCheckboxModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        FormsModule
     ],
     exports: [
         HttpClientModule,
@@ -67,7 +68,8 @@ import { RouteCreatorService } from '../services/route-creator.service';
         MatAutocompleteModule,
         MatCheckboxModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        FormsModule
     ]
 })
 export class SharedModule { }

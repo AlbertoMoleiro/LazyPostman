@@ -136,13 +136,16 @@ public class RouteService {
 
         List<ItineraryItem> stops;
         List<ItineraryItem> itinerary = new ArrayList<>();
+
         while(roads.size()>0){
+
             ItineraryItem origin = roads.get(0);
             Integer startNumber = origin.getRoadNumber()<roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
             Integer endNumber = origin.getRoadNumber()>roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
             stops = madridStreetsRepo.findCoordsBetween(startNumber, endNumber, origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
 
             itinerary.addAll(optimizeStops(stops));
+
             roads.remove(0);
             roads.remove(0);
         }
