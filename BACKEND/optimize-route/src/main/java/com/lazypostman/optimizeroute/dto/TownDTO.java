@@ -10,6 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 public class TownDTO {
     private Integer cdmuni;
-    private String name;
+    private String dsmuni;
     private List<Integer> postCode;
 }

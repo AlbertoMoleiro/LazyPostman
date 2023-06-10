@@ -1,5 +1,6 @@
 package com.lazypostman.routemanagement.controller;
 
+import com.lazypostman.routemanagement.dto.NameIdRouteDTO;
 import com.lazypostman.routemanagement.dto.RequestRouteDTO;
 import com.lazypostman.routemanagement.model.Route;
 import com.lazypostman.routemanagement.model.UserRoute;
@@ -32,7 +33,7 @@ public class Controller {
 
     @GetMapping("/route/{id}")
     public ResponseEntity<List<WayPoint>> getRouteById(@PathVariable("id") int id){
-        return new ResponseEntity(routeService.getRouteById(id), HttpStatus.OK);
+        return new ResponseEntity(routeService.getRouteById(id).getRoute(), HttpStatus.OK);
     }
 
 
@@ -47,7 +48,7 @@ public class Controller {
     }
 
     @GetMapping("/users-routes/{id}")
-    public ResponseEntity<List<Integer>> getRoutesUser(@PathVariable("id") Integer id){
+    public ResponseEntity<List<NameIdRouteDTO>> getRoutesUser(@PathVariable("id") Integer id){
         return new ResponseEntity(userRouteService.getRoutesUser(id), HttpStatus.OK);
     }
 
@@ -63,6 +64,7 @@ public class Controller {
         String province = provinceService.getName(idProvince);
 
         String location = townName+" "+postalCode+" "+province+" Calle "+address;
+
         return new ResponseEntity(location, HttpStatus.OK);
     }
 

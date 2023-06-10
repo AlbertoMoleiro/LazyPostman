@@ -1,6 +1,6 @@
 package com.lazypostman.optimizeroute.model.requestroute;
 
-import com.lazypostman.optimizeroute.dto.TownDTO;
+
 import com.lazypostman.optimizeroute.model.formcreator.Town;
 import lombok.AllArgsConstructor;
 import lombok.Data;

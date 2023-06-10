@@ -68,6 +68,8 @@ public class RouteService {
         for (Integer i : order) {
             orderedWaypoints.add(waypoints.get(i));
         }
+        //añadri el origen al principio
+        orderedWaypoints.add(0,originWaypoint);
 
         //Enviar itinerary al servicio de rutas de 8081
 //        UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()

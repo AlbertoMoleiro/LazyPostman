@@ -41,6 +41,7 @@ public class RouteController {
             }
             return new TownDTO(town.getCdmuni(), town.getDsmuni(), postalCodes);
         }).collect(Collectors.toSet());
+        System.out.println(towns);
         return new ResponseEntity<>(towns, HttpStatus.OK);
 
     }
