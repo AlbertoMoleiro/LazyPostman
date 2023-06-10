@@ -51,9 +51,13 @@ public class RouteService {
         //Ordernar Roads
         List<ItineraryItem> orderedRoads = new ArrayList<>();
         for (RequestRoad road : roads) {
+            int minOdd = road.getMinOdd()!=null?road.getMinOdd():Integer.MAX_VALUE;
+            int minEven = road.getMinEven()!=null?road.getMinEven():Integer.MAX_VALUE;
+            int maxOdd = road.getMaxOdd()!=null?road.getMaxOdd():Integer.MIN_VALUE;
+            int maxEven = road.getMaxEven()!=null?road.getMaxEven():Integer.MIN_VALUE;
 
-            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(),road.getMinOdd()<road.getMinEven()?road.getMinOdd():road.getMinEven(),0.0,0.0));
-            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), road.getMaxEven()>road.getMaxOdd()?road.getMaxEven():road.getMaxOdd(),0.0,0.0));
+            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), Math.min(minOdd, minEven),0.0,0.0));
+            orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), Math.max(maxOdd, maxEven),0.0,0.0));
         }
         List<ItineraryItem> orderedItinerary = new ArrayList<>();
         for (Integer i : order) {
@@ -71,15 +75,7 @@ public class RouteService {
         //añadri el origen al principio
         orderedWaypoints.add(0,originWaypoint);
 
-        //Enviar itinerary al servicio de rutas de 8081
-//        UriComponents uriSaveRoute = UriComponentsBuilder.newInstance()
-//                .scheme("http")
-//                .host("localhost:8082")
-//                .path("/route-management/create-route")
-//                .build();
-//
-//
-//        RouteCreatorDTO routeCreate =  new RestTemplate().postForObject(uriSaveRoute.toUriString(), new RouteCreatorDTO(routeName,orderedWaypoints,itinerary), RouteCreatorDTO.class);
+        //Crear Headers y guardar ruta
         HttpHeaders headers = new HttpHeaders();
         headers.set("userId", idUser.toString());
 
@@ -93,7 +89,7 @@ public class RouteService {
         HttpEntity<RouteCreatorDTO> entity = new HttpEntity<>(routeDTO, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        RouteCreatorDTO routeCreate = restTemplate.postForObject(uriSaveRoute.toUriString(), entity, RouteCreatorDTO.class);
+        restTemplate.postForObject(uriSaveRoute.toUriString(), entity, RouteCreatorDTO.class);
 
         return orderedWaypoints;
 
@@ -101,8 +97,12 @@ public class RouteService {
     private List<Waypoint> geocodingWaypoints(List<RequestRoad> requestRoads) throws Exception {
         List<Waypoint> waypoints = new ArrayList<>();
         for (RequestRoad requestRoad : requestRoads) {
-            String address = requestRoad.getRoadName()+ ", "+ (requestRoad.getMinOdd()<requestRoad.getMinEven()?requestRoad.getMinOdd():requestRoad.getMinEven()) + ", " + requestRoad.getTown().getDsmuni() + ", " + requestRoad.getProvince();
-            String address1 = requestRoad.getRoadName()+ ", "+ (requestRoad.getMaxEven()>requestRoad.getMaxOdd()?requestRoad.getMaxEven():requestRoad.getMaxOdd()) + ", " + requestRoad.getTown().getDsmuni() + ", " + requestRoad.getProvince();
+            int minOdd = requestRoad.getMinOdd()!=null?requestRoad.getMinOdd():Integer.MAX_VALUE;
+            int minEven = requestRoad.getMinEven()!=null?requestRoad.getMinEven():Integer.MAX_VALUE;
+            int maxOdd = requestRoad.getMaxOdd()!=null?requestRoad.getMaxOdd():Integer.MIN_VALUE;
+            int maxEven = requestRoad.getMaxEven()!=null?requestRoad.getMaxEven():Integer.MIN_VALUE;
+            String address = requestRoad.getRoadName()+ ", "+ Math.min(minOdd, minEven) + ", " + requestRoad.getTown().getDsmuni() + ", " + requestRoad.getProvince();
+            String address1 = requestRoad.getRoadName()+ ", "+ Math.max(maxOdd, maxEven) + ", " + requestRoad.getTown().getDsmuni() + ", " + requestRoad.getProvince();
 
             GeocodingLocation location = geocodingService.getCoordinates(address);
             GeocodingLocation location1 = geocodingService.getCoordinates(address1);
@@ -136,7 +136,6 @@ public class RouteService {
 
         List<ItineraryItem> stops;
         List<ItineraryItem> itinerary = new ArrayList<>();
-        System.out.println(roads);
         while(roads.size()>0){
             ItineraryItem origin = roads.get(0);
             Integer startNumber = origin.getRoadNumber()<roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();

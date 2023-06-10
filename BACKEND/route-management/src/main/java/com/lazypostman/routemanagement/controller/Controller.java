@@ -69,8 +69,8 @@ public class Controller {
     }
 
     @PostMapping(path="/create-route")
-    public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route)throws Exception {
-        return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary()), HttpStatus.OK);
+    public ResponseEntity<Route> createRoute(@RequestBody RequestRouteDTO route, @RequestHeader Integer userId)throws Exception {
+        return new ResponseEntity(routeService.createRoute(route.getName(),route.getRoute(),route.getItinerary(),userId), HttpStatus.OK);
     }
 
     @PostMapping("/assign")

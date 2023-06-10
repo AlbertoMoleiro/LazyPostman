@@ -41,7 +41,6 @@ public class RouteController {
             }
             return new TownDTO(town.getCdmuni(), town.getDsmuni(), postalCodes);
         }).collect(Collectors.toSet());
-        System.out.println(towns);
         return new ResponseEntity<>(towns, HttpStatus.OK);
 
     }
@@ -53,7 +52,6 @@ public class RouteController {
 
     @PostMapping("/optimize")
     public ResponseEntity<List<Waypoint>> calculateRoute(@RequestBody RequestRoadDTO roads, @RequestHeader("userId") Integer userId) throws Exception {
-        System.out.println(roads);
         //Cambiar la clase de TownDTO a Town
         List<RequestRoad> roadsParsed = roads.getRoads().stream().map(road -> new RequestRoad(road.getProvince(),new Town(road.getTown().getCdmuni(),road.getTown().getDsmuni()),road.getPostCode(),road.getRoadType(),road.getRoadName(), road.getMinOdd(),road.getMaxOdd(),road.getMinEven(),road.getMaxEven())).collect(Collectors.toList());
         return new ResponseEntity<>(routeService.calculateRoute(roadsParsed, userId,roads.getRouteName()), HttpStatus.OK);

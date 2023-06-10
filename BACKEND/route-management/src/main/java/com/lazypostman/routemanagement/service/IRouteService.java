@@ -9,6 +9,6 @@ import java.util.List;
 public interface IRouteService {
     List<Route> getAllRoutes();
     Route getRouteById(Integer id);
-    Route createRoute(String nombre, List<WayPoint> waypoints, List<Itinerary> itinerary)throws Exception;
+    Route createRoute(String nombre, List<WayPoint> waypoints, List<Itinerary> itinerary,Integer userId)throws Exception;
     List <Itinerary> getItineraryById(Integer id);
 }
