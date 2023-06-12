@@ -24,11 +24,11 @@ CREATE TABLE postal_codes(
 	post_code INT,
 	cdmuni INT,
 	dsmuni VARCHAR(200)
-)
+);
 
 COPY postal_codes (post_code,cdmuni,dsmuni)
 FROM 'C:\cargadatos\POSTAL_CODES.csv' 
-DELIMITER ',' 
+DELIMITER ';' 
 CSV HEADER
 ENCODING 'UTF8';
 
