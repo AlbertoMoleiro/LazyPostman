@@ -21,8 +21,7 @@ export class UsersManagementFormComponent {
           employeeName: ['', Validators.required],
           apellido1: ['', Validators.required],
           apellido2: ['', Validators.required],
-          phoneNumber: ['', Validators.required],
-          managerId: ['', Validators.required],
+          phoneNumber: ['', Validators.required],          
           login: ['', Validators.required],
         idRole: [this.selected, Validators.required]
         });

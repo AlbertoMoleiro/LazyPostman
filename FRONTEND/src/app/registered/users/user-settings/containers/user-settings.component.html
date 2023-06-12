@@ -1,5 +1,5 @@
 <div class="contenedor">
-    <h2>Datos de usuario</h2>
+    <h2>Datos de empleado</h2>
     <div>
         <table>
             <tr>
@@ -46,7 +46,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
-                    <mat-label>Contraseña</mat-label>
+                    <mat-label>Contraseña nueva</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" formControlName="newPassword">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
