@@ -1,4 +1,4 @@
 export interface RouteAssign {
-    idRoute: number;
+    routeId: number;
     userId: number;
 }

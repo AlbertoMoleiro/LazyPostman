@@ -13,8 +13,8 @@ export class RouteManagementService {
     constructor(private http: HttpClient) { }
 
     assignRoute(idUser: number, idRoute: number):Observable<any> {
-        const routeAssign: RouteAssign = { idRoute: idRoute, userId: idUser, };
-        return this.http.put(this.BASE_URL + '/assign/', routeAssign)
+        const routeAssign: RouteAssign = { "routeId": idRoute, "userId": idUser };
+        return this.http.post(this.BASE_URL + '/assign', routeAssign)
     }
 
     getRoutesUser(idUser: number): Observable<any> {
@@ -22,7 +22,7 @@ export class RouteManagementService {
     }
 
     getRoutesManager(idUser: number): Observable<any> {
-        return this.http.get(this.BASE_URL + '/manager/routes/' + idUser);
+        return this.http.get(this.BASE_URL + '/users-routes/' + idUser);
     }
     getRoute(idRoute:number):Observable<any>{//waypoint class
         return this.http.get(this.BASE_URL + '/route/'+idRoute);

@@ -156,7 +156,9 @@ public class RouteService {
             stops = madridStreetsRepo.findCoordsBetween(startNumber, endNumber, origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
             itinerary.addAll(optimizeStops(stops));
 
+            if(markedToRemove!=0){
             roads.remove(markedToRemove);
+            }
             roads.remove(0);
         }
         return itinerary;
@@ -164,7 +166,7 @@ public class RouteService {
 
     }
     private List<ItineraryItem> optimizeStops(List<ItineraryItem> roads) throws Exception {
-
+        System.out.println(roads);
         List<ItineraryItem> itinerary = new ArrayList<>();
         ItineraryItem currentStop = roads.get(0);
         roads.remove(0);

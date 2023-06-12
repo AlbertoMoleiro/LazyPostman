@@ -38,7 +38,8 @@ export class AssignRouteComponent {
 
 
     assignRoute() {
-        this.routeManagement.assignRoute(this.data.id, this.selected.idRoute).subscribe(
+
+        this.routeManagement.assignRoute(this.data.id, Number(this.selected)).subscribe(
             {
                 next: data => {
                     alert("Ruta asignada correctamente");

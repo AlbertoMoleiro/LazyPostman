@@ -35,6 +35,10 @@ ENCODING 'UTF8';
 --Formatear codigos de municipio para que encajen
    UPDATE postal_codes SET cdmuni = cdmuni % 1000;
 
-
+COPY (SELECT DISTINCT cdmuni as id,dsmuni as name,post_code as postal_code,1 as id_province from postal_codes)
+TO 'C:\cargadatos\POSTAL_CODES_CORE.csv' 
+DELIMITER ';' 
+CSV HEADER
+ENCODING 'UTF8';
 
 
