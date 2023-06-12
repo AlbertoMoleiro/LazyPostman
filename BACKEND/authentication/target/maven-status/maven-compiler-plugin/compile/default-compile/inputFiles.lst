@@ -1,0 +1,10 @@
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\AuthenticationApplication.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\controller\AuthenticationController.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\repository\IUserRepo.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\exception\InterceptorErrors.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\service\IAuthService.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\dto\LoginResponseDTO.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\dto\UserLoginDTO.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\service\AuthService.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\entity\User.java
+C:\Users\alberto.moleiro\Documents\TRAINING\PROYECTO\LazyPostman\BACKEND\authentication\src\main\java\com\lazypostman\authentication\exception\ExceptionRespuesta.java

@@ -1,3 +1,5 @@
+--Antes de ejecutar este archivo debes crear una carpeta en C:\ llamada cargadatos y copiar los archivos callejerov1.csv y POSTAL_CODES.csv en ella
+
 CREATE TABLE madrid_streets (
     id serial PRIMARY KEY,
     CDMUNI int,
@@ -10,12 +12,12 @@ CREATE TABLE madrid_streets (
     COORD_X real,
     COORD_Y real
 );
--- La carpeta cargadatos debe tener permisos
+
 COPY madrid_streets (CDMUNI, DSMUNI, CDTVIA, DSPART, DSVIAL, DSVIAL_NOR, NUMERO, COORD_X, COORD_Y)
 FROM 'C:\cargadatos\callejerov1.csv' 
 DELIMITER ';' 
 CSV HEADER
-ENCODING 'windows-1251';
+ENCODING 'UTF8';
 
 CREATE TABLE postal_codes(
 	id serial PRIMARY KEY,
@@ -28,18 +30,11 @@ COPY postal_codes (post_code,cdmuni,dsmuni)
 FROM 'C:\cargadatos\POSTAL_CODES.csv' 
 DELIMITER ',' 
 CSV HEADER
-ENCODING 'windows-1251';
+ENCODING 'UTF8';
 
---Procedimiento para que cuadren los codigos de municipio de las dos tablas
-CREATE OR REPLACE PROCEDURE update_last_three_digits()
-LANGUAGE plpgsql
-AS $$
-BEGIN
+--Formatear codigos de municipio para que encajen
    UPDATE postal_codes SET cdmuni = cdmuni % 1000;
-END;
-$$;
 
-CALL update_last_three_digits();
 
 
 

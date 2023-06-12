@@ -48,17 +48,18 @@ public class RouteService {
         //Optimizar ruta
         List<Integer> order = optimizeRoute(waypoints,originWaypoint);
 
-        //Ordernar Roads
+        //obtener máximo y mínimo de cada calle
         List<ItineraryItem> orderedRoads = new ArrayList<>();
         for (RequestRoad road : roads) {
             int minOdd = road.getMinOdd()!=null?road.getMinOdd():Integer.MAX_VALUE;
             int minEven = road.getMinEven()!=null?road.getMinEven():Integer.MAX_VALUE;
             int maxOdd = road.getMaxOdd()!=null?road.getMaxOdd():Integer.MIN_VALUE;
             int maxEven = road.getMaxEven()!=null?road.getMaxEven():Integer.MIN_VALUE;
-
             orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), Math.min(minOdd, minEven),0.0,0.0));
             orderedRoads.add(new ItineraryItem(road.getProvince(), road.getTown(), road.getPostCode(),road.getRoadType(), road.getRoadName(), Math.max(maxOdd, maxEven),0.0,0.0));
         }
+
+        //Ordenar roads
         List<ItineraryItem> orderedItinerary = new ArrayList<>();
         for (Integer i : order) {
             orderedItinerary.add(orderedRoads.get(i));
@@ -140,13 +141,22 @@ public class RouteService {
         while(roads.size()>0){
 
             ItineraryItem origin = roads.get(0);
-            Integer startNumber = origin.getRoadNumber()<roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
-            Integer endNumber = origin.getRoadNumber()>roads.get(1).getRoadNumber()?origin.getRoadNumber():roads.get(1).getRoadNumber();
-            stops = madridStreetsRepo.findCoordsBetween(startNumber, endNumber, origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
+            ItineraryItem destination = roads.get(1);
+            int markedToRemove = 0;
+            for (int i = 1; i < roads.size() ; i++) {
+                if(roads.get(i).getRoadName().equals(origin.getRoadName()) && roads.get(i).getRoadType().equals(origin.getRoadType())){
+                    destination = roads.get(i);
+                    markedToRemove = i;
+                    break;
+                }
+            }
+            Integer startNumber = origin.getRoadNumber()<destination.getRoadNumber()?origin.getRoadNumber():destination.getRoadNumber();
+            Integer endNumber = origin.getRoadNumber()>destination.getRoadNumber()?origin.getRoadNumber():destination.getRoadNumber();
 
+            stops = madridStreetsRepo.findCoordsBetween(startNumber, endNumber, origin.getTown().getCdmuni(), origin.getRoadName(), origin.getRoadType()).stream().map(road -> new ItineraryItem(origin.getProvince(), origin.getTown(), origin.getPostCode(), road.getRoadType(), road.getRoadName(), road.getRoadNumber(), road.getCoordX(), road.getCoordY())).collect(Collectors.toList());
             itinerary.addAll(optimizeStops(stops));
 
-            roads.remove(0);
+            roads.remove(markedToRemove);
             roads.remove(0);
         }
         return itinerary;

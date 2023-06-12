@@ -63,8 +63,8 @@ public class Controller {
         Integer idProvince = townService.getProvinceId(idTown);
         String province = provinceService.getName(idProvince);
 
-        String location = townName+" "+postalCode+" "+province+" Calle "+address;
-
+        String location = townName+" "+province+" "+address;
+        System.out.println(location);
         return new ResponseEntity(location, HttpStatus.OK);
     }
 
