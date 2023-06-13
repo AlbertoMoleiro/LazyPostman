@@ -20,8 +20,9 @@ export class UsersManagementFormComponent {
         this.addEmployeeForm = this.formBuilder.group({
           employeeName: ['', Validators.required],
           apellido1: ['', Validators.required],
-          apellido2: ['', Validators.required],
-          phoneNumber: ['', Validators.required],          
+          apellido2: [''],
+          phoneNumber: ['', Validators.required],
+          managerId:[""],
           login: ['', Validators.required],
         idRole: [this.selected, Validators.required]
         });
