@@ -16,7 +16,7 @@ CREATE TABLE COMPANIES (
     cif VARCHAR(255) NOT NULL UNIQUE,
     business_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     id_town INT,
     address VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_town) REFERENCES TOWNS(id) ON DELETE SET NULL

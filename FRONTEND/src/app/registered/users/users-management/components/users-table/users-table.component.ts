@@ -15,7 +15,7 @@ import { AssignRouteComponent } from '../assign-route/assign-route.component';
     styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent {
-    displayedColumns: string[] = ['nombre', 'apellido1', 'apellido2', 'telefono', 'codigo_empleado', 'rol', 'buttons'];
+    displayedColumns: string[] = ['nombre', 'apellido1', 'apellido2', 'telefono', 'codigo_empleado','id', 'rol', 'buttons'];
     dataSource: User[] = [];
     isAdmin: boolean = false;
     roles: string[] = ['Administrador', 'Responsable', 'Empleado'];

@@ -5,7 +5,7 @@
         <mat-label>Rol del empleado</mat-label>
         <mat-select [(value)]="selected">
             <ng-container *ngFor="let route of routes">
-                <mat-option *ngIf="!routesUser.includes(route)"  [value]="route.idRoute">{{route.name}}</mat-option>
+                <mat-option *ngIf="checkRoute(route)"  [value]="route.idRoute">{{route.name}}</mat-option>
             </ng-container>
         </mat-select>
     </mat-form-field>

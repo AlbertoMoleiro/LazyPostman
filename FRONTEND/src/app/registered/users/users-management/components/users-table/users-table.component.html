@@ -25,6 +25,10 @@
                 <th class="header" mat-header-cell *matHeaderCellDef>Código de empleado</th>
                 <td class="content" mat-cell *matCellDef="let element">{{ element.login }}</td>
             </ng-container>
+            <ng-container matColumnDef="id">
+                <th class="header" mat-header-cell *matHeaderCellDef>Identificador</th>
+                <td class="content" mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
 
             <ng-container matColumnDef="rol">
                 <th class="header" mat-header-cell *matHeaderCellDef>Rol</th>

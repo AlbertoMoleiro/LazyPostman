@@ -52,6 +52,9 @@ export class AssignRouteComponent {
             });;
 
     }
+    checkRoute(route:RequestRoute):boolean{
+        return !this.routesUser.some(r=>r.idRoute==route.idRoute);
+    }
 
     ngOnDestroy(): void {
         this.onDestroy$.next();

@@ -40,9 +40,10 @@ public class UserRouteImp implements IUserRouteService{
                     .collect(Collectors.toList());
             usuarios.add(id);
 
+            //que no haya rutas iguales
             return userRouteRepo.findAll().stream()
                     .filter(userRoute -> usuarios.contains(userRoute.getId().getUserId()))
-                    .map(userRoute -> new NameIdRouteDTO(userRoute.getId().getRouteId(), routeRepo.findById(userRoute.getId().getRouteId()).get().getName()))
+                    .map(userRoute -> new NameIdRouteDTO(userRoute.getId().getRouteId(), routeRepo.findById(userRoute.getId().getRouteId()).get().getName())).distinct()
                     .collect(Collectors.toList());
 
         }else{
